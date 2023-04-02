@@ -1,0 +1,185 @@
+colores
+
+rojo
+#E20613
+
+azul de pagiasn umss
+#003770
+
+azul
+#003061
+
+azul mas oscuro
+#00366D
+
+
+azul optional
+#051242
+
+dorado
+#AE8158
+
+---------------------------------------------------------------
+
+pagina 1 -> plantilla jobhub-> alias (mono)
+
+/** MEDIDA DE LOGO
+
+138×43
+
+**/
+
+
+/** CODIGO EJEMPLO PARA PONER IMAGEMES DE FONDO Y OTROS
+
+background-blend-mode: multiply;
+background-image:url(../imgs/banner/banner.png), linear-gradient(154deg,#003770 50%,#e30613 0%) !important;
+
+**/
+
+/** PARA BANNER TAMAÑOS
+
+94×97 -> cortos
+246×104-> largo
+
+**/
+
+/** MEDIDAS PARA MEMBRESIA => enlaces
+195x188
+
+
+Ancho:195 x  Largo :120
+**/
+
+/** Codigo para centra imagenes
+  .center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid #dbe4ed;
+  } 
+**/
+
+---------------------------------------------------------------
+
+MISION
+
+“La Dirección de Relaciones Nacionales e Internacionales DRNI de la UPEA,
+es la encargada de la internacionalización del conocimiento académico,
+científico, tecnológico, de Interacción Social e Investigación en todos los campos del conocimiento,
+para fortalecer y expandir los vínculos internacionales con universidades nacionales y extranjeras;
+de beneficio para docentes y estudiantes.”
+
+
+VISION
+
+“Profundizar los procesos de coordinación, gestión, formalización y seguimiento de programas estratégicos
+y los acuerdos de cooperación con universidades nacionales y del exterior,
+así como las instituciones académicas, instituciones públicas, privadas,
+embajadas, consulados y organizaciones bilaterales y multilaterales que coadyuven
+en el proceso de internalización de la Educación Superior.”
+
+OBJETIVOS
+
+1.- Promover el fortalecimiento de las relaciones de la Universidad Pública de El Alto (UPEA), con instituciones Nacionales,
+Internacionales relacionadas con la Educación Superior.
+2.- Promover el intercambio de docentes y estudiantes con universidades del exterior.
+3.- Gestionar financiamiento para la ejecución de programas y proyectos de investigación tecnológica
+en todas las áreas del conocimiento insertados en el Plan de desarrollo del a UPEA.
+4.- Gestionar la concreción de convenios de cooperación bilateral y multilateral con
+instituciones extranjeras y nacionales.
+5.- Fortalecer las actividades de investigación ciencia  y tecnología a través de la realización
+de conferencias internacionales, talleres, seminarios en todos los campos del conocimiento dirigido
+a la comunidad universitaria en temas de actualidad.
+
+
+FUNCIONES Y SERVICIOS
+
+Establecer niveles de coordinación con los decanos, directores de carrera, coordinadores de
+investigación y centro de estudiantes.
+
+Coordinar las acciones relacionadas a la Cooperación Internacional e Institucional.
+
+Seguimiento de convenios existentes.
+
+Realizar la proposición de nuevos instrumentos de cooperación. Impulsar el desarrollo de
+Proyectos de Investigación con instituciones con las cuales se tienen convenio.
+
+Programar visitas a otras Instituciones de Educación Superior con vista a identificar
+posibilidades de cooperación y desarrollo de proyectos conjuntos.
+
+Difundir informaciones relativas a ofertas de estudio en el extranjero.
+
+Asesorar a los estudiantes y docentes extranjeros en todo lo referente a su estadía en el país.
+
+
+LINEAS DE ACCION
+
+La Dirección de Relaciones Nacionales e Internacionales, propone trabajar las siguientes líneas de acción:
+
+Promoción de la información y filiación de entidades de cooperación. Gestión y fortalecimiento académico
+vía intercambio de docentes y estudiantes.
+
+La Promoción y fortalecimiento de la investigación científica - tecnológica. El fortalecimiento de los procesos de
+Interacción Social y Extensión Universitaria. Programas de Becas.
+
+/** PARTE DE LISTA DE CONVENIOS O GENERAL LISTA
+
+  /** ejemplo de tablas
+  <div class="table-responsive">
+      <table class="table table-striped table-hover">
+          <thead>
+              <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">First</th>
+                  <th scope="col">Last</th>
+                  <th scope="col">Handle</th>
+                  <th scope="col">Handle</th>
+                  <th scope="col">Handle</th>
+                  <th scope="col">Handle</th>
+                  <th scope="col">Handle</th>
+                  <th scope="col">Handle</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <th scope="row">1</th>
+                  <td>Mark</td>
+                  <td>Otto</td>
+                  <td>@mdo</td>
+                  <td>Otto</td>
+                  <td>@mdo</td>
+                  <td>@mdo</td>
+                  <td>Otto</td>
+                  <td>@mdo</td>
+              </tr>
+              <tr>
+                  <th scope="row">2</th>
+                  <td>Jacob</td>
+                  <td>Thornton</td>
+                  <td>@fat</td>
+                  <td>Otto</td>
+                  <td>@mdo</td>
+                  <td>@mdo</td>
+                  <td>Otto</td>
+                  <td>@mdo</td>
+              </tr>
+              <tr>
+                  <th scope="row">3</th>
+                  <td colspan="2">Larry the Bird</td>
+                  <td>@twitter</td>
+                  <td>Otto</td>
+                  <td>@mdo</td>
+                  <td>@mdo</td>
+                  <td>Otto</td>
+                  <td>@mdo</td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+
+  Fin ejemplo de tablas
+  **/
+
+** FIN PARTE DE LISTA DE CONVENIOS O GENERAL LISTA
+**/
