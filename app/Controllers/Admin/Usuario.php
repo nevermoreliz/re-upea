@@ -4,8 +4,12 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 
+
 class Usuario extends BaseController
 {
+    
+
+
     public function index()
     {
         $titleHeadPage = $data['titleHeadContent'] = 'Lista Usuario';
@@ -14,7 +18,6 @@ class Usuario extends BaseController
          *      mostrar lista de usuarios 
          *      sean activos o inhabilitado
          *========================**/
-
 
 
 
@@ -34,5 +37,37 @@ class Usuario extends BaseController
             'title' => $titleHeadPage
         ]);
         /*==== END OF SECTION ====*/
+    }
+
+
+    /*******************
+     * LISTAR USUARIOS *
+     *******************/
+    public function usuarioLista()
+    {
+
+        $data = json_decode('
+         {
+            "draw": 1,
+            "recordsTotal": 57,
+            "recordsFiltered": 57,
+            "data": [
+              [
+                "Airi",
+                "Satou",
+                "Accountant",
+                "Tokyo",
+                "28th Nov 08",
+              ],
+              [
+                "Angelica",
+                "Ramos",
+                "Chief Executive Officer (CEO)",
+                "London",
+                "9th Oct 09",
+              ]              
+            ]
+          }
+         ');
     }
 }

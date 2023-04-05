@@ -1,5 +1,5 @@
 <div class="pagetitle">
-    <h1><?= $titleHeadContent ;?></h1>
+    <h1><?= $titleHeadContent; ?></h1>
     <nav>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -19,14 +19,15 @@
                     <p>Add lightweight datatables to your project with using the <a href="https://github.com/fiduswriter/Simple-DataTables" target="_blank">Simple DataTables</a> library. Just add <code>.datatable</code> class name to any table you wish to conver to a datatable</p>
 
                     <!-- Table with stripped rows -->
-                    <table class="table datatable">
+                    <table class="table datatable" id="dt_usuarios">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Position</th>
-                                <th scope="col">Age</th>
-                                <th scope="col">Start Date</th>
+                                <!-- <th scope="col">#</th> -->
+                                <th scope="col">Usuario</th>
+                                <th scope="col">Nombre Completo</th>
+                                <th scope="col">Grupo</th>
+                                <th scope="col">Estado</th>
+                                <th scope="col">Opciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -75,3 +76,4 @@
         </div>
     </div>
 </section>
+

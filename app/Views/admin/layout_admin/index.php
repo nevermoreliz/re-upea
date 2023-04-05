@@ -45,6 +45,9 @@
     <!-- ToastJs CSS File -->
     <link href="<?= base_url(); ?>assets/css/toast.min.css" rel="stylesheet">
 
+    <!-- ToastJs CSS File -->
+    <link href="<?= base_url(); ?>dashboard/assets/css/datatables.min.css" rel="stylesheet">
+
     <!-- Template Main CSS File -->
     <link href="<?= base_url(); ?>dashboard/assets/css/style.css" rel="stylesheet">
 
@@ -80,6 +83,8 @@
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
     <!-- JQueary File -->
     <script src="<?= base_url(); ?>dashboard/assets/js/jquery-3.6.4.min.js"></script>
+    <!-- <script src="<?= base_url(); ?>dashboard/assets/js/jquery-3.5.1.min.js"></script> -->
+    
 
     <!-- Vendor JS Files -->
     <script src="<?= base_url(); ?>dashboard/assets/vendor/apexcharts/apexcharts.min.js"></script>
@@ -97,6 +102,8 @@
     <script src="<?= base_url(); ?>dashboard/assets/js/main.js"></script>
     <script src="<?= base_url(); ?>assets/js/base.js"></script>
 
+    <!-- DataTable File -->
+    <script src="<?= base_url(); ?>dashboard/assets/js/datatables.min.js"></script>
     <!-- ToastJs JS File -->
     <script src="<?= base_url(); ?>assets/js/toast.min.js"></script>
 
