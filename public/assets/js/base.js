@@ -89,7 +89,7 @@ $(document)
         keyboard: onEscape,
         focus: true,
         show: true,
-      });
+      }).modal('show');
     };
 
     window.retornarCookie = function (nombre) {

@@ -30,7 +30,7 @@ class TableLib
             'start' => $start,
             'order' => $order,
             'direction' => $direction,
-            // 'search' => $search
+            'search' => $search
         ] = $filters;
 
 
