@@ -59,12 +59,8 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'au
     $routes->group('usuario',['namespace' => 'App\Controllers\Admin','filter' => 'usuario:ADMINISTRADOR,TECNICO,SECRETARIA'], function($routes)
     {
         $routes->get('', 'Usuario::index', ['as' => 'index_usuario']);
+        $routes->get('lista', 'Usuario::usuarioLista', ['as' => 'lista_usuario']);
     });
-
-    // $routes->group('usuario',['namespace' => 'App\Controllers\Admin','filter' => 'usuario:ADMINISTRADOR'], function($routes)
-    // {
-    //     $routes->get('', 'Usuario::index', ['as' => 'index_usuario']);
-    // });
 
     
 });
