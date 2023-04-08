@@ -47,8 +47,7 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'au
     $routes->get('/', 'Dashboard::index', ['as' => 'dashboard']);
 
 
-    $routes->group('publicacion',['namespace' => 'App\Controllers\Admin'], function($routes)
-    {
+    $routes->group('publicacion', ['namespace' => 'App\Controllers\Admin'], function ($routes) {
         $routes->get('', 'Publicacion::index', ['as' => 'index_publicacion']);
     });
 
@@ -56,13 +55,24 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'au
     /**======================
      *    usuarios rutas
      *========================**/
-    $routes->group('usuario',['namespace' => 'App\Controllers\Admin','filter' => 'usuario:ADMINISTRADOR,TECNICO,SECRETARIA'], function($routes)
-    {
+    $routes->group('usuario', ['namespace' => 'App\Controllers\Admin', 'filter' => 'usuario:ADMINISTRADOR,TECNICO,SECRETARIA'], function ($routes) {
         $routes->get('', 'Usuario::index', ['as' => 'index_usuario']);
+        /* vistas para usuarios*/
         $routes->get('lista', 'Usuario::usuarioLista', ['as' => 'lista_usuario']);
+        $routes->post('form-usuario-nuevo', 'Usuario::formUser', ['as' => 'form_usuario']);
     });
 
-    
+    /**======================
+     *    Persona
+     *========================**/
+    $routes->group('persona', ['namespace' => 'App\Controllers\Admin', 'filter' => 'usuario:ADMINISTRADOR,TECNICO,SECRETARIA'], function ($routes) {
+//        $routes->get('', 'Usuario::index', ['as' => 'index_usuario']);
+        /* vistas para usuarios*/
+//        $routes->get('lista', 'Usuario::usuarioLista', ['as' => 'lista_usuario']);
+        $routes->post('form-persona-nuevo', 'Persona::formPerson', ['as' => 'form_persona']);
+    });
+
+
 });
 
 /*

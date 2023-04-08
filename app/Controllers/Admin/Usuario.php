@@ -10,7 +10,6 @@ class Usuario extends BaseController
 {
 
 
-
     public function index()
     {
         $titleHeadPage = $data['titleHeadContent'] = 'Lista Usuario';
@@ -19,8 +18,6 @@ class Usuario extends BaseController
          *      mostrar lista de usuarios
          *      sean activos o inhabilitado
          *========================**/
-
-
 
         /**=======================
          *     COMMENT BLOCK
@@ -46,7 +43,6 @@ class Usuario extends BaseController
      *******************/
     public function usuarioLista()
     {
-
         /*****************************************************************
          * SACAMOS LA VARIABLE ORDER DEL DATATABLE QUE NOS ENVIA POR GET *
          *****************************************************************/
@@ -85,5 +81,25 @@ class Usuario extends BaseController
 
         return $this->response->setJSON($response);
         // return $this->respond($data);
+    }
+
+    public function formUser()
+    {
+        /**=======================
+         *     COMMENT BLOCK
+         *  enviando el contenido en json
+         *  con el resultado de lista
+         *========================**/
+        if (!$this->request->isAJAX()) {
+            return $this->templater->viewAdmin('admin/usuarios/viewFormUser');
+        }
+
+        $html = $this->templater->viewAdmin('admin/usuarios/viewFormUser');
+        return $this->response->setJSON([
+            'success' => true,
+            'html' => $html,
+            'title' => 'Nuevo Usuario'
+        ]);
+        /*==== END OF SECTION ====*/
     }
 }

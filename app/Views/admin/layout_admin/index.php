@@ -66,7 +66,10 @@
     <link href="<?= base_url(); ?>dashboard/assets/css/style.css" rel="stylesheet">
 
     <!-- jQuery UI -->
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/smoothness/jquery-ui.css">
+    <!--<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/smoothness/jquery-ui.css">-->
+    <link rel="stylesheet" href="<?= base_url('assets/css/jquery-ui.min.css'); ?>">
+    <!-- Sweet Alert 2-->
+<!--    <link rel="stylesheet" href="--><?//= base_url('assets/css/sweetalert2.min.css'); ?><!--">-->
 
     <!-- =======================================================
   * Template Name: NiceAdmin
@@ -129,7 +132,12 @@
 
 
 <!-- jQuery UI -->
-<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+<!--<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>-->
+<!-- Carga de jQuery UI -->
+<script src="<?= base_url(); ?>assets/js/jquery-ui.min.js"></script>
+
+<!-- Sweet Alert 2-->
+<!--<script src="--><?//= base_url(); ?><!--assets/css/sweetalert2.all.min.js"></script>-->
 
 <!-- Vendor JS Files -->
 <script src="<?= base_url(); ?>dashboard/assets/vendor/apexcharts/apexcharts.min.js"></script>

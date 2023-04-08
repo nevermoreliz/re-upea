@@ -36,9 +36,10 @@ $(document).ready(function () {
             {
                 data: 'estado',
                 render: function (data, type, row) {
+
+                    let $html;
                     // return '<button class="btn btn-primary">' + data['name'] + '</button>';
                     if (data == 1) {
-
                         $html = `<span class="badge bg-success"><i class="bi bi-check-circle me-1"></i> Activo</span>`;
                     } else {
                         $html = `<span class="badge bg-dark"><i class="bi bi-x-circle me-1"></i> Inactivo</span>`;
@@ -68,28 +69,99 @@ $(document).ready(function () {
     });
 
 
+    /* agregar usuario y abrir el modal */
     $('button.btn-new-user').click(function (e) {
-        $('.draggable-modal').draggable({
-            handle: ".modal-header" // Define la zona del modal que se puede usar para arrastrar
+
+        $.ajax({
+            url: '<?= base_url(route_to("form_usuario"))?>',
+            method: 'post',
+            success: function (response) {
+                // Código en caso de éxito
+                if (typeof response == "object") {
+                    console.log("es ajax abrir modal");
+                    if (response.success) {
+
+                        // $('.draggable-modal').draggable({
+                        //     handle: ".modal-header" // Define la zona del modal que se puede usar para arrastrar
+                        // });
+
+                        parametrosModal(
+                            '#modal_usuario',
+                            'CREAR USUARIO',
+                            'modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg',
+                            true,
+                            'static');
+
+                        /* elimina cualquier contenido anterior */
+                        $('#modal_usuario-body').html('');
+                        /* agregar el contenido html en el contenido del model */
+                        $('#modal_usuario-body').html(response.html);
+                        /* end agregar el contenido html en el contenido del model */
+
+                        document.querySelector("title").innerText =
+                            "Admin RI | " + response.title;
+                    }
+                } else {
+                    console.log("no es");
+                    // content.hide().html(response).fadeIn("slow");
+                    // content.html(response.html).fadeIn("slow");
+                }
+
+            },
+            error: function (xhr, status, error) {
+                try {
+                    throw new Error("Error en la petición: " + xhr.responseText);
+                } catch (e) {
+                    console.log(e.name + ": " + e.message);
+                }
+            }
+
         });
+    });
 
+    /* agregar usuario y abrir el modal */
+    $('button.btn-new-person').click(function (e) {
 
-        parametrosModal(
-            '#modal_usuario_dt',
-            'Insertar Datos de Usuario 12',
-            'modal-dialog modal-dialog-centered modal-dialog-scrollable',
-            true,
-            'static'
-        );
+        $.ajax({
+            url: '<?= base_url(route_to("form_persona"))?>',
+            method: 'post',
+            success: function (response) {
+                // Código en caso de éxito
+                if (typeof response == "object") {
+                    console.log("es ajax abrir modal");
+                    if (response.success) {
+                        // $('.draggable-modal').draggable({
+                        //     handle: ".modal-header" // Define la zona del modal que se puede usar para arrastrar
+                        // });
+                        parametrosModal(
+                            '#modal_usuario',
+                            'REGISTRAR PERSONA',
+                            'modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg',
+                            true,
+                            'static');
 
-        // $('#modal_usuario_dt').modal({
-        //     backdrop: 'static',
-        //     keyboard: false,
-        //     focus: true,
-        //     show: true,
-        //     scrollable: true,
-        //     backdropClass: 'my-backdrop'
-        // });
+                        /* agregar el contenido html en el contenido del model */
+                        $('#modal_usuario-body').html('');
+                        $('#modal_usuario-body').html(response.html);
+                        /* end agregar el contenido html en el contenido del model */
+
+                        document.querySelector("title").innerText =
+                            "Admin RI | " + response.title;
+                    }
+                } else {
+                    console.log("no es");
+                    // content.hide().html(response).fadeIn("slow");
+                    // content.html(response.html).fadeIn("slow");
+                }
+            },
+            error: function (xhr, status, error) {
+                try {
+                    throw new Error("Error en la petición: " + xhr.responseText);
+                } catch (e) {
+                    console.log(e.name + ": " + e.message);
+                }
+            }
+        });
 
     });
 });

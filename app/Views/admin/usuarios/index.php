@@ -16,12 +16,19 @@
             <div class="card">
                 <div class="card-body">
                     <div class="card-title">
+
                         <button type="button"
                                 id="btn-new-user"
-
                                 class="btn btn-outline-primary btn-new-user">
-                            <i class="bi bi-person-bounding-box me-1"></i> Nuevo Usuario
+                            <i class="bi bi-person-bounding-box"></i> Nuevo Usuario
                         </button>
+
+                        <button type="button"
+                                id="btn-new-person"
+                                class="btn btn-outline-primary btn-new-person">
+                            <i class="bi bi-people"></i> Registrar Persona
+                        </button>
+
                     </div>
 
 
@@ -53,18 +60,18 @@
 </section>
 
 <!-- Vertically centered Modal -->
-<div class="modal fade draggable-modal" id="modal_usuario_dt" tabindex="-1" role="dialog">
-    <div id="modal_usuario_dt-dialog" class="modal-dialog">
+<div class="modal fade draggable-modal" id="modal_usuario" tabindex="-1" role="dialog">
+    <div id="modal_usuario-dialog" class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 id="modal_usuario_dt-title" class="modal_usuario_dt-title modal-title">Vertically Centered</h5>
-                <button id="modal_usuario_dt-close" type="button" class="btn-close" data-bs-dismiss="modal"
+                <h5 id="modal_usuario-title" class="modal_usuario-title modal-title">Vertically Centered</h5>
+                <button id="modal_usuario-close" type="button" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
             </div>
-            <div id="modal_usuario_dt-body" class="modal_usuario_dt-body modal-body">
+            <div id="modal_usuario-body" class="modal_usuario-body modal-body">
                 <!-- dinamic content -->
             </div>
-            <div class="modal-footer">
+            <div id="modal_usuario-footer" class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary">Save changes</button>
             </div>
