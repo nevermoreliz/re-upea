@@ -69,6 +69,13 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'au
         //$routes->get('', 'Usuario::index', ['as' => 'index_usuario']);
         
         /* vistas para usuarios*/
+
+        /* crud de persona */
+        $routes->get('/', 'Persona::Index', ['as' => 'persona']);
+        $routes->get('crear', 'Persona::create', ['as' => 'persona_create']);
+        $routes->post('guardar', 'Persona::store', ['as' => 'persona_store']);
+        $routes->post('eliminar', 'Persona::delete', ['as' => 'persona_delete']);
+
         //$routes->get('lista', 'Usuario::usuarioLista', ['as' => 'lista_usuario']);
         $routes->post('form-persona-nuevo', 'Persona::formPerson', ['as' => 'form_persona']);
     });

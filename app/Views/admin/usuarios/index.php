@@ -63,7 +63,7 @@
 <div class="modal fade draggable-modal" id="modal_usuario" tabindex="-1" role="dialog">
     <div id="modal_usuario-dialog" class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header bg-modal-jf">
                 <h5 id="modal_usuario-title" class="modal_usuario-title modal-title">Vertically Centered</h5>
                 <button id="modal_usuario-close" type="button" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
@@ -72,8 +72,13 @@
                 <!-- dinamic content -->
             </div>
             <div id="modal_usuario-footer" class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" data-bs-dismiss="modal"><i
+                            class="bi bi-backspace me-1"></i> Cancelar
+                </button>
+                <!--<button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Cancelar</button>-->
+                <button type="button" class="btn btn-outline-primary btn-sm" data-bs-dismiss="modal"><i
+                            class="bi bi-check-square me-1"></i> Guardar
+                </button>
             </div>
         </div>
     </div>
