@@ -17,34 +17,37 @@
                 <div class="card-body">
                     <div class="card-title">
 
-                        <button type="button"
-                                id="btn-new-user"
-                                class="btn btn-outline-primary btn-new-user">
+                        <button type="button" id="btn-new-user" class="btn btn-outline-primary btn-new-user">
                             <i class="bi bi-person-bounding-box"></i> Nuevo Usuario
                         </button>
 
-                        <button type="button"
-                                id="btn-new-person"
-                                class="btn btn-outline-primary btn-new-person">
+                        <button type="button" id="btn-new-person" class="btn btn-outline-primary btn-new-person">
                             <i class="bi bi-people"></i> Registrar Persona
                         </button>
 
                     </div>
 
+                    <!-- alerta o mensaje -->
+                    <?php if (session('msg')) : ?>
+                        <div class="alert alert-<?= session('msg.type'); ?> fade show" role="alert" style="margin: 0px;">
+                            <h6 style="margin: auto;"><?= session('msg.body'); ?></h6>
+                        </div>
+                    <?php endif; ?>
+
 
                     <!-- Table with stripped rows -->
                     <table class="table datatable" id="dt_usuarios" style="width: 100%">
                         <thead>
-                        <tr>
-                            <!-- <th scope="col">#</th> -->
-                            <th scope="col">IID</th>
-                            <th scope="col">PERSONA</th>
-                            <th scope="col">USUARIO</th>
-                            <th scope="col">CONTRASEÑA</th>
-                            <th scope="col">FECHA REGISTRO</th>
-                            <th scope="col">ESTADO</th>
-                            <th scope="col">ACCIONES</th>
-                        </tr>
+                            <tr>
+                                <!-- <th scope="col">#</th> -->
+                                <th scope="col">IID</th>
+                                <th scope="col">PERSONA</th>
+                                <th scope="col">USUARIO</th>
+                                <th scope="col">CONTRASEÑA</th>
+                                <th scope="col">FECHA REGISTRO</th>
+                                <th scope="col">ESTADO</th>
+                                <th scope="col">ACCIONES</th>
+                            </tr>
                         </thead>
                         <tbody>
 
@@ -65,19 +68,17 @@
         <div class="modal-content">
             <div class="modal-header bg-modal-jf">
                 <h5 id="modal_usuario-title" class="modal_usuario-title modal-title">Vertically Centered</h5>
-                <button id="modal_usuario-close" type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
+                <button id="modal_usuario-close" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div id="modal_usuario-body" class="modal_usuario-body modal-body">
                 <!-- dinamic content -->
             </div>
             <div id="modal_usuario-footer" class="modal-footer">
-                <button type="button" class="btn btn-outline-danger btn-sm" data-bs-dismiss="modal"><i
-                            class="bi bi-backspace me-1"></i> Cancelar
+                <button type="button" class="btn btn-outline-danger btn-sm" data-bs-dismiss="modal"><i class="bi bi-backspace me-1"></i> Cancelar
                 </button>
-                <!--<button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Cancelar</button>-->
-                <button type="button" class="btn btn-outline-primary btn-sm" data-bs-dismiss="modal"><i
-                            class="bi bi-check-square me-1"></i> Guardar
+                <!-- <button type="button" class="btn btn-outline-primary btn-sm" data-bs-dismiss="modal"><i class="bi bi-check-square me-1"></i> Guardar
+                </button> -->
+                <button type="button" class="btn btn-outline-primary btn-sm btn-action"><i class="bi bi-check-square me-1"></i> Guardar
                 </button>
             </div>
         </div>

@@ -14,7 +14,7 @@ $(document).ready(function () {
             url: '<?= base_url(route_to("lista_usuario"))?>',
         },
         columnDefs: [
-            {responsivePriority: 1, targets: -1}
+            { responsivePriority: 1, targets: -1 }
         ],
         columns: [
             {
@@ -60,6 +60,8 @@ $(document).ready(function () {
                           <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#"><i class="bi bi-pencil-square"></i> Modificar</a></li>
                             <li><a class="dropdown-item" href="#"><i class="bi bi-trash"></i> Desabilitar</a></li>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#"><i class="bi bi-info"></i> Más Detalle</a>
                           </ul>
                         </div>
                     `;

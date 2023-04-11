@@ -67,11 +67,11 @@
 
                   <div class="pt-4 pb-2">
                     <?php if (session('msg')) :; ?>
-
                       <div class="alert alert-danger fade show" role="alert" style="margin: 0px;">
                         <h6 style="margin: auto;"><?= session('msg.body'); ?></h6>
                       </div>
                     <?php endif; ?>
+
                     <h5 class="card-title text-center pb-0 fs-4">Ingrese a su cuenta</h5>
                     <p class="text-center small">Ingrese su nombre de usuario y contraseña para iniciar sesión
                     </p>
