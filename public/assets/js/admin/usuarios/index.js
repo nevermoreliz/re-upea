@@ -70,7 +70,6 @@ $(document).ready(function () {
         ],
     });
 
-
     /* agregar usuario y abrir el modal */
     $('button.btn-new-user').click(function (e) {
 
@@ -99,6 +98,10 @@ $(document).ready(function () {
                         /* agregar el contenido html en el contenido del model */
                         $('#modal_usuario-body').html(response.html);
                         /* end agregar el contenido html en el contenido del model */
+
+                        /* agregar clase para insertar al boton de insertar */
+
+
 
                         document.querySelector("title").innerText =
                             "Admin RI | " + response.title;
@@ -139,13 +142,24 @@ $(document).ready(function () {
                             '#modal_usuario',
                             'REGISTRAR PERSONA',
                             'modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg',
-                            true,
+                            false,
                             'static');
 
                         /* agregar el contenido html en el contenido del model */
                         $('#modal_usuario-body').html('');
                         $('#modal_usuario-body').html(response.html);
                         /* end agregar el contenido html en el contenido del model */
+
+                        /* eliminar clases de insertar update or delete */
+                        $('#btn-action').removeClass('action-insert');
+                        $('#btn-action').removeClass('action-update');
+                        $('#btn-action').removeClass('action-delete');
+
+                        /* agregar clase action-insert para registrar en la base dedatos */
+                        $('#btn-action').addClass('action-insert');
+                        $('#btn-action').html('');
+                        $('.action-insert').html('<i class="bi bi-check-square me-1"></i> Guardar');
+
 
                         document.querySelector("title").innerText =
                             "Admin RI | " + response.title;
@@ -166,4 +180,5 @@ $(document).ready(function () {
         });
 
     });
+
 });

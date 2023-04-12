@@ -76,9 +76,7 @@
             <div id="modal_usuario-footer" class="modal-footer">
                 <button type="button" class="btn btn-outline-danger btn-sm" data-bs-dismiss="modal"><i class="bi bi-backspace me-1"></i> Cancelar
                 </button>
-                <!-- <button type="button" class="btn btn-outline-primary btn-sm" data-bs-dismiss="modal"><i class="bi bi-check-square me-1"></i> Guardar
-                </button> -->
-                <button type="button" class="btn btn-outline-primary btn-sm btn-action"><i class="bi bi-check-square me-1"></i> Guardar
+                <button type="button" id="btn-action" class="btn btn-outline-primary btn-sm btn-action"><i class="bi bi-check-square me-1"></i> Guardar
                 </button>
             </div>
         </div>

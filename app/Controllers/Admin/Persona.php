@@ -39,21 +39,32 @@ class Persona extends BaseController
             'nombre' => 'required|alpha_space|max_length[120]',
             'paterno' => 'alpha|max_length[120]',
             'materno' => 'alpha|max_length[120]',
-            'ci' => 'required|is_unique[sic_persona.ci]',
-            'telefono' => 'required|alpha_numeric|is_unique[sic_persona.telefono]',
+            'ci' => 'required|is_unique[sic_persona.ci]|min_length[5]|max_length[20]|alpha_numeric',
+            'telefono' => 'required|is_natural|is_unique[sic_persona.telefono]|min_length[8]|max_length[20]',
             'email' => 'required|valid_email|is_unique[sic_persona.email]',
             'cargo' => 'required|alpha_space|max_length[200]'
         ])) {
-            return redirect()
+            /* return redirect()
                 ->back()
                 ->withInput()
                 ->with('msg', [
                     'type' => 'danger',
                     'body' => 'Tienes Campos Incorrectos'
-                ]);
+                ]); */
+
+            return $this->response->setJSON([
+                'success' => false,
+                'errors' => $this->validator->getErrors()
+            ]);
         }
 
-        dd($this->request->getPost());
-    }
+        // dd($this->request->getPost());
+        // dd($this->request->getFile('img'));
 
+        return $this->response->setJSON([
+            'success' => true,
+            'content' => $this->request->getPost(),
+            'title' => 'Nuevo Usuario'
+        ]);
+    }
 }
