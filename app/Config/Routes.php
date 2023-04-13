@@ -46,6 +46,18 @@ $routes->get('/auth', 'App\Controllers\Auth\Login::index');
 $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'auth:ADMINISTRADOR,TECNICO,SECRETARIA'], function ($routes) {
     $routes->get('/', 'Dashboard::index', ['as' => 'dashboard']);
 
+    $routes->group('convenios', ['namespace' => 'App\Controllers\Admin'], function ($routes) {
+        $routes->get('', 'Publicacion::index', ['as' => 'index_publicacion']);
+
+        $routes->group('nacionales', ['namespace' => 'App\Controllers\Admin'], function ($routes) {
+            $routes->get('/', 'Convenio::indexNacional', ['as' => 'index_nacional']);
+        });
+
+        $routes->group('internacionales', ['namespace' => 'App\Controllers\Admin'], function ($routes) {
+            $routes->get('/', 'Convenio::indexInternacional', ['as' => 'index_internacional']);
+        });
+    });
+
 
     $routes->group('publicacion', ['namespace' => 'App\Controllers\Admin'], function ($routes) {
         $routes->get('', 'Publicacion::index', ['as' => 'index_publicacion']);
@@ -67,7 +79,7 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'au
      *========================**/
     $routes->group('persona', ['namespace' => 'App\Controllers\Admin', 'filter' => 'usuario:ADMINISTRADOR,TECNICO,SECRETARIA'], function ($routes) {
         //$routes->get('', 'Usuario::index', ['as' => 'index_usuario']);
-        
+
         /* vistas para usuarios*/
 
         /* crud de persona */
@@ -79,7 +91,26 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'au
         //$routes->get('lista', 'Usuario::usuarioLista', ['as' => 'lista_usuario']);
         $routes->post('form-persona-nuevo', 'Persona::formPerson', ['as' => 'form_persona']);
     });
-    
+
+    $routes->group('enlace', ['namespace' => 'App\Controllers\Admin', 'filter' => 'usuario:ADMINISTRADOR,TECNICO,SECRETARIA'], function ($routes) {
+
+
+        /* crud de enlace o institucion */
+        $routes->get('/', 'Enlace::index', ['as' => 'enlace_index']); /* lista en datatable */
+        $routes->get('lista', 'Enlace::list', ['as' => 'enlace_list']); /* lista en datatable */
+
+        $routes->get('detalle/(:num)', 'Enlace::show/$1', ['as' => 'enlace_show']); /* informacion */
+        $routes->get('crear', 'Enlace::create', ['as' => 'enlace_create']); /* formulario */
+        $routes->post('guardar', 'Enlace::store', ['as' => 'enlace_store']); /* guardar datos del formulario */
+        $routes->get('editar', 'Enlace::edit', ['as' => 'enlace_edit']); /* actualiza datos del formulario */
+
+        $routes->put('actualizar/(:num)', 'Enlace::update/$1', ['as' => 'enlace_update']); /* actualiza datos del formulario */
+        $routes->put('eliminar', 'Enlace::delete', ['as' => 'enlace_delete']); /* pone el estado en 0 para desabilitado */
+
+        /* otras rutas para otros opjetivos */
+    });
+
+
 });
 
 /*

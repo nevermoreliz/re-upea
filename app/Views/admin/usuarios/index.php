@@ -39,8 +39,7 @@
                     <table class="table datatable" id="dt_usuarios" style="width: 100%">
                         <thead>
                             <tr>
-                                <!-- <th scope="col">#</th> -->
-                                <th scope="col">IID</th>
+                                <th scope="col">ID</th>
                                 <th scope="col">PERSONA</th>
                                 <th scope="col">USUARIO</th>
                                 <th scope="col">CONTRASEÑA</th>

@@ -14,16 +14,11 @@ class Usuario extends BaseController
     {
         $titleHeadPage = $data['titleHeadContent'] = 'Lista Usuario';
 
-        /**======================
-         *      mostrar lista de usuarios
-         *      sean activos o inhabilitado
-         *========================**/
+        /* mostrar lista de usuarios sean activos o inhabilitado */
 
-        /**=======================
-         *     COMMENT BLOCK
-         *  enviando el contenido en json
-         *  con el resultado de lista
-         *========================**/
+
+        /* enviando el contenido en json con el resultado de lista */
+
         if (!$this->request->isAJAX()) {
             return $this->templater->viewAdmin('admin/usuarios/index', $data);
         }
@@ -34,7 +29,7 @@ class Usuario extends BaseController
             'html' => $html,
             'title' => $titleHeadPage
         ]);
-        /*==== END OF SECTION ====*/
+
     }
 
 
@@ -70,6 +65,7 @@ class Usuario extends BaseController
         ];
 
         $lib = new TableLib($model, 'gp1', $column_map);
+
         $response = $lib->getResponse([
             'draw' => $this->request->getVar('draw'),
             'length' => $this->request->getVar('length'),
@@ -82,6 +78,7 @@ class Usuario extends BaseController
         return $this->response->setJSON($response);
         // return $this->respond($data);
     }
+
 
     public function formUser()
     {

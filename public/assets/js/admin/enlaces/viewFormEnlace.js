@@ -5,7 +5,7 @@ $(document).ready(function () {
         event.preventDefault()
 
         // Crea un objeto FormData
-        var formData = new FormData($('#formPerson')[0])
+        var formData = new FormData($('#formEnlace')[0])
 
         // Elimina los mensajes de error existentes
         $('.error').remove()
@@ -37,7 +37,7 @@ $(document).ready(function () {
 
                 // Realiza una petición Ajax
                 $.ajax({
-                    url: '<?= route_to("persona_store")?>',
+                    url: '<?= route_to("enlace_store")?>',
                     method: 'post',
                     data: formData,
                     processData: false,
@@ -73,7 +73,7 @@ $(document).ready(function () {
 
                                 field.addClass('is-invalid')
 
-                                field.after('<div class="error" style="width: 100%;25rem;font-size: .875em;color: #dc3545">' + value + '</div>')
+                                field.after('<div class="error" style="width: 100%;25rem;font-size: .875em;color: #dc3545"><b>' + value + '</b></div>')
 
                                 // Oculta el mensaje de error cuando el usuario escriba en el input
                                 field.on('input', function () {
@@ -107,7 +107,10 @@ $(document).ready(function () {
                             /**********************************
                              * CERRRAR MODAL Y LIMPIAR IMPUTS *
                              **********************************/
-                            $('#modal_usuario').modal('hide');
+                            $('#modal_convenio').modal('hide');
+
+                            /* recargar datatable */
+                            $('#dt_enlaces').DataTable().draw(false);
 
                         }
 
@@ -125,8 +128,8 @@ $(document).ready(function () {
 
     });
 
-    $('#img').on('change', function (e) {
-        document.getElementById('img_show_profile').src = window.URL.createObjectURL(this.files[0]);
+    $('#url_enlace').on('change', function (e) {
+        document.getElementById('img_show_logo').src = window.URL.createObjectURL(this.files[0]);
     });
 
-})
+});
