@@ -97,7 +97,7 @@ class Enlace extends BaseController
 
             return $this->response->setJSON([
                 'success' => false,
-                'message' => 'verifique que los datos de la persona sean validas.',
+                'message' => 'verifique que los datos sean validas.',
                 'errors' => $this->validator->getErrors()
             ]);
         }
@@ -191,6 +191,17 @@ class Enlace extends BaseController
             'fecha' => 'required|valid_date[Y-m-d]',
             'estado' => 'required|in_list[0,1]'
         ];
+
+        if (!$this->validate($reglas)) {
+
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'verifique que los datos que sean validas.',
+                'errors' => $this->validator->getErrors()
+            ]);
+        }
+
+        
 
         $datos = $this->request->getGet();
 
