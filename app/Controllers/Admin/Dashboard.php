@@ -13,7 +13,13 @@ class Dashboard extends BaseController
      *  si es por ajax o es recarga
      *========================**/
     public function index()
+
     {
+
+//
+//   $html = '<div id="main">' .
+//            htmlspecialchars_decode(localStorage . getItem('contenido-dinamico')) .
+//            '</div>';
         $titleHeadPage = $data['titleHeadContent'] = 'Panel Principal';
 
         if (!$this->request->isAJAX()) {

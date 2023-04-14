@@ -64,10 +64,9 @@ $(document).ready(function () {
 
     /* modificar convenio */
     $(document).on('click', 'a.edit-convenio', function (e) {
-
         $.ajax({
             url: '<?= base_url(route_to("enlace_edit"))?>',
-            method: 'get',
+            type: 'get',
             data: {param: e.target.getAttribute('data-convenio')},
             success: function (response) {
                 // Manejar la respuesta del servidor
@@ -97,10 +96,15 @@ $(document).ready(function () {
                 var data = response.data;
                 var ruta = `<?= base_url()?>uploads/${data.url_enlace}`;
                 $('#img_show_logo').attr('src', ruta);
+
                 $.each(data, function (key, value) {
-                    if (key != 'url_enlace') {
-                        console.log('esta dentro')
-                        $('input[name=' + key + ']').val(value)
+                    if ($('#' + key).is('input')) {
+                        if (key != 'url_enlace') {
+                            console.log('esta dentro')
+                            $('input[name=' + key + ']').val(value)
+                        }
+                    } else if ($('#' + key).is('select')) {
+                        $('select[name=' + key + ']').val(value)
                     }
                 });
 
@@ -169,3 +173,4 @@ $(document).ready(function () {
     });
 
 })
+

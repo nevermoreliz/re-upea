@@ -46,6 +46,7 @@ $routes->get('/auth', 'App\Controllers\Auth\Login::index');
 $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'auth:ADMINISTRADOR,TECNICO,SECRETARIA'], function ($routes) {
     $routes->get('/', 'Dashboard::index', ['as' => 'dashboard']);
 
+    /* convenios */
     $routes->group('convenios', ['namespace' => 'App\Controllers\Admin'], function ($routes) {
         $routes->get('', 'Publicacion::index', ['as' => 'index_publicacion']);
 
@@ -58,7 +59,7 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'au
         });
     });
 
-
+    /* publicaciones */
     $routes->group('publicacion', ['namespace' => 'App\Controllers\Admin'], function ($routes) {
         $routes->get('', 'Publicacion::index', ['as' => 'index_publicacion']);
     });
@@ -92,6 +93,7 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'au
         $routes->post('form-persona-nuevo', 'Persona::formPerson', ['as' => 'form_persona']);
     });
 
+    /* enlaces o instituciones */
     $routes->group('enlace', ['namespace' => 'App\Controllers\Admin', 'filter' => 'usuario:ADMINISTRADOR,TECNICO,SECRETARIA'], function ($routes) {
 
 
@@ -104,7 +106,7 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'au
         $routes->post('guardar', 'Enlace::store', ['as' => 'enlace_store']); /* guardar datos del formulario */
         $routes->get('editar', 'Enlace::edit', ['as' => 'enlace_edit']); /* actualiza datos del formulario */
 
-        $routes->put('actualizar/(:num)', 'Enlace::update/$1', ['as' => 'enlace_update']); /* actualiza datos del formulario */
+        $routes->put('actualizar', 'Enlace::update', ['as' => 'enlace_update']); /* actualiza datos del formulario */
         $routes->put('eliminar', 'Enlace::delete', ['as' => 'enlace_delete']); /* pone el estado en 0 para desabilitado */
 
         /* otras rutas para otros opjetivos */

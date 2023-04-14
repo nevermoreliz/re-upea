@@ -168,23 +168,36 @@ class Enlace extends BaseController
         }
 
         $html = $this->templater->viewAdmin('admin/enlaces/viewFormEnlace');
+
         return $this->response->setJSON([
             'success' => true,
             'html' => $html,
             'title' => 'Modificar Convenio',
             'data' => $data
         ]);
+
     }
 
     public function update()
     {
+        $reglas = [
+            'orden' => 'required|is_natural|min_length[1]|max_length[10]',
+            'url_enlace' => 'max_size[url_enlace,1024]|mime_in[url_enlace,image/jpg,image/jpeg,image/png]',
+            'links_enlace' => 'required',
+            'nombre_enlace' => 'required|alpha_numeric_punct',
+            'tipo_enlace' => 'required|in_list[enlace,embajada,consulado,ministerio,org_estado,org_coperacion]',
+            'telefono' => 'required|is_natural|is_unique[enlace.telefono]|min_length[8]|max_length[20]',
+            'fax' => 'required|is_natural',
+            'fecha' => 'required|valid_date[Y-m-d]',
+            'estado' => 'required|in_list[0,1]'
+        ];
 
         $datos = $this->request->getGet();
 
         $html = $this->templater->viewAdmin('admin/enlaces/viewFormEnlace');
         return $this->response->setJSON([
             'success' => true,
-            'html' => $html,
+            'html' => $datos,
             'title' => 'Modificar Convenio'
         ]);
 
