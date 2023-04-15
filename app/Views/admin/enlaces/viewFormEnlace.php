@@ -10,7 +10,9 @@
             'novalidate' => true,
             'autocomplete' => 'off'
         ]; ?>
-        <?= form_open('', $attributes);; ?>
+        <?= form_open('', $attributes); ?>
+
+        <input type="hidden" name="id_enlace" id="id_enlace" value="" style="display: none">
 
         <div class="col-md-12">
             <label for="nombre_enlace" class="form-label">Nombre Institución</label>

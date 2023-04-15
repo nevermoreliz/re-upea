@@ -176,6 +176,7 @@ $(document).ready(function () {
                     cache: false,
                     async: false,
                     success: function (response) {
+                        console.log(response.html)
                         // Maneja la respuesta del servidor
                         if (!response.success) {
 
@@ -190,9 +191,11 @@ $(document).ready(function () {
                                 allowEscapeKey: false,
                             });
 
-                            $.each(response.errors, function (key, value) {
-                                $('[name="' + key + '"]').val(response.key)
-                            })
+                            // $.each(response.errors, function (key, value) {
+                            //     $('[name="' + key + '"]').val(response.key)
+                            //     console.log('estasaqui');
+                            //     console.log(key);
+                            // });
 
 
                             /******************************************
@@ -208,10 +211,10 @@ $(document).ready(function () {
 
                                 // Oculta el mensaje de error cuando el usuario escriba en el input
                                 field.on('input', function () {
-                                    $(this).next('.error').remove()
+                                    $(this).next('.error').remove();
                                 })
 
-                            })
+                            });
 
                         } else {
 
@@ -233,29 +236,29 @@ $(document).ready(function () {
                             /*********************************
                              * LIMPIAR INPUTS DEL FORMULARIO *
                              *********************************/
-                            // $(".limpiar-input").val('');
+                            $(".limpiar-input").val('');
 
                             /**********************************
                              * CERRRAR MODAL Y LIMPIAR IMPUTS *
                              **********************************/
-                            // $('#modal_convenio').modal('hide');
+                            $('#modal_convenio').modal('hide');
 
                             /* recargar datatable */
-                            // $('#dt_enlaces').DataTable().draw(false);
+                            $('#dt_enlaces').DataTable().draw(false);
 
                         }
 
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         // Maneja los errores de la petición Ajax
-                        alert("Error: " + errorThrown)
+                        alert("Error: " + errorThrown);
+                        console.log("Error: " + errorThrown);
+
                     }
                 });
 
-
             }
-        })
-
+        });
 
     });
 });

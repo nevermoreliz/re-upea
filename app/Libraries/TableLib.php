@@ -2,7 +2,6 @@
 
 namespace App\Libraries;
 
-use App\Controllers\BaseController;
 use CodeIgniter\Model;
 
 class TableLib

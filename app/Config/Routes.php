@@ -96,7 +96,6 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'au
     /* enlaces o instituciones */
     $routes->group('enlace', ['namespace' => 'App\Controllers\Admin', 'filter' => 'usuario:ADMINISTRADOR,TECNICO,SECRETARIA'], function ($routes) {
 
-
         /* crud de enlace o institucion */
         $routes->get('/', 'Enlace::index', ['as' => 'enlace_index']); /* lista en datatable */
         $routes->get('lista', 'Enlace::list', ['as' => 'enlace_list']); /* lista en datatable */
@@ -106,8 +105,8 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'au
         $routes->post('guardar', 'Enlace::store', ['as' => 'enlace_store']); /* guardar datos del formulario */
         $routes->get('editar', 'Enlace::edit', ['as' => 'enlace_edit']); /* actualiza datos del formulario */
 
-        $routes->put('actualizar', 'Enlace::update', ['as' => 'enlace_update']); /* actualiza datos del formulario */
-        $routes->put('eliminar', 'Enlace::delete', ['as' => 'enlace_delete']); /* pone el estado en 0 para desabilitado */
+        $routes->post('actualizar', 'Enlace::update', ['as' => 'enlace_update']); /* actualiza datos del formulario */
+        $routes->post('eliminar', 'Enlace::delete', ['as' => 'enlace_delete']); /* pone el estado en 0 para desabilitado */
 
         /* otras rutas para otros opjetivos */
     });

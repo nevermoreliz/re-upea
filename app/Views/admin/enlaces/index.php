@@ -38,10 +38,11 @@
                         <thead>
                         <tr>
                             <th scope="col">ID</th>
+
                             <th scope="col">ORDEN</th>
+                            <th scope="col">NOMBRE</th>
                             <th scope="col">URL ENLACE</th>
                             <th scope="col">URL PAGINA</th>
-                            <th scope="col">NOMBRE</th>
                             <th scope="col">TIPO</th>
                             <th scope="col">TELEFONO</th>
                             <th scope="col">FAX</th>

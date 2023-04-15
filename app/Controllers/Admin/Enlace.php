@@ -136,24 +136,19 @@ class Enlace extends BaseController
 
             if (!is_dir($directorio)) {
                 // Si la carpeta no existe, crea la carpeta con los permisos 0777
-                /*mkdir($directorio, 0777, true);*/
-                mkdir($directorio, 0700, true);
+                mkdir($directorio, 0777, true);
             }
-
 
             /* mover la imagen al directorio */
             $imgProfile->move($directorio, $nameFile);
-
         }
-
 
         $modelEnlace = new EnlaceModel();
         $modelEnlace->insert($datos);
 
-
         return $this->response->setJSON([
             'success' => true,
-            'message' => 'Se registro los datos de la persona al sistema correctamente.'
+            'message' => 'Se registro los datos al sistema correctamente.'
         ]);
     }
 
@@ -180,13 +175,19 @@ class Enlace extends BaseController
 
     public function update()
     {
+        /* inicialicar el modelo */
+        $model = new EnlaceModel();
+
+        $hiddenId = $this->request->getPost('id_enlace');
+        $id_enlace = base64_decode($hiddenId);
+
         $reglas = [
             'orden' => 'required|is_natural|min_length[1]|max_length[10]',
             'url_enlace' => 'max_size[url_enlace,1024]|mime_in[url_enlace,image/jpg,image/jpeg,image/png]',
             'links_enlace' => 'required',
             'nombre_enlace' => 'required|alpha_numeric_punct',
             'tipo_enlace' => 'required|in_list[enlace,embajada,consulado,ministerio,org_estado,org_coperacion]',
-            'telefono' => 'required|is_natural|is_unique[enlace.telefono]|min_length[8]|max_length[20]',
+            'telefono' => 'required|is_natural|is_unique[enlace.telefono,id_enlace,' . $id_enlace . ']|min_length[8]|max_length[20]',
             'fax' => 'required|is_natural',
             'fecha' => 'required|valid_date[Y-m-d]',
             'estado' => 'required|in_list[0,1]'
@@ -196,20 +197,71 @@ class Enlace extends BaseController
 
             return $this->response->setJSON([
                 'success' => false,
-                'message' => 'verifique que los datos que sean validas.',
+                'message' => 'verifique que los datos sean validas.',
                 'errors' => $this->validator->getErrors()
             ]);
         }
 
-        
+//        $imgLogoConvenio = $this->request->getFile('url_enlace');
+        $imgLogoConvenio = $this->request->getFile('url_enlace');
 
-        $datos = $this->request->getGet();
+        if (!$imgLogoConvenio->isValid()) {
+            $datos = [
+                'orden' => trim($this->request->getPost('orden')),
+                'links_enlace' => trim($this->request->getPost('links_enlace')),
+                'nombre_enlace' => trim($this->request->getPost('nombre_enlace')),
+                'tipo_enlace' => trim($this->request->getPost('tipo_enlace')),
+                'telefono' => trim($this->request->getPost('telefono')),
+                'fax' => trim($this->request->getPost('fax')),
+                'fecha' => trim($this->request->getPost('fecha')),
+                'estado' => trim($this->request->getPost('estado')),
+            ];
+        } else {
 
-        $html = $this->templater->viewAdmin('admin/enlaces/viewFormEnlace');
+            $nameFile = $imgLogoConvenio->getRandomName();
+
+            $datos = [
+                'orden' => trim($this->request->getPost('orden')),
+                'url_enlace' => 'assets/img_enlace/' . $nameFile,
+                'links_enlace' => trim($this->request->getPost('links_enlace')),
+                'nombre_enlace' => trim($this->request->getPost('nombre_enlace')),
+                'tipo_enlace' => trim($this->request->getPost('tipo_enlace')),
+                'telefono' => trim($this->request->getPost('telefono')),
+                'fax' => trim($this->request->getPost('fax')),
+                'fecha' => trim($this->request->getPost('fecha')),
+                'estado' => trim($this->request->getPost('estado'))
+            ];
+
+            /* directorio */
+            $directorio = $this->configs->pathEnlaceImg;
+
+            /* eliminar la imagen anterior */
+            $imgLogo = $model->find($id_enlace);
+
+            if ($imgLogo == null) {
+
+                cargarArchivo($imgLogoConvenio, $directorio, $nameFile);
+
+            } else {
+
+//                $imgLogoRuta = 'uploads/' . $imgLogo->url_enlace;
+//                unlink($imgLogoRuta);
+
+                borrarArchivo($imgLogo->url_enlace);
+
+                cargarArchivo($imgLogoConvenio, $directorio, $nameFile);
+            }
+
+
+        }
+
+
+        $model->update($id_enlace, $datos);
+
+
         return $this->response->setJSON([
             'success' => true,
-            'html' => $datos,
-            'title' => 'Modificar Convenio'
+            'message' => 'Se actualizo los datos al sistema correctamente.'
         ]);
 
     }

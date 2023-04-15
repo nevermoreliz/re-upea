@@ -17,9 +17,31 @@ $(document).ready(function () {
         columns: [
             {data: 'id_enlace', visible: false},
             {data: 'orden'},
-            {data: 'url_enlace'},
-            {data: 'links_enlace'},
-            {data: 'nombre_enlace'},
+            {
+                data: 'nombre_enlace',
+                render: function (data, type, row) {
+                    return data.toUpperCase();
+                }
+            },
+            {
+                data: 'url_enlace',
+                render: function (data, type, row) {
+                    return `
+                        <div class="d-flex justify-content-center align-items-center" style="height: auto;">
+                          <img src="<?= base_url() ?>uploads/` + data + `" class="img-fluid" alt="Imagen">
+                        </div>
+                    `;
+                }
+            },
+            {
+                data: 'links_enlace',
+                render: function (data, type, row) {
+                    return `
+                        <a href="<?= base_url()?>` + data + `" class="btn btn-outline-info btn-sm" target="_blank"><i class="bi bi-window"></i> Visitar</a>
+                    `;
+                }
+            },
+
             {data: 'tipo_enlace'},
             {data: 'telefono'},
             {data: 'fax'},
@@ -39,6 +61,8 @@ $(document).ready(function () {
                 }
             },
             {
+                searchable: false,
+                orderable: false,
                 data: null,
                 render: function (data, type, row) {
                     // return '<button class="btn btn-primary">' + data['name'] + '</button>';
@@ -49,10 +73,10 @@ $(document).ready(function () {
                           <i class="bi bi-view-stacked"></i>  Action
                           </button>
                           <ul class="dropdown-menu">
-                            <li><a class="dropdown-item edit-convenio" data-convenio="` + data['id_enlace'] + `" href="#"><i class="bi bi-pencil-square"></i> Modificar </a></li>
-                            <li><a class="dropdown-item" href="#"><i class="bi bi-trash"></i> Desabilitar</a></li>
+                            <li><a class="dropdown-item edit-convenio" data-convenio="` + data['id_enlace'] + `" href="javascript:void(0)"><i class="bi bi-pencil-square"></i> Modificar </a></li>
+                            <li><a class="dropdown-item" href="javascript:void(0)"><i class="bi bi-trash"></i> Desabilitar</a></li>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#"><i class="bi bi-info"></i> Más Detalle</a>
+                            <a class="dropdown-item" href="javascript:void(0)"><i class="bi bi-info"></i> Más Detalle</a>
                           </ul>
                         </div>
                     `;
@@ -100,9 +124,14 @@ $(document).ready(function () {
                 $.each(data, function (key, value) {
                     if ($('#' + key).is('input')) {
                         if (key != 'url_enlace') {
-                            console.log('esta dentro')
+
                             $('input[name=' + key + ']').val(value)
                         }
+                        if (key == 'id_enlace') {
+                            // $('input[name=' + key + ']').val('<?= base64_encode(' + value + '); ?>')
+                            $('input[name=' + key + ']').val(btoa(value));
+                        }
+
                     } else if ($('#' + key).is('select')) {
                         $('select[name=' + key + ']').val(value)
                     }
@@ -128,7 +157,7 @@ $(document).ready(function () {
             success: function (response) {
                 // Código en caso de éxito
                 if (typeof response == "object") {
-                    console.log("es ajax abrir modal");
+
                     if (response.success) {
 
                         parametrosModal(
