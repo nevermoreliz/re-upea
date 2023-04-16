@@ -31,6 +31,30 @@ class Enlace extends BaseController
         ]);
     }
 
+    public function show()
+    {
+
+        if (!$this->request->isAJAX()) {
+            return $this->templater->viewAdmin('admin/enlaces/showEnlaceInfo');
+        }
+        $id = $this->request->getGet('param');
+        $model = new EnlaceModel();
+
+        $data = [
+            'registro' => $model->find($id)
+        ];
+
+        $html = $this->templater->viewAdmin('admin/enlaces/showEnlaceInfo', $data);
+
+        return $this->response->setJSON([
+            'success' => true,
+            'html' => $html,
+            'title' => 'Nuevo Convenio',
+            'data' => $id
+        ]);
+
+    }
+
     public function list()
     {
         $order = $this->request->getVar('order');
@@ -84,7 +108,7 @@ class Enlace extends BaseController
             'orden' => 'required|is_natural|min_length[1]|max_length[10]',
             'url_enlace' => 'uploaded[url_enlace]|max_size[url_enlace,1024]|mime_in[url_enlace,image/jpg,image/jpeg,image/png]',
             'links_enlace' => 'required',
-            'nombre_enlace' => 'required|alpha_numeric_punct',
+            'nombre_enlace' => 'required|regex_match[/^[0-9a-zA-ZáéíóúÁÉÍÓÚñÑ\- \s]+$/]',
             'tipo_enlace' => 'required|in_list[enlace,embajada,consulado,ministerio,org_estado,org_coperacion]',
             'telefono' => 'required|is_natural|is_unique[enlace.telefono]|min_length[8]|max_length[20]',
             'fax' => 'required|is_natural',
@@ -185,7 +209,7 @@ class Enlace extends BaseController
             'orden' => 'required|is_natural|min_length[1]|max_length[10]',
             'url_enlace' => 'max_size[url_enlace,1024]|mime_in[url_enlace,image/jpg,image/jpeg,image/png]',
             'links_enlace' => 'required',
-            'nombre_enlace' => 'required|alpha_numeric_punct',
+            'nombre_enlace' => 'required||regex_match[/^[0-9a-zA-ZáéíóúÁÉÍÓÚñÑ\- \s]+$/]',
             'tipo_enlace' => 'required|in_list[enlace,embajada,consulado,ministerio,org_estado,org_coperacion]',
             'telefono' => 'required|is_natural|is_unique[enlace.telefono,id_enlace,' . $id_enlace . ']|min_length[8]|max_length[20]',
             'fax' => 'required|is_natural',
@@ -263,6 +287,42 @@ class Enlace extends BaseController
             'success' => true,
             'message' => 'Se actualizo los datos al sistema correctamente.'
         ]);
+
+    }
+
+    public function delete()
+    {
+
+
+        try {
+            // Código que puede generar una excepción
+            $id = $this->request->getPost('param');
+
+            $model = new EnlaceModel();
+            $registro = $model->find($id);
+
+            if ($registro->estado == 1) {
+                $model->update($id, ['estado' => 0]);
+                return $this->response->setJSON([
+                    'success' => true,
+                    'message' => 'Se Deshabilito el registro correctamente.'
+                ]);
+            } else {
+                $model->update($id, ['estado' => 1]);
+                return $this->response->setJSON([
+                    'success' => true,
+                    'message' => 'Se Habilito el registro correctamente.'
+                ]);
+            }
+        } catch (\Exception $e) {
+            // Manejar la excepción
+            // echo "Se produjo una excepción: " . $e->getMessage();
+            return $this->response->setJSON([
+                'success' => false,
+                'error' => $e->getMessage()
+            ]);
+        }
+
 
     }
 

@@ -176,7 +176,7 @@ $(document).ready(function () {
                     cache: false,
                     async: false,
                     success: function (response) {
-                        console.log(response.html)
+                        // console.log(response.html)
                         // Maneja la respuesta del servidor
                         if (!response.success) {
 

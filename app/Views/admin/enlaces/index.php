@@ -1,4 +1,3 @@
-
 <div class="pagetitle">
     <h1><?= $titleHeadContent; ?></h1>
     <nav>
@@ -88,3 +87,25 @@
     </div>
 </div>
 <!-- End Vertically centered Modal-->
+
+<!-- centered Modal Info -->
+<div class="modal fade draggable-modal" id="modal_convenio_info" tabindex="-1" role="dialog">
+    <div id="modal_convenio_info-dialog" class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-modal-jf">
+                <h5 id="modal_convenio_info-title" class="modal_convenio_info-title modal-title">Titulo Modal</h5>
+                <button id="modal_convenio_info-close" type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div id="modal_convenio_info-body" class="modal_convenio_info-body modal-body">
+                <!-- dinamic content -->
+            </div>
+            <div id="modal_convenio_info-footer" class="modal-footer">
+                <button type="button" class="btn btn-outline-danger btn-sm" data-bs-dismiss="modal"><i
+                            class="bi bi-backspace me-1"></i> Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End centered Modal Info-->

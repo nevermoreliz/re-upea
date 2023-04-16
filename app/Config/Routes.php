@@ -100,12 +100,13 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'au
         $routes->get('/', 'Enlace::index', ['as' => 'enlace_index']); /* lista en datatable */
         $routes->get('lista', 'Enlace::list', ['as' => 'enlace_list']); /* lista en datatable */
 
-        $routes->get('detalle/(:num)', 'Enlace::show/$1', ['as' => 'enlace_show']); /* informacion */
+        $routes->get('detalle', 'Enlace::show', ['as' => 'enlace_show']); /* informacion */
+
         $routes->get('crear', 'Enlace::create', ['as' => 'enlace_create']); /* formulario */
         $routes->post('guardar', 'Enlace::store', ['as' => 'enlace_store']); /* guardar datos del formulario */
         $routes->get('editar', 'Enlace::edit', ['as' => 'enlace_edit']); /* actualiza datos del formulario */
-
         $routes->post('actualizar', 'Enlace::update', ['as' => 'enlace_update']); /* actualiza datos del formulario */
+
         $routes->post('eliminar', 'Enlace::delete', ['as' => 'enlace_delete']); /* pone el estado en 0 para desabilitado */
 
         /* otras rutas para otros opjetivos */

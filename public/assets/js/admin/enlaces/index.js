@@ -12,7 +12,9 @@ $(document).ready(function () {
             url: '<?= base_url(route_to("enlace_list"))?>',
         },
         columnDefs: [
-            {responsivePriority: 1, targets: -1}
+            {responsivePriority: 1, targets: -1},
+            {responsivePriority: 1, targets: -2},
+            {responsivePriority: 1, targets: -3},
         ],
         columns: [
             {data: 'id_enlace', visible: false},
@@ -37,15 +39,27 @@ $(document).ready(function () {
                 data: 'links_enlace',
                 render: function (data, type, row) {
                     return `
-                        <a href="<?= base_url()?>` + data + `" class="btn btn-outline-info btn-sm" target="_blank"><i class="bi bi-window"></i> Visitar</a>
+                        <a href="` + data + `" class="btn btn-outline-primary btn-sm" target="_blank"><i class="bi bi-window"></i> Visitar</a>
                     `;
                 }
             },
-
             {data: 'tipo_enlace'},
-            {data: 'telefono'},
+            {
+                data: 'telefono',
+                render: function (data, type, row) {
+                    if (data == 0 || data == null || data == '' || data == '00000000') {
+                        return `<span class="badge bg-warning text-dark"><i class="bi bi-telephone-x me-1"></i> Sin Numero</span>`;
+                    }
+                    return data;
+                }
+            },
             {data: 'fax'},
-            {data: 'fecha'},
+            {
+                data: 'fecha',
+                render: function (data, type, row) {
+                    return `<button type="button" class="btn btn-outline-primary btn-sm" disabled="">` + data + `</button>`;
+                }
+            },
             {
                 data: 'estado',
                 render: function (data, type, row) {
@@ -66,6 +80,19 @@ $(document).ready(function () {
                 data: null,
                 render: function (data, type, row) {
                     // return '<button class="btn btn-primary">' + data['name'] + '</button>';
+
+                    var clase, textCamp, iconAction;
+
+                    if (data['estado'] == 1) {
+                        clase = 'delete-convenio';
+                        textCamp = 'Deshabilitar';
+                        iconAction = 'bi bi-trash';
+                    } else {
+                        clase = 'active-convenio';
+                        textCamp = 'Activar';
+                        iconAction = 'bi bi-check-square';
+                    }
+
                     return `
                         <!-- Example single danger button -->
                         <div class="btn-group">
@@ -74,9 +101,9 @@ $(document).ready(function () {
                           </button>
                           <ul class="dropdown-menu">
                             <li><a class="dropdown-item edit-convenio" data-convenio="` + data['id_enlace'] + `" href="javascript:void(0)"><i class="bi bi-pencil-square"></i> Modificar </a></li>
-                            <li><a class="dropdown-item" href="javascript:void(0)"><i class="bi bi-trash"></i> Desabilitar</a></li>
+                            <li><a id="dinamic-text-enlace-active" class="dropdown-item texto-ext ` + clase + `" data-convenio="` + data['id_enlace'] + `" href="javascript:void(0)"><i class="` + iconAction + `"></i> ` + textCamp + `</a></li>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="javascript:void(0)"><i class="bi bi-info"></i> Más Detalle</a>
+                            <a class="dropdown-item show-convenio" data-convenio="` + data['id_enlace'] + `" href="javascript:void(0)"><i class="bi bi-info"></i> Más Detalle</a>
                           </ul>
                         </div>
                     `;
@@ -147,6 +174,111 @@ $(document).ready(function () {
             }
         });
     });
+
+    /* eliminar o deshabilitar convenio */
+    $(document).on('click', 'a.delete-convenio, a.active-convenio', function (e) {
+        var text;
+        if ($('#dinamic-text-enlace-active').hasClass('delete-convenio')) {
+            text = 'Deshabilitara';
+        } else if ($('#dinamic-text-enlace-active').hasClass('active-convenio')) {
+            text = 'Activara';
+        }
+
+
+        Swal.fire({
+            title: '¿Está seguro?',
+            text: 'Se ' + text + ' el registro en el sistema',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: 'Confirmar!',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '<?= base_url(route_to("enlace_delete"))?>',
+                    type: 'post',
+                    data: {param: e.target.getAttribute('data-convenio')},
+                    success: function (response) {
+                        // Manejar la respuesta del servidor
+
+                        if (!response.success) {
+
+                            alert('algo paso comuniquese con el administrador ' + response.error);
+                            console.log(response.error);
+
+                        } else {
+                            /* muestra en consola */
+                            // console.log(response);
+                            Swal.fire({
+                                title: response.message + '!',
+                                // title: 'Registro Deshabilitado Correctamente!',
+                                // text: response.message,
+                                icon: 'success',
+                                confirmButtonText: 'Continuar',
+                                confirmButtonColor: '#3085d6',
+                                showCancelButton: false,
+                                allowOutsideClick: false,
+                                allowEscapeKey: false,
+                            });
+                            /* recargar datatable */
+                            $('#dt_enlaces').DataTable().draw(false);
+
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        // Manejar los errores de la petición
+                        console.log('Ocurrió un error en la petición AJAX');
+                        // console.log("ERROR" + errorThrown + textStatus + jqXHR);
+                        console.log("Error: " + errorThrown);
+                    }
+                });
+
+
+            }
+        });
+
+
+    });
+
+    /* mostrar informacion completa del convenio */
+    $(document).on('click', 'a.show-convenio', function (e) {
+        $.ajax({
+            url: '<?= base_url(route_to("enlace_show"))?>',
+            type: 'get',
+            data: {param: e.target.getAttribute('data-convenio')},
+            success: function (response) {
+                console.log(response)
+                // Manejar la respuesta del servidor
+
+                $('#main').html(response.html).fadeIn("slow");
+                // parametrosModal(
+                //     '#modal_convenio_info',
+                //     'INFORMACIÓN COMPLETA DEL CONVENIO',
+                //     'modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg',
+                //     false,
+                //     'static');
+                //
+                // /* elimina cualquier contenido anterior */
+                // $('#modal_convenio_info-body').html('');
+                // /* agregar el contenido html en el contenido del model */
+                // $('#modal_convenio_info-body').html(response.html);
+
+
+                /* poner titulo al title<header> */
+                document.querySelector("title").innerText = "Admin RI | " + response.title;
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                // Manejar los errores de la petición
+                console.log('Ocurrió un error en la petición AJAX');
+                console.log("Error: " + errorThrown);
+            }
+        });
+    })
 
     /* agregar usuario y abrir el modal */
     $('button.btn-new-convenio').click(function (e) {
