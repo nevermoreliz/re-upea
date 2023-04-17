@@ -22,7 +22,7 @@
             </a>
             <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="<?= base_url(route_to('index_nacional')) ?>" class="menu--link">
+                    <a href="<?= base_url(route_to('convenioNacional_index')) ?>" class="menu--link">
                         <i class="bi bi-circle"></i><span>Nacionales</span>
                     </a>
                 </li>

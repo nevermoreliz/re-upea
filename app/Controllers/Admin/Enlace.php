@@ -24,6 +24,7 @@ class Enlace extends BaseController
         }
 
         $html = $this->templater->viewAdmin('admin/enlaces/index', $data);
+
         return $this->response->setJSON([
             'success' => true,
             'html' => $html,
@@ -49,7 +50,7 @@ class Enlace extends BaseController
         return $this->response->setJSON([
             'success' => true,
             'html' => $html,
-            'title' => 'Nuevo Convenio',
+            'title' => 'Nuevo ConvenioNacional',
             'data' => $id
         ]);
 
@@ -98,7 +99,7 @@ class Enlace extends BaseController
         return $this->response->setJSON([
             'success' => true,
             'html' => $html,
-            'title' => 'Nuevo Convenio'
+            'title' => 'Nuevo ConvenioNacional'
         ]);
     }
 
@@ -191,7 +192,7 @@ class Enlace extends BaseController
         return $this->response->setJSON([
             'success' => true,
             'html' => $html,
-            'title' => 'Modificar Convenio',
+            'title' => 'Modificar ConvenioNacional',
             'data' => $data
         ]);
 

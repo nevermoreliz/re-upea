@@ -3,6 +3,7 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
+use App\Models\ConvenioModel;
 
 class Dashboard extends BaseController
 {
@@ -15,13 +16,7 @@ class Dashboard extends BaseController
     public function index()
 
     {
-
-//
-//   $html = '<div id="main">' .
-//            htmlspecialchars_decode(localStorage . getItem('contenido-dinamico')) .
-//            '</div>';
         $titleHeadPage = $data['titleHeadContent'] = 'Panel Principal';
-
         if (!$this->request->isAJAX()) {
             return $this->templater->viewAdmin('admin/dashboard/index', $data);
         }

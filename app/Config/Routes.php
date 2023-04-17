@@ -51,11 +51,21 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'au
         $routes->get('', 'Publicacion::index', ['as' => 'index_publicacion']);
 
         $routes->group('nacionales', ['namespace' => 'App\Controllers\Admin'], function ($routes) {
-            $routes->get('/', 'Convenio::indexNacional', ['as' => 'index_nacional']);
+            $routes->get('/', 'ConvenioNacional::index', ['as' => 'convenioNacional_index']);
+            $routes->get('lista', 'ConvenioNacional::list', ['as' => 'convenioNacional_list']); /* lista en datatable */
+
+
+            $routes->get('detalle', 'ConvenioNacional::show', ['as' => 'enlace_show']); /* informacion */
+            $routes->get('crear', 'ConvenioNacional::create', ['as' => 'enlace_create']); /* formulario */
+            $routes->post('guardar', 'ConvenioNacional::store', ['as' => 'enlace_store']); /* guardar datos del formulario */
+            $routes->get('editar', 'ConvenioNacional::edit', ['as' => 'enlace_edit']); /* actualiza datos del formulario */
+            $routes->post('actualizar', 'ConvenioNacional::update', ['as' => 'enlace_update']); /* actualiza datos del formulario */
+            $routes->post('eliminar', 'ConvenioNacional::delete', ['as' => 'enlace_delete']); /* pone el estado en 0 para desabilitado */
+
         });
 
         $routes->group('internacionales', ['namespace' => 'App\Controllers\Admin'], function ($routes) {
-            $routes->get('/', 'Convenio::indexInternacional', ['as' => 'index_internacional']);
+            $routes->get('/', 'ConvenioInternacional::indexInternacional', ['as' => 'index_internacional']);
         });
     });
 
@@ -99,14 +109,11 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'au
         /* crud de enlace o institucion */
         $routes->get('/', 'Enlace::index', ['as' => 'enlace_index']); /* lista en datatable */
         $routes->get('lista', 'Enlace::list', ['as' => 'enlace_list']); /* lista en datatable */
-
         $routes->get('detalle', 'Enlace::show', ['as' => 'enlace_show']); /* informacion */
-
         $routes->get('crear', 'Enlace::create', ['as' => 'enlace_create']); /* formulario */
         $routes->post('guardar', 'Enlace::store', ['as' => 'enlace_store']); /* guardar datos del formulario */
         $routes->get('editar', 'Enlace::edit', ['as' => 'enlace_edit']); /* actualiza datos del formulario */
         $routes->post('actualizar', 'Enlace::update', ['as' => 'enlace_update']); /* actualiza datos del formulario */
-
         $routes->post('eliminar', 'Enlace::delete', ['as' => 'enlace_delete']); /* pone el estado en 0 para desabilitado */
 
         /* otras rutas para otros opjetivos */

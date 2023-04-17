@@ -57,7 +57,7 @@ class UserModel extends Model
     // obtener informacion del usuario logeado
     public function getUserInfo(string $column, string $value)
     {
-        $db      = \Config\Database::connect();
+        $db = \Config\Database::connect();
         $builder = $db->table('vista_sessiones')->where($column, $value)->get();
         return $builder->getFirstRow();
     }
