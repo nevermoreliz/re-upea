@@ -8,17 +8,17 @@ class TableLibNormal
 {
 
     private $table;
-    private $group;
+    // private $group;
     private $columns;
     private $db;
 
 
-    public function __construct($table, string $group, array $columns)
+    public function __construct(string $table, array $columns)
     {
 
         $this->db = \Config\Database::connect();
         $this->table = $this->db->table($table);
-        $this->group = $group;
+        // $this->group = $group;
         $this->columns = $columns;
     }
 
@@ -44,6 +44,7 @@ class TableLibNormal
          ********************************************************/
         $page = ceil(($start - 1) / $length + 1);
 
+
         if (!empty($search)) {
             /*************************************************
              * AGREGA A LA CONSULTA BUILDER EL FINTRO ORLIKE *
@@ -57,16 +58,17 @@ class TableLibNormal
          *********************************************************/
         $data = $this->table
             ->orderBy($this->getColumn($order), $direction)
-            ->paginate($length, $this->group, $page);
+            // ->paginate($length, $this->group, $page);
+            ->limit($length,$page);
 
         /**********************************
          * RETORNA EL UN ARREGLO DE ARRAY *
          **********************************/
         return [
             "draw" => $draw,
-            "recordsTotal" => $this->table->countAll(),
-            "recordsFiltered" => $this->table->pager->getTotal($this->group),
-            "data" => $data
+            "recordsTotal" => $this->table->get()->getNumRows(),
+            "recordsFiltered" => $data->get()->getNumRows(),
+            "data" => $data->get()->getResultObject()
         ];
     }
 

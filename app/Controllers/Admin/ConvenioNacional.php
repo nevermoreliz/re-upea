@@ -56,7 +56,8 @@ class ConvenioNacional extends BaseController
         $vistaModel = $model->vistaConveniosNacionales();
 //        return $this->response->setJSON($vistaModel);
 
-        $lib = new TableLib($model, 'gp2', $column_map);
+        // $lib = new TableLib($model, 'gp2', $column_map);
+        $lib = new TableLibNormal('vista_convenios_nacionales', $column_map);
 
         $response = $lib->getResponse([
             'draw' => $this->request->getVar('draw'),
