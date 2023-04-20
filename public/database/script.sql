@@ -1,27 +1,15 @@
-create table dato_enlace
-(
-    id_dato_enlace         int auto_increment
-        primary key,
-    id_enlace              int          not null,
-    direccion              varchar(500) null,
-    correo                 varchar(255) null,
-    inicio_convenio_enlace date         null,
-    fin_convenio_enlace    date         null,
-    estado                 tinyint(1)   null,
-    constraint dato_enlace_enlace_id_enlace_fk unique (id_enlace),
-    constraint dato_enlace_enlace_id_enlace_fk foreign key (id_enlace) references enlace (id_enlace) on update cascade on delete cascade
-) engine = InnoDB;
-
 create table sic_paises
 (
-    id_pais    int auto_increment
-        primary key,
-    pais       varchar(150) charset utf8mb4 not null,
-    capital    varchar(150) charset utf8mb4 null,
-    continente varchar(100) charset utf8mb4 null,
-    iso        varchar(50) charset utf8mb4  null,
-    estado     tinyint(1)                   null
+    id_pais     int auto_increment primary key,
+    pais        varchar(150) not null,
+    capital     varchar(150) null,
+    continente  varchar(100) null,
+    codigo_pais varchar(50)  null,
+    iso         varchar(50)  null,
+    estado      tinyint(1)   null
 ) engine = InnoDB;
+
+
 
 INSERT INTO relaciones.sic_paises (pais, capital, continente, iso, estado)
 VALUES ('Afganistán', 'Kabul', 'Asia', null, 1);
@@ -418,18 +406,21 @@ VALUES ('Zambia', 'Lusaka', 'África', null, 1);
 INSERT INTO relaciones.sic_paises (pais, capital, continente, iso, estado)
 VALUES ('Zimbabue', 'Harare', 'África', null, 1);
 
-create table sic_enlaces_pais
+
+create table dato_enlace
 (
-    id_enlace_pais int auto_increment
+    id_dato_enlace         int auto_increment
         primary key,
-    id_enlace      int null,
-    id_pais        int null,
-    constraint sic_enlaces_pais_enlace_id_enlace_fk
-        foreign key (id_enlace) references enlace (id_enlace)
-            on update cascade on delete cascade,
-    constraint sic_enlaces_pais_sic_paises_id_pais_fk
-        foreign key (id_pais) references sic_paises (id_pais)
-            on update cascade on delete cascade
+    id_enlace              int          not null,
+    direccion              varchar(500) null,
+    correo                 varchar(255) null,
+    id_pais                int          null,
+    inicio_convenio_enlace date         null,
+    fin_convenio_enlace    date         null,
+    estado                 tinyint(1)   null,
+    constraint dato_enlace_enlace_id_enlace_fk unique (id_enlace),
+    constraint dato_enlace_enlace_id_enlace_fk foreign key (id_enlace) references enlace (id_enlace) on update cascade on delete cascade,
+    constraint dato_enlace_sic_paises_id_pais_fk foreign key (id_pais) references sic_paises (id_pais) on update cascade on delete cascade
 ) engine = InnoDB;
 
 create table sic_enlace_convenios
@@ -437,12 +428,9 @@ create table sic_enlace_convenios
     id_elnace_convenio int auto_increment,
     id_convenios       int null,
     id_enlace          int null,
-    constraint sic_enlace_convenios_pk
-        primary key (id_elnace_convenio),
-    constraint sic_enlace_convenios_enlace_id_enlace_fk
-        foreign key (id_enlace) references enlace (id_enlace),
-    constraint sic_enlace_convenios_sic_convenio_id_convenios_fk
-        foreign key (id_convenios) references sic_convenio (id_convenios)
+    constraint sic_enlace_convenios_pk primary key (id_elnace_convenio),
+    constraint sic_enlace_convenios_enlace_id_enlace_fk foreign key (id_enlace) references enlace (id_enlace) on update cascade on delete cascade,
+    constraint sic_enlace_convenios_sic_convenio_id_convenios_fk foreign key (id_convenios) references sic_convenio (id_convenios) on update cascade on delete cascade
 ) engine = InnoDB;
 
 
