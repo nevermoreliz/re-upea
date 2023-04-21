@@ -1,16 +1,13 @@
 /* selecionando enlace*/
-select *
-from enlace as e
-         left join dato_enlace as de on e.id_enlace = de.id_enlace
-         left join sic_paises sp on de.id_pais = sp.id_pais;
-
-create view re_vista_enlace as
+create or replace view re_vista_enlace as
 select e.id_enlace id_enlace,
        orden,
        url_enlace,
        links_enlace,
        nombre_enlace,
        tipo_enlace,
+       ste.id_tipo_enlace,
+       ste.nombre_tipo_enlace,
        telefono,
        fax,
        fecha,
@@ -19,7 +16,7 @@ select e.id_enlace id_enlace,
        correo,
        inicio_convenio_enlace,
        fin_convenio_enlace,
-       de.id_pais id_pais,
+       de.id_pais  id_pais,
        pais,
        capital,
        continente,
@@ -28,18 +25,19 @@ select e.id_enlace id_enlace,
        e.estado
 from enlace as e
          left join dato_enlace as de on e.id_enlace = de.id_enlace
-         left join sic_paises sp on de.id_pais = sp.id_pais;
+         left join sic_paises sp on de.id_pais = sp.id_pais
+         left join sic_tipo_enlaces ste on de.id_tipo_enlace = ste.id_tipo_enlace
 
 /* selecionando convenios mas sus enlaces */
 select sc.id_convenios,
        sc.nombre_convenio,
        sc.id_tipo_convenio,
-       CONCAT('[', GROUP_CONCAT( JSON_OBJECT('campo2', e.id_enlace)), ']') table_enlace
+       CONCAT('[', GROUP_CONCAT(JSON_OBJECT('campo2', e.id_enlace)), ']') table_enlace
 from sic_convenio sc
          left join sic_enlace_convenios sec
-              on sc.id_convenios = sec.id_convenios
+                   on sc.id_convenios = sec.id_convenios
          left join enlace e
-              on sec.id_enlace = e.id_enlace
+                   on sec.id_enlace = e.id_enlace
 group by sc.id_convenios;
 
 
@@ -59,7 +57,7 @@ select sc.id_convenios,
        sc.entidad,
        sc.telefono,
        sc.email,
-       sc.estado estado_convenio,
+       sc.estado  estado_convenio,
        rve.id_enlace,
        rve.orden,
        rve.url_enlace,

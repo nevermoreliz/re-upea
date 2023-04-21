@@ -406,20 +406,31 @@ VALUES ('Zambia', 'Lusaka', 'África', null, 1);
 INSERT INTO relaciones.sic_paises (pais, capital, continente, iso, estado)
 VALUES ('Zimbabue', 'Harare', 'África', null, 1);
 
+create table sic_tipo_enlaces
+(
+    id_tipo_enlace      int auto_increment primary key,
+    nombre_tipo_enlace varchar(255) null
+) engine = InnoDB;
+
+INSERT INTO relaciones.sic_tipo_enlaces (nombre_tipo_enlace) VALUES ('enlace');
+INSERT INTO relaciones.sic_tipo_enlaces (nombre_tipo_enlace) VALUES ('embajada');
+INSERT INTO relaciones.sic_tipo_enlaces (nombre_tipo_enlace) VALUES ('consulado');
+INSERT INTO relaciones.sic_tipo_enlaces (nombre_tipo_enlace) VALUES ('ministerio');
 
 create table dato_enlace
 (
-    id_dato_enlace         int auto_increment
-        primary key,
+    id_dato_enlace         int auto_increment primary key,
     id_enlace              int          not null,
     direccion              varchar(500) null,
     correo                 varchar(255) null,
     id_pais                int          null,
     inicio_convenio_enlace date         null,
     fin_convenio_enlace    date         null,
+    id_tipo_enlace         int          null,
     constraint dato_enlace_enlace_id_enlace_fk unique (id_enlace),
     constraint dato_enlace_enlace_id_enlace_fk foreign key (id_enlace) references enlace (id_enlace) on update cascade on delete cascade,
-    constraint dato_enlace_sic_paises_id_pais_fk foreign key (id_pais) references sic_paises (id_pais) on update cascade on delete cascade
+    constraint dato_enlace_sic_paises_id_pais_fk foreign key (id_pais) references sic_paises (id_pais) on update cascade on delete cascade,
+    constraint dato_enlace_sic_tipo_enlaces_id_tipo_enace_fk foreign key (id_tipo_enlace) references sic_tipo_enlaces (id_tipo_enlace) on update cascade on delete cascade
 ) engine = InnoDB;
 
 create table sic_enlace_convenios
@@ -431,6 +442,8 @@ create table sic_enlace_convenios
     constraint sic_enlace_convenios_enlace_id_enlace_fk foreign key (id_enlace) references enlace (id_enlace) on update cascade on delete cascade,
     constraint sic_enlace_convenios_sic_convenio_id_convenios_fk foreign key (id_convenios) references sic_convenio (id_convenios) on update cascade on delete cascade
 ) engine = InnoDB;
+
+
 
 
 
