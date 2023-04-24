@@ -55,12 +55,12 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'au
             $routes->get('lista', 'ConvenioNacional::list', ['as' => 'convenioNacional_list']); /* lista en datatable */
 
 
-            $routes->get('detalle', 'ConvenioNacional::show', ['as' => 'enlace_show']); /* informacion */
-            $routes->get('crear', 'ConvenioNacional::create', ['as' => 'enlace_create']); /* formulario */
-            $routes->post('guardar', 'ConvenioNacional::store', ['as' => 'enlace_store']); /* guardar datos del formulario */
-            $routes->get('editar', 'ConvenioNacional::edit', ['as' => 'enlace_edit']); /* actualiza datos del formulario */
-            $routes->post('actualizar', 'ConvenioNacional::update', ['as' => 'enlace_update']); /* actualiza datos del formulario */
-            $routes->post('eliminar', 'ConvenioNacional::delete', ['as' => 'enlace_delete']); /* pone el estado en 0 para desabilitado */
+            $routes->get('detalle', 'ConvenioNacional::show', ['as' => 'convenioNacional_show']); /* informacion */
+            $routes->get('crear', 'ConvenioNacional::create', ['as' => 'convenioNacional_create']); /* formulario */
+            $routes->post('guardar', 'ConvenioNacional::store', ['as' => 'convenioNacional_store']); /* guardar datos del formulario */
+            $routes->get('editar', 'ConvenioNacional::edit', ['as' => 'convenioNacional_edit']); /* actualiza datos del formulario */
+            $routes->post('actualizar', 'ConvenioNacional::update', ['as' => 'convenioNacional_update']); /* actualiza datos del formulario */
+            $routes->post('eliminar', 'ConvenioNacional::delete', ['as' => 'convenioNacional_delete']); /* pone el estado en 0 para desabilitado */
 
         });
 

@@ -408,14 +408,18 @@ VALUES ('Zimbabue', 'Harare', 'África', null, 1);
 
 create table sic_tipo_enlaces
 (
-    id_tipo_enlace      int auto_increment primary key,
+    id_tipo_enlace     int auto_increment primary key,
     nombre_tipo_enlace varchar(255) null
 ) engine = InnoDB;
 
-INSERT INTO relaciones.sic_tipo_enlaces (nombre_tipo_enlace) VALUES ('enlace');
-INSERT INTO relaciones.sic_tipo_enlaces (nombre_tipo_enlace) VALUES ('embajada');
-INSERT INTO relaciones.sic_tipo_enlaces (nombre_tipo_enlace) VALUES ('consulado');
-INSERT INTO relaciones.sic_tipo_enlaces (nombre_tipo_enlace) VALUES ('ministerio');
+INSERT INTO relaciones.sic_tipo_enlaces (nombre_tipo_enlace)
+VALUES ('enlace');
+INSERT INTO relaciones.sic_tipo_enlaces (nombre_tipo_enlace)
+VALUES ('embajada');
+INSERT INTO relaciones.sic_tipo_enlaces (nombre_tipo_enlace)
+VALUES ('consulado');
+INSERT INTO relaciones.sic_tipo_enlaces (nombre_tipo_enlace)
+VALUES ('ministerio');
 
 create table dato_enlace
 (
@@ -424,6 +428,8 @@ create table dato_enlace
     direccion              varchar(500) null,
     correo                 varchar(255) null,
     id_pais                int          null,
+    departamento           varchar(300) null,
+    ciudad                 varchar(300) null,
     inicio_convenio_enlace date         null,
     fin_convenio_enlace    date         null,
     id_tipo_enlace         int          null,

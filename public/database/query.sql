@@ -1,5 +1,6 @@
 /* selecionando enlace*/
-create or replace view re_vista_enlace as
+create
+or replace view re_vista_enlace as
 select e.id_enlace id_enlace,
        orden,
        url_enlace,
@@ -22,6 +23,8 @@ select e.id_enlace id_enlace,
        continente,
        codigo_pais,
        iso,
+       departamento,
+       ciudad,
        e.estado
 from enlace as e
          left join dato_enlace as de on e.id_enlace = de.id_enlace

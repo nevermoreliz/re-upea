@@ -110,7 +110,7 @@ $(document).ready(function () {
                 }
             }
         ],
-        order: [[0, "desc"]]
+        order: [[0, 'desc']],
     });
 
     /* modificar convenio */

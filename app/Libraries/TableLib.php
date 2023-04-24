@@ -54,6 +54,7 @@ class TableLib
             ->orderBy($this->getColumn($order), $direction)
             ->paginate($length, $this->group, $page);
 
+
         /**********************************
          * RETORNA EL UN ARREGLO DE ARRAY *
          **********************************/

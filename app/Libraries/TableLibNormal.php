@@ -22,7 +22,7 @@ class TableLibNormal
         $this->columns = $columns;
     }
 
-    public function getResponse(array $filters)
+    public function getResponseNormal(array $filters)
     {
 
         /**********************************
@@ -51,6 +51,7 @@ class TableLibNormal
              *************************************************/
             $this->applyFilters($search);
         }
+        $totalRegistro = $this->table->get()->getNumRows();
 
         /*********************************************************
          * RETORNA LOS DATOS DE LA CONSULTA SQL DE BASE DE DATOS *
@@ -59,8 +60,15 @@ class TableLibNormal
         $data = $this->table
             ->orderBy($this->getColumn($order), $direction)
             // ->paginate($length, $this->group, $page);
-            ->limit($length,$page);
+            ->limit($length, $page);
 
+        return [
+            "draw" => $draw,
+//            "hola2" => $this->table->get()->getResultObject(),
+//            "hola1" => $data->get()->getNumRows(),
+            "hola1" => $totalRegistro,
+//            "data" => $data->get()->getResultObject()
+        ];
         /**********************************
          * RETORNA EL UN ARREGLO DE ARRAY *
          **********************************/

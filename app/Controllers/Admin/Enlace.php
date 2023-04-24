@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Libraries\TableLib;
+use App\Libraries\TableLibNormal;
 use App\Models\EnlaceModel;
 
 class Enlace extends BaseController
@@ -61,23 +62,23 @@ class Enlace extends BaseController
         $order = $this->request->getVar('order');
         $order = array_shift($order);
 
-        $model = new EnlaceModel();
 
         $column_map = [
-            'id_enlace',
-            'orden',
-            'url_enlace',
-            'links_enlace',
-            'nombre_enlace',
-            'tipo_enlace',
-            'telefono',
-            'fax',
-            'fecha',
-            'estado'
+            '0' => 'id_enlace',
+            '1' => 'orden',
+            '2' => 'url_enlace',
+            '3' => 'links_enlace',
+            '4' => 'nombre_enlace',
+            '5' => 'tipo_enlace',
+            '6' => 'telefono',
+            '7' => 'fax',
+            '8' => 'fecha',
+            '9' => 'estado'
         ];
 
-        $lib = new TableLib($model, 'gp1', $column_map);
-        $response = $lib->getResponse([
+        $lib = new TableLibNormal('re_vista_enlace', $column_map);
+
+        $response = $lib->getResponseNormal([
             'draw' => $this->request->getVar('draw'),
             'length' => $this->request->getVar('length'),
             'start' => $this->request->getVar('start'),
@@ -88,6 +89,39 @@ class Enlace extends BaseController
 
         return $this->response->setJSON($response);
     }
+
+//    public function list()
+//    {
+//        $order = $this->request->getVar('order');
+//        $order = array_shift($order);
+//
+//        $model = new EnlaceModel();
+//
+//        $column_map = [
+//            'id_enlace',
+//            'orden',
+//            'url_enlace',
+//            'links_enlace',
+//            'nombre_enlace',
+//            'tipo_enlace',
+//            'telefono',
+//            'fax',
+//            'fecha',
+//            'estado'
+//        ];
+//
+//        $lib = new TableLib($model, 'gp1', $column_map);
+//        $response = $lib->getResponse([
+//            'draw' => $this->request->getVar('draw'),
+//            'length' => $this->request->getVar('length'),
+//            'start' => $this->request->getVar('start'),
+//            'order' => $order['column'],
+//            'direction' => $order['dir'],
+//            'search' => $this->request->getVar('search')['value']
+//        ]);
+//
+//        return $this->response->setJSON($response);
+//    }
 
     public function create()
     {
