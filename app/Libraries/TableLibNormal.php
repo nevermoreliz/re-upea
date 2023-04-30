@@ -2,83 +2,75 @@
 
 namespace App\Libraries;
 
-use CodeIgniter\Model;
 
 class TableLibNormal
 {
+    protected $db;
+    protected $builder;
+    protected $table;
+    protected $columns;
+    protected $searchable_columns;
 
-    private $table;
-    // private $group;
-    private $columns;
-    private $db;
+//    protected $nameTabla;
 
-
-    public function __construct(string $table, array $columns)
+    public function __construct(string $table, array $array)
     {
-
+        // Obtener instancia de la base de datos
         $this->db = \Config\Database::connect();
-        $this->table = $this->db->table($table);
-        // $this->group = $group;
-        $this->columns = $columns;
+
+        // Definir las columnas de la tabla
+        $this->columns = $array;
+
+        // Definir las columnas en las que se puede realizar búsqueda
+        $this->searchable_columns = $array;
+
+        $this->table = $table;
     }
 
-    public function getResponseNormal(array $filters)
+    public function getResponse(array $filters)
     {
-
-        /**********************************
-         * DESESTRUCTURAR EL ARRAY FILTER *
-         **********************************/
+        // Obtener parámetros de búsqueda, paginación y ordenamiento
         [
             'draw' => $draw,
-            'length' => $length,
+            'length' => $limit,
             'start' => $start,
-            'order' => $order,
-            'direction' => $direction,
+            'order' => $order_col,
+            'direction' => $order_dir,
             'search' => $search
         ] = $filters;
 
+        // Definir la tabla y crear un objeto BaseBuilder para realizar la consulta
 
-        /********************************************************
-         * SACAMOS LA CANTIDAD DE PAGINAS CON LOS DATOS GET QUE *
-         *          ENVIA LOS PARAMETROS DEL DATATABLE          *
-         ********************************************************/
-        $page = ceil(($start - 1) / $length + 1);
+//        $this->table = $this->nameTabla;
+        $this->builder = $this->db->table($this->table);
 
-
+        // Realizar búsqueda
         if (!empty($search)) {
             /*************************************************
              * AGREGA A LA CONSULTA BUILDER EL FINTRO ORLIKE *
              *************************************************/
             $this->applyFilters($search);
         }
-        $totalRegistro = $this->table->get()->getNumRows();
 
-        /*********************************************************
-         * RETORNA LOS DATOS DE LA CONSULTA SQL DE BASE DE DATOS *
-         *               CON LA PROPIEDAD PAGINATE               *
-         *********************************************************/
-        $data = $this->table
-            ->orderBy($this->getColumn($order), $direction)
-            // ->paginate($length, $this->group, $page);
-            ->limit($length, $page);
+        // Definir límite y offset para paginación
+        $this->builder->limit($limit, $start);
 
+        // Definir columna y dirección para ordenamiento
+        $this->builder->orderBy($this->getColumn($order_col), $order_dir);
+
+        // Obtener los datos y contar el total de registros
+        $data = $this->builder->get()->getResult();
+        $total = $this->db->table($this->table)->countAllResults();
+
+        // Devolver los datos formateados
         return [
-            "draw" => $draw,
-//            "hola2" => $this->table->get()->getResultObject(),
-//            "hola1" => $data->get()->getNumRows(),
-            "hola1" => $totalRegistro,
-//            "data" => $data->get()->getResultObject()
-        ];
-        /**********************************
-         * RETORNA EL UN ARREGLO DE ARRAY *
-         **********************************/
-        return [
-            "draw" => $draw,
-            "recordsTotal" => $this->table->get()->getNumRows(),
-            "recordsFiltered" => $data->get()->getNumRows(),
-            "data" => $data->get()->getResultObject()
+            'draw' => $draw,
+            'recordsTotal' => $total,
+            'recordsFiltered' => $total,
+            'data' => $data
         ];
     }
+
 
     /**************************************
      * RETORNA EL INDICE DEL ARRAY COLUMS *
@@ -94,8 +86,10 @@ class TableLibNormal
      ******************************************************/
     public function applyFilters(string $match)
     {
-        foreach ($this->columns as $column) {
-            $this->table->orLike($column, $match);
+//
+
+        foreach ($this->searchable_columns as $column) {
+            $this->builder->orLike($column, $match);
         }
     }
 }

@@ -133,10 +133,10 @@ $(document).ready(function () {
 
     $(".action-update").click(function (event) {
         // Evita el comportamiento por defecto del formulario
-        event.preventDefault()
+        event.preventDefault();
 
         // Crea un objeto FormData
-        var formData = new FormData($('#formEnlace')[0])
+        let formData = new FormData($('#formEnlace')[0]);
 
         // Elimina los mensajes de error existentes
         $('.error').remove()

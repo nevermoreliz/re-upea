@@ -3,9 +3,11 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
-use App\Libraries\TableLib;
 use App\Libraries\TableLibNormal;
+use App\Models\DatoEnlaceModel;
 use App\Models\EnlaceModel;
+use App\Models\PaisModel;
+use App\Models\TipoEnlaceModel;
 
 class Enlace extends BaseController
 {
@@ -37,28 +39,31 @@ class Enlace extends BaseController
     {
 
         if (!$this->request->isAJAX()) {
-            return $this->templater->viewAdmin('admin/enlaces/showEnlaceInfo');
+//            return $this->templater->viewAdmin('admin/enlaces/showEnlaceInfo');
+
+            return redirect()->route('/')->back();
         }
+
         $id = $this->request->getGet('param');
         $model = new EnlaceModel();
 
         $data = [
-            'registro' => $model->find($id)
+//            'registro' => $model->find($id)
+            'registro' => $model->getFindVistaEnlace($id)
         ];
-
         $html = $this->templater->viewAdmin('admin/enlaces/showEnlaceInfo', $data);
 
         return $this->response->setJSON([
             'success' => true,
             'html' => $html,
-            'title' => 'Nuevo ConvenioNacional',
-            'data' => $id
+            'title' => 'Nuevo ConvenioNacional'
         ]);
 
     }
 
     public function list()
     {
+        /* optener el ordenamiento y dir de datatble parametros get */
         $order = $this->request->getVar('order');
         $order = array_shift($order);
 
@@ -70,15 +75,33 @@ class Enlace extends BaseController
             '3' => 'links_enlace',
             '4' => 'nombre_enlace',
             '5' => 'tipo_enlace',
-            '6' => 'telefono',
-            '7' => 'fax',
-            '8' => 'fecha',
-            '9' => 'estado'
+            '6' => 'id_tipo_enlace',
+            '7' => 'nombre_tipo_enlace',
+            '8' => 'telefono',
+            '9' => 'fax',
+            '10' => 'fecha',
+            '11' => 'id_dato_enlace',
+            '12' => 'direccion',
+            '13' => 'correo',
+            '14' => 'inicio_convenio_enlace',
+            '15' => 'fin_convenio_enlace',
+            '16' => 'id_pais',
+            '17' => 'pais',
+            '18' => 'capital',
+            '19' => 'continente',
+            '20' => 'codigo_pais',
+            '21' => 'iso',
+            '22' => 'departamento',
+            '23' => 'ciudad',
+            '24' => 'estado'
         ];
 
+
+        /* llamar la libreria de datatable para tabla normal */
         $lib = new TableLibNormal('re_vista_enlace', $column_map);
 
-        $response = $lib->getResponseNormal([
+        /* enviar formato a la libreria */
+        $response = $lib->getResponse([
             'draw' => $this->request->getVar('draw'),
             'length' => $this->request->getVar('length'),
             'start' => $this->request->getVar('start'),
@@ -90,46 +113,22 @@ class Enlace extends BaseController
         return $this->response->setJSON($response);
     }
 
-//    public function list()
-//    {
-//        $order = $this->request->getVar('order');
-//        $order = array_shift($order);
-//
-//        $model = new EnlaceModel();
-//
-//        $column_map = [
-//            'id_enlace',
-//            'orden',
-//            'url_enlace',
-//            'links_enlace',
-//            'nombre_enlace',
-//            'tipo_enlace',
-//            'telefono',
-//            'fax',
-//            'fecha',
-//            'estado'
-//        ];
-//
-//        $lib = new TableLib($model, 'gp1', $column_map);
-//        $response = $lib->getResponse([
-//            'draw' => $this->request->getVar('draw'),
-//            'length' => $this->request->getVar('length'),
-//            'start' => $this->request->getVar('start'),
-//            'order' => $order['column'],
-//            'direction' => $order['dir'],
-//            'search' => $this->request->getVar('search')['value']
-//        ]);
-//
-//        return $this->response->setJSON($response);
-//    }
-
     public function create()
     {
+
+        $tipoEnlaceModel = new TipoEnlaceModel();
+        $paisesModel = new PaisModel();
+
+        $data = [
+            'tiposEnlace' => $tipoEnlaceModel->findAll(),
+            'paises' => $paisesModel->where('estado', 1)->findAll()
+        ];
+
         if (!$this->request->isAJAX()) {
             return $this->templater->viewAdmin('admin/enlaces/viewFormEnlace');
         }
 
-        $html = $this->templater->viewAdmin('admin/enlaces/viewFormEnlace');
+        $html = $this->templater->viewAdmin('admin/enlaces/viewFormEnlace', $data);
         return $this->response->setJSON([
             'success' => true,
             'html' => $html,
@@ -140,15 +139,24 @@ class Enlace extends BaseController
     public function store()
     {
         $reglas = [
+//            'tipo_enlace' => 'required|in_list[enlace,embajada,consulado,ministerio,org_estado,org_coperacion]',
             'orden' => 'required|is_natural|min_length[1]|max_length[10]',
             'url_enlace' => 'uploaded[url_enlace]|max_size[url_enlace,1024]|mime_in[url_enlace,image/jpg,image/jpeg,image/png]',
             'links_enlace' => 'required',
             'nombre_enlace' => 'required|regex_match[/^[0-9a-zA-ZáéíóúÁÉÍÓÚñÑ\- \s]+$/]',
-            'tipo_enlace' => 'required|in_list[enlace,embajada,consulado,ministerio,org_estado,org_coperacion]',
             'telefono' => 'required|is_natural|is_unique[enlace.telefono]|min_length[8]|max_length[20]',
             'fax' => 'required|is_natural',
             'fecha' => 'required|valid_date[Y-m-d]',
             'estado' => 'required|in_list[0,1]',
+
+            'direccion' => 'required|min_length[1]|max_length[500]',
+            'correo' => 'required|valid_email|min_length[1]|max_length[200]',
+            'id_pais' => 'required|is_not_unique[sic_paises.id_pais]',
+            'departamento' => 'required|min_length[1]|max_length[300]',
+            'ciudad' => 'required|min_length[1]|max_length[300]',
+            'inicio_convenio_enlace' => 'required|valid_date[Y-m-d]',
+            'fin_convenio_enlace' => 'required|valid_date[Y-m-d]',
+            'id_tipo_enlace' => 'required|is_not_unique[sic_tipo_enlaces.id_tipo_enlace]'
         ];
 
         /* validacion de datos para guardar persona */
@@ -168,12 +176,21 @@ class Enlace extends BaseController
                 'orden' => trim($this->request->getPost('orden')),
                 'links_enlace' => trim($this->request->getPost('links_enlace')),
                 'nombre_enlace' => trim($this->request->getPost('nombre_enlace')),
-                'tipo_enlace' => trim($this->request->getPost('tipo_enlace')),
                 'telefono' => trim($this->request->getPost('telefono')),
                 'fax' => trim($this->request->getPost('fax')),
                 'fecha' => trim($this->request->getPost('fecha')),
                 'estado' => trim($this->request->getPost('estado')),
+
+                'direccion' => trim($this->request->getPost('direccion')),
+                'correo' => trim($this->request->getPost('correo')),
+                'id_pais' => trim($this->request->getPost('id_pais')),
+                'departamento' => trim($this->request->getPost('departamento')),
+                'ciudad' => trim($this->request->getPost('ciudad')),
+                'inicio_convenio_enlace' => trim($this->request->getPost('inicio_convenio_enlace')),
+                'fin_convenio_enlace' => trim($this->request->getPost('fin_convenio_enlace')),
+                'id_tipo_enlace' => trim($this->request->getPost('id_tipo_enlace')),
             ];
+
         } else {
 
             $nameFile = $imgProfile->getRandomName();
@@ -183,11 +200,19 @@ class Enlace extends BaseController
                 'url_enlace' => 'assets/img_enlace/' . $nameFile,
                 'links_enlace' => trim($this->request->getPost('links_enlace')),
                 'nombre_enlace' => trim($this->request->getPost('nombre_enlace')),
-                'tipo_enlace' => trim($this->request->getPost('tipo_enlace')),
                 'telefono' => trim($this->request->getPost('telefono')),
                 'fax' => trim($this->request->getPost('fax')),
                 'fecha' => trim($this->request->getPost('fecha')),
-                'estado' => trim($this->request->getPost('estado'))
+                'estado' => trim($this->request->getPost('estado')),
+
+                'direccion' => trim($this->request->getPost('direccion')),
+                'correo' => trim($this->request->getPost('correo')),
+                'id_pais' => trim($this->request->getPost('id_pais')),
+                'departamento' => trim($this->request->getPost('departamento')),
+                'ciudad' => trim($this->request->getPost('ciudad')),
+                'inicio_convenio_enlace' => trim($this->request->getPost('inicio_convenio_enlace')),
+                'fin_convenio_enlace' => trim($this->request->getPost('fin_convenio_enlace')),
+                'id_tipo_enlace' => trim($this->request->getPost('id_tipo_enlace')),
             ];
 
             /* directorio */
@@ -203,11 +228,39 @@ class Enlace extends BaseController
         }
 
         $modelEnlace = new EnlaceModel();
-        $modelEnlace->insert($datos);
+        try {
+
+            $idEnlace = $modelEnlace->insert($datos);
+
+        } catch (\ReflectionException $e) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'no se inserto al modelo enlace con los datos de $datos',
+                'error' => $e
+            ]);
+        }
+
+        $modelDatoEnlace = new DatoEnlaceModel();
+
+        /* agregar el id_enlace que genero al insertar la tabla enlace */
+//        $datosEnlace['id_enlace'] = $idEnlace;
+        $datos['id_enlace'] = $idEnlace;
+
+        try {
+//            $modelDatoEnlace->insert($datosEnlace);
+            $modelDatoEnlace->insert($datos);
+
+        } catch (\ReflectionException $e) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'no se inserto en la tabla de datos de enlace',
+                'error' => $e
+            ]);
+        }
 
         return $this->response->setJSON([
             'success' => true,
-            'message' => 'Se registro los datos al sistema correctamente.'
+            'message' => 'Se registro los datos al sistema correctamente.',
         ]);
     }
 
@@ -215,19 +268,30 @@ class Enlace extends BaseController
     {
         $id = $this->request->getGet('param');
         $model = new EnlaceModel();
-        $data = $model->find($id);
+//        $dataView = $model->find($id);
+        $dataView = $model->getFindVistaEnlace($id);
+
+        $tipoEnlaceModel = new TipoEnlaceModel();
+        $paisesModel = new PaisModel();
+
+
+        $data = [
+            'tiposEnlace' => $tipoEnlaceModel->findAll(),
+            'paises' => $paisesModel->where('estado', 1)->findAll()
+        ];
 
         if (!$this->request->isAJAX()) {
-            return $this->templater->viewAdmin('admin/enlaces/viewFormEnlace');
+            return $this->templater->viewAdmin('admin/enlaces/viewFormEnlace', $data);
         }
 
-        $html = $this->templater->viewAdmin('admin/enlaces/viewFormEnlace');
+
+        $html = $this->templater->viewAdmin('admin/enlaces/viewFormEnlace', $data);
 
         return $this->response->setJSON([
             'success' => true,
             'html' => $html,
             'title' => 'Modificar ConvenioNacional',
-            'data' => $data
+            'data' => $dataView
         ]);
 
     }
@@ -241,15 +305,24 @@ class Enlace extends BaseController
         $id_enlace = base64_decode($hiddenId);
 
         $reglas = [
+//            'tipo_enlace' => 'required|in_list[enlace,embajada,consulado,ministerio,org_estado,org_coperacion]',
             'orden' => 'required|is_natural|min_length[1]|max_length[10]',
             'url_enlace' => 'max_size[url_enlace,1024]|mime_in[url_enlace,image/jpg,image/jpeg,image/png]',
             'links_enlace' => 'required',
-            'nombre_enlace' => 'required||regex_match[/^[0-9a-zA-ZáéíóúÁÉÍÓÚñÑ\- \s]+$/]',
-            'tipo_enlace' => 'required|in_list[enlace,embajada,consulado,ministerio,org_estado,org_coperacion]',
+            'nombre_enlace' => 'required|regex_match[/^[\/\0-9a-zA-ZáéíóúÁÉÍÓÚñÑ\- \s]+$/]',
             'telefono' => 'required|is_natural|is_unique[enlace.telefono,id_enlace,' . $id_enlace . ']|min_length[8]|max_length[20]',
             'fax' => 'required|is_natural',
             'fecha' => 'required|valid_date[Y-m-d]',
-            'estado' => 'required|in_list[0,1]'
+            'estado' => 'required|in_list[0,1]',
+
+            'direccion' => 'required|min_length[1]|max_length[500]',
+            'correo' => 'required|valid_email|min_length[1]|max_length[200]',
+            'id_pais' => 'required|is_not_unique[sic_paises.id_pais]',
+            'departamento' => 'required|min_length[1]|max_length[300]',
+            'ciudad' => 'required|min_length[1]|max_length[300]',
+            'inicio_convenio_enlace' => 'required|valid_date[Y-m-d]',
+            'fin_convenio_enlace' => 'required|valid_date[Y-m-d]',
+            'id_tipo_enlace' => 'required|is_not_unique[sic_tipo_enlaces.id_tipo_enlace]'
         ];
 
         if (!$this->validate($reglas)) {
@@ -269,11 +342,20 @@ class Enlace extends BaseController
                 'orden' => trim($this->request->getPost('orden')),
                 'links_enlace' => trim($this->request->getPost('links_enlace')),
                 'nombre_enlace' => trim($this->request->getPost('nombre_enlace')),
-                'tipo_enlace' => trim($this->request->getPost('tipo_enlace')),
+//                'tipo_enlace' => trim($this->request->getPost('tipo_enlace')),
                 'telefono' => trim($this->request->getPost('telefono')),
                 'fax' => trim($this->request->getPost('fax')),
                 'fecha' => trim($this->request->getPost('fecha')),
                 'estado' => trim($this->request->getPost('estado')),
+
+                'direccion' => trim($this->request->getPost('direccion')),
+                'correo' => trim($this->request->getPost('correo')),
+                'id_pais' => trim($this->request->getPost('id_pais')),
+                'departamento' => trim($this->request->getPost('departamento')),
+                'ciudad' => trim($this->request->getPost('ciudad')),
+                'inicio_convenio_enlace' => trim($this->request->getPost('inicio_convenio_enlace')),
+                'fin_convenio_enlace' => trim($this->request->getPost('fin_convenio_enlace')),
+                'id_tipo_enlace' => trim($this->request->getPost('id_tipo_enlace')),
             ];
         } else {
 
@@ -284,11 +366,20 @@ class Enlace extends BaseController
                 'url_enlace' => 'assets/img_enlace/' . $nameFile,
                 'links_enlace' => trim($this->request->getPost('links_enlace')),
                 'nombre_enlace' => trim($this->request->getPost('nombre_enlace')),
-                'tipo_enlace' => trim($this->request->getPost('tipo_enlace')),
+//                'tipo_enlace' => trim($this->request->getPost('tipo_enlace')),
                 'telefono' => trim($this->request->getPost('telefono')),
                 'fax' => trim($this->request->getPost('fax')),
                 'fecha' => trim($this->request->getPost('fecha')),
-                'estado' => trim($this->request->getPost('estado'))
+                'estado' => trim($this->request->getPost('estado')),
+
+                'direccion' => trim($this->request->getPost('direccion')),
+                'correo' => trim($this->request->getPost('correo')),
+                'id_pais' => trim($this->request->getPost('id_pais')),
+                'departamento' => trim($this->request->getPost('departamento')),
+                'ciudad' => trim($this->request->getPost('ciudad')),
+                'inicio_convenio_enlace' => trim($this->request->getPost('inicio_convenio_enlace')),
+                'fin_convenio_enlace' => trim($this->request->getPost('fin_convenio_enlace')),
+                'id_tipo_enlace' => trim($this->request->getPost('id_tipo_enlace')),
             ];
 
             /* directorio */
@@ -298,37 +389,56 @@ class Enlace extends BaseController
             $imgLogo = $model->find($id_enlace);
 
             if ($imgLogo == null) {
-
                 cargarArchivo($imgLogoConvenio, $directorio, $nameFile);
-
             } else {
-
 //                $imgLogoRuta = 'uploads/' . $imgLogo->url_enlace;
 //                unlink($imgLogoRuta);
-
                 borrarArchivo($imgLogo->url_enlace);
-
                 cargarArchivo($imgLogoConvenio, $directorio, $nameFile);
             }
-
-
         }
 
+        try {
 
-        $model->update($id_enlace, $datos);
+            $model->update($id_enlace, $datos);
+
+        } catch (\ReflectionException $e) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'no se actualizar en la tabla de enlace',
+                'error' => $e
+            ]);
+        }
+
+        /* consultando y trayendo un registro de la vista */
+        $viewEnlace = $model->getFindVistaEnlace($id_enlace);
+
+        /* instanciando un modelo dato_enlace */
+        $modelDatoEnlace = new DatoEnlaceModel();
+
+        try {
+
+            $modelDatoEnlace->update($viewEnlace->id_dato_enlace, $datos);
+
+        } catch (\ReflectionException $e) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'no se inserto en la tabla de "dato de enlace"',
+                'error' => $e
+            ]);
+        }
 
 
         return $this->response->setJSON([
             'success' => true,
-            'message' => 'Se actualizo los datos al sistema correctamente.'
+            'message' => 'Se actualizo los datos al sistema correctamente.',
+            'a' => $datos
         ]);
 
     }
 
     public function delete()
     {
-
-
         try {
             // Código que puede generar una excepción
             $id = $this->request->getPost('param');

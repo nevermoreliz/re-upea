@@ -10,6 +10,10 @@ $(document).ready(function () {
         ajax: {
             method: 'get',
             url: '<?= base_url(route_to("enlace_list"))?>',
+            'error': function (xhr, error, thrown) {
+                alert("Error al cargar los datos. Por favor, intenta de nuevo.");
+                console.log(xhr, error, thrown);
+            }
         },
         columnDefs: [
             {responsivePriority: 1, targets: -1},
@@ -149,6 +153,7 @@ $(document).ready(function () {
                 $('#img_show_logo').attr('src', ruta);
 
                 $.each(data, function (key, value) {
+
                     if ($('#' + key).is('input')) {
                         if (key != 'url_enlace') {
 

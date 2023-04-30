@@ -85,3 +85,22 @@ class TableLib
         }
     }
 }
+
+/* estructura para consultar modelos datatable */
+
+//        $model = new EnlaceModel();
+//
+//        $column_map = [
+//            'id_enlace',
+//            'orden',
+//            'url_enlace',
+//            'links_enlace',
+//            'nombre_enlace',
+//            'tipo_enlace',
+//            'telefono',
+//            'fax',
+//            'fecha',
+//            'estado'
+//        ];
+//
+//        $lib = new TableLib($model, 'gp1', $column_map);

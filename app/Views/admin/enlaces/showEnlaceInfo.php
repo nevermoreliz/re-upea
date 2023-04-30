@@ -28,7 +28,6 @@
 
                         <div class="col-lg-12">
 
-
                             <!-- Card with an image on left -->
                             <div class="card mb-3">
                                 <div class="row g-0"
@@ -91,59 +90,125 @@
                 <div class="card-body" style="padding-top: 20px">
 
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-6" style="padding-bottom: 20px">
                             <div class="tab-pane fade show active profile-overview" id="profile-overview"
                                  role="tabpanel">
 
-                                <h5 class="card-title" style="padding-top: 0px">M&aacute;s Informaci&oacute;n</h5>
+                                <h5 class="card-title">M&aacute;s Informaci&oacute;n</h5>
 
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-4 label ">Tipo Enlace</div>
-                                    <div class="col-lg-9 col-md-8"><?= $registro->tipo_enlace ?></div>
+                                <div class="row" style="padding-bottom: 10px">
+                                    <div class="col-lg-5 col-md-4 col-sm-4 label "><b>Tipo Enlace: </b></div>
+                                    <div class="col-lg-7 col-md-8 col-sm-8"><?= (is_null($registro->nombre_tipo_enlace)) ? $registro->tipo_enlace : $registro->nombre_tipo_enlace ?></div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">Telefono</div>
-                                    <div class="col-lg-9 col-md-8"><?= $registro->telefono ?></div>
+                                <div class="row" style="padding-bottom: 10px">
+                                    <div class="col-lg-5 col-md-4 col-sm-4 label"><strong>Telefono: </strong></div>
+                                    <div class="col-lg-7 col-md-8 col-sm-8"><?= $registro->telefono ?></div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">Fax</div>
-                                    <div class="col-lg-9 col-md-8"><?= $registro->fax ?></div>
+                                <div class="row" style="padding-bottom: 10px">
+                                    <div class="col-lg-5 col-md-4 col-sm-4 label"><b>Fax: </b></div>
+                                    <div class="col-lg-7 col-md-8 col-sm-8"><?= $registro->fax ?></div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">Fecha de Convenio</div>
-                                    <div class="col-lg-9 col-md-8"><?= $registro->fecha ?></div>
+                                <div class="row" style="padding-bottom: 10px">
+                                    <div class="col-lg-5 col-md-4 col-sm-4 label"><b>Fecha de Registro: </b></div>
+                                    <div class="col-lg-7 col-md-8 col-sm-8"><?= $registro->fecha ?></div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">Orden</div>
-                                    <div class="col-lg-9 col-md-8"><?= $registro->orden ?></div>
+                                <div class="row" style="padding-bottom: 10px">
+                                    <div class="col-lg-5 col-md-4 col-sm-4 label"><b>Prioridad de Convenio: </b></div>
+                                    <div class="col-lg-7 col-md-8 col-sm-8"><?= $registro->orden ?></div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">Estado</div>
-                                    <div class="col-lg-9 col-md-8"><?= ($registro->estado == 1) ? 'Activo' : 'Inhabilitado' ?></div>
+                                <div class="row" style="padding-bottom: 10px">
+                                    <div class="col-lg-5 col-md-4 col-sm-4 label"><b>Estado de Vigencia: </b></div>
+                                    <div class="col-lg-7 col-md-8 col-sm-8"><?= ($registro->estado == 1) ? 'Activo' : 'Inhabilitado' ?></div>
                                 </div>
 
 
                             </div>
                         </div>
+
                         <div class="col-md-6">
+
+                            <div class=" alert border-primary alert-dismissible fade show" role="alert">
+
+                                <a href="https://www.facebook.com/Ministerio.SuPresencia" target="_blank">
+                                    <h5 class="card-title" style="padding: 0px">Correo de la Instituci&oacute;n</h5>
+                                </a>
+
+                                <?= $registro->correo ?>
+                            </div>
+
+                            <div class="row tab-pane fade show active profile-overview" id="profile-overview"
+                                 role="tabpanel">
+                                <div class="col-lg-2 col-md-2">
+                                    <div class="label" style="padding-top: 0px"><b>Pais: </b></div>
+                                </div>
+                                <div class="col-lg-7 col-md-7">
+                                    <p class="small fst-italic"><?= $registro->pais ?></p>
+                                </div>
+                            </div>
+
+                            <div class="row tab-pane fade show active profile-overview" id="profile-overview"
+                                 role="tabpanel">
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="label" style="padding-top: 0px"><b>Ciudad o Estado: </b></div>
+                                </div>
+                                <div class="col-lg-8 col-md-8 col-sm-12">
+                                    <p class="small fst-italic"><?= $registro->ciudad ?></p>
+                                </div>
+                            </div>
+
                             <div class="tab-pane fade show active profile-overview" id="profile-overview"
                                  role="tabpanel">
-                                <h5 class="card-title" style="padding-top: 0px">Direcci&oacute;n</h5>
-                                <p class="small fst-italic">Sunt est soluta temporibus accusantium neque nam maiores
-                                    cumque
-                                    temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum
-                                    quae
-                                    quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.</p>
-
+                                <div class="label" style="padding-bottom: 5px"><b>Direcci&oacute;n </b></div>
+                                <p class="small fst-italic"><?= $registro->direccion ?></p>
                             </div>
                         </div>
                     </div>
 
+                    <div class=" alert border-primary alert-dismissible fade show" role="alert">
+
+                        <?php
+                        $fecha1 = new DateTime($registro->inicio_convenio_enlace);
+                        $fecha2 = new DateTime($registro->fin_convenio_enlace);
+
+                        $diferencia = $fecha1->diff($fecha2);
+                        ?>
+
+                        <a href="https://www.facebook.com/Ministerio.SuPresencia" target="_blank">
+                            <h5 class="card-title" style="padding: 0px">Estado Del Convenio: </h5>
+                        </a>
+
+                        <button type="button" class="btn btn-light btn-sm mb-3">
+                            Fecha Inicio Del Convenio:
+                            <span class="badge bg-secondary text-light"> <?= $registro->inicio_convenio_enlace ?></span>
+                        </button>
+
+                        <button type="button" class="btn btn-warning btn-sm mb-3">
+                            Fecha Finalizaci&oacute;n Del Convenio:
+                            <span class="badge bg-white text-dark"> <?= $registro->fin_convenio_enlace ?></span>
+                        </button>
+
+                        <?php if ($diferencia->y == 0 && $diferencia->m == 0 && $diferencia->d <= 20): ?>
+                            <button type="button" class="btn btn-danger btn-sm mb-3">
+                                Termina en:
+                                <span class="badge bg-white text-danger"> <?= $diferencia->y ?> años</span>
+                                <span class="badge bg-white text-danger"> <?= $diferencia->m ?> meses</span>
+                                <span class="badge bg-white text-danger"> <?= $diferencia->d ?> dias</span>
+                            </button>
+                        <?php elseif ($diferencia->y != 0 && $diferencia->m != 0 && $diferencia->d >= 20): ?>
+                            <button type="button" class="btn btn-primary btn-sm">
+                                Termina en:
+                                <span class="badge bg-white text-primary"> <?= $diferencia->y ?> años</span>
+                                <span class="badge bg-white text-primary"> <?= $diferencia->m ?> meses</span>
+                                <span class="badge bg-white text-primary"> <?= $diferencia->d ?> dias</span>
+                            </button>
+                        <?php endif; ?>
+
+                    </div>
 
                     <!-- End Table with stripped rows -->
 

@@ -31,24 +31,36 @@
             <input type="text" class="form-control clear-input" name="fax" id="fax" required>
         </div>
 
-
         <div class="col-md-4">
             <label for="fecha" class="form-label">Fecha</label>
             <input type="date" class="form-control" name="fecha" id="fecha" value="<?= date('Y-m-d') ?>">
         </div>
 
+
+        <!--        <div class="col-md-4">-->
+        <!--            <label for="tipo_enlace" class="form-label">Tipo de Institución</label>-->
+        <!--            <select class="form-select" name="tipo_enlace" id="tipo_enlace" required>-->
+        <!--                <option selected disabled value="">Elija Un Cargo</option>-->
+        <!--                <option value="enlace">enlace</option>-->
+        <!--                <option value="embajada">embajada</option>-->
+        <!--                <option value="consulado">consulado</option>-->
+        <!--                <option value="ministerio">ministerio</option>-->
+        <!--                <option value="org_estado">organismo del estado</option>-->
+        <!--                <option value="org_cooperacion">organismo de coperación</option>-->
+        <!--            </select>-->
+        <!--        </div>-->
+
         <div class="col-md-4">
-            <label for="tipo_enlace" class="form-label">Tipo de Institución</label>
-            <select class="form-select" name="tipo_enlace" id="tipo_enlace" required>
-                <option selected disabled value="">Elija Un Cargo</option>
-                <option value="enlace">enlace</option>
-                <option value="embajada">embajada</option>
-                <option value="consulado">consulado</option>
-                <option value="ministerio">ministerio</option>
-                <option value="org_estado">organismo del estado</option>
-                <option value="org_cooperacion">organismo de coperación</option>
+            <label for="id_tipo_enlace" class="form-label">Tipo de Institución</label>
+            <select class="form-select" name="id_tipo_enlace" id="id_tipo_enlace" required>
+                <option selected disabled value="">Elija Tipo</option>
+                <?php foreach ($tiposEnlace as $tipoEnlace): ?>
+                    <option value="<?= $tipoEnlace->id_tipo_enlace ?>"><?= $tipoEnlace->nombre_tipo_enlace ?></option>
+                <?php endforeach; ?>
+
             </select>
         </div>
+
 
         <div class="col-md-2">
             <label for="estado" class="form-label">Estado</label>
@@ -102,10 +114,54 @@
             </div>
         </div>
 
+        <!-- Start parte dos de tabla dato_enlace -->
+        <div class="col-md-12">
+            <label for="direccion" class="form-label">direccion</label>
+            <input type="text" class="form-control clear-input" name="direccion" id="direccion" required>
+        </div>
+
+        <div class="col-md-6">
+            <label for="correo" class="form-label">Correo Elctronico de la Instituci&oacute;n</label>
+            <input type="text" class="form-control clear-input" name="correo" id="correo" required>
+        </div>
+
+        <div class="col-md-6">
+            <label for="id_pais" class="form-label">Pais</label>
+            <select class="form-select" name="id_pais" id="id_pais" required>
+                <option selected disabled value="">Elija Un Pais</option>
+                <?php foreach ($paises as $pais): ?>
+                    <option value="<?= $pais->id_pais ?>"><?= $pais->pais ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+
+        <div class="col-md-6">
+            <label for="departamento" class="form-label">Departamento o Estado</label>
+            <input type="text" class="form-control clear-input" name="departamento" id="departamento" required>
+        </div>
+
+        <div class="col-md-6">
+            <label for="ciudad" class="form-label">Ciudad</label>
+            <input type="text" class="form-control clear-input" name="ciudad" id="ciudad" required>
+        </div>
+
+        <div class="col-md-4">
+            <label for="inicio_convenio_enlace" class="form-label">Fecha Inicio Convenio</label>
+            <input type="date" class="form-control" name="inicio_convenio_enlace" id="inicio_convenio_enlace"
+                   value="<?= date('Y-m-d') ?>">
+        </div>
+
+        <div class="col-md-4">
+            <label for="fin_convenio_enlace" class="form-label">Fecha Fin Convenio</label>
+            <input type="date" class="form-control" name="fin_convenio_enlace" id="fin_convenio_enlace"
+                   value="<?= date('Y-m-d') ?>">
+        </div>
+        <!-- End parte dos de tabla dato_enlace -->
+
+
         <!--<div class="col-12">
                 <button class="btn btn-primary" type="submit">Submit form</button>
             </div>-->
-
         <!-- </form> -->
         <?= form_close(); ?><!-- End Custom Styled Validation -->
 

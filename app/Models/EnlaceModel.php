@@ -49,4 +49,12 @@ class EnlaceModel extends Model
     protected $afterFind = [];
     protected $beforeDelete = [];
     protected $afterDelete = [];
+
+
+    public function getFindVistaEnlace($id)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('re_vista_enlace')->where('id_enlace', $id)->get();
+        return $builder->getFirstRow();
+    }
 }
