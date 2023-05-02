@@ -57,4 +57,21 @@ class EnlaceModel extends Model
         $builder = $db->table('re_vista_enlace')->where('id_enlace', $id)->get();
         return $builder->getFirstRow();
     }
+
+    public function getFindAllVistaEnlace()
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('re_vista_enlace')->get();
+        return $builder->getResultObject();
+    }
+
+    public function search($searchTerm, $perPage, $offset)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('re_vista_enlace');
+        $builder->like('nombre_enlace', $searchTerm);
+        $builder->limit($perPage, $offset);
+
+        return $builder->get()->getResult();
+    }
 }

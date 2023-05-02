@@ -57,23 +57,11 @@ class ConvenioModel extends Model
     protected $beforeDelete = [];
     protected $afterDelete = [];
 
-    public function vistaConveniosNacionales()
+    public function getFindVistaConvenioNacional($id)
     {
         $db = \Config\Database::connect();
-        $builder = $db->table('vista_convenios_nacionales')->get();
-        return $builder->getResultObject();
-
-//        $builder = $db->table('vista_convenios_nacionales');
-//        $registro = $builder->paginate(10, 'page', 1);
-//        return $registro;
+        $builder = $db->table('re_vista_convenio_nacional')->where('id_convenios', $id)->get();
+        return $builder->getFirstRow();
     }
-
-    public function vistaConveniosInternacionales()
-    {
-        $db = \Config\Database::connect();
-        $builder = $db->table('vista_convenios_internacionales')->get();
-        return $builder->getResultObject();
-    }
-
 
 }

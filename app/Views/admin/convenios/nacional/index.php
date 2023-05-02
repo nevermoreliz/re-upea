@@ -17,7 +17,8 @@
                 <div class="card-body">
                     <div class="card-title">
 
-                        <button type="button" id="btn-new-convenio-national" class="btn btn-outline-primary btn-new-convenio">
+                        <button type="button" id="btn-new-convenio-national"
+                                class="btn btn-outline-primary btn-new-convenio-nacional">
                             <i class="ri-community-line"></i> Nuevo Convenio Nacional
                         </button>
 
@@ -36,25 +37,13 @@
                     <table class="table datatable" id="dt_convenio_nacional" style="width: 100%">
                         <thead>
                         <tr>
-                            <th scope="col">id_convenios</th>
-                            <th scope="col">id_detalle_grupo</th>
-                            <th scope="col">id_tipo_convenio</th>
-<!--                            <th scope="col">nombre_convenio</th>-->
-<!--                            <th scope="col">objetivo_convenio</th>-->
-<!--                            <th scope="col">img_convenio</th>-->
-<!--                            <th scope="col">pdf_convenio</th>-->
-<!--                            <th scope="col">tiempo_duracion</th>-->
-<!--                            <th scope="col">fecha_firma</th>-->
-<!--                            <th scope="col">fecha_finalizacion</th>-->
-<!--                            <th scope="col">fecha_publicacion</th>-->
-<!--                            <th scope="col">direccion</th>-->
-<!--                            <th scope="col">entidad</th>-->
-<!--                            <th scope="col">telefono</th>-->
-<!--                            <th scope="col">email</th>-->
-<!--                            <th scope="col">estado</th>-->
-<!--                            <th scope="col">tiempo</th>-->
-<!--                            <th scope="col">Accion</th>-->
-
+                            <th scope="col">#</th>
+                            <th scope="col">ids_convenio</th>
+                            <th scope="col">Institución</th>
+                            <th scope="col">Titulo Convenio</th>
+                            <th scope="col">Duracion</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Acciones</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -71,18 +60,19 @@
 </section>
 
 <!-- Vertically centered Modal -->
-<div class="modal fade draggable-modal" id="modal_convenio" tabindex="-1" role="dialog">
-    <div id="modal_convenio-dialog" class="modal-dialog">
+<div class="modal fade draggable-modal" id="modal_convenio_nacional" tabindex="-1" role="dialog">
+    <div id="modal_convenio_nacional-dialog" class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header bg-modal-jf">
-                <h5 id="modal_convenio-title" class="modal_convenio-title modal-title">Titulo Modal</h5>
-                <button id="modal_convenio-close" type="button" class="btn-close" data-bs-dismiss="modal"
+                <h5 id="modal_convenio_nacional-title" class="modal_convenio_nacional-title modal-title">Titulo
+                    Modal</h5>
+                <button id="modal_convenio_nacional-close" type="button" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
             </div>
-            <div id="modal_convenio-body" class="modal_convenio-body modal-body">
+            <div id="modal_convenio_nacional-body" class="modal_convenio_nacional-body modal-body">
                 <!-- dinamic content -->
             </div>
-            <div id="modal_convenio-footer" class="modal-footer">
+            <div id="modal_convenio_nacional-footer" class="modal-footer">
                 <button type="button" class="btn btn-outline-danger btn-sm" data-bs-dismiss="modal"><i
                             class="bi bi-backspace me-1"></i> Cancelar
                 </button>

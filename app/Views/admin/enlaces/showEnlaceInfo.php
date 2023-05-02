@@ -60,7 +60,7 @@
 
                                             <div class="alert border-primary alert-dismissible fade show" role="alert">
 
-                                                <a href="https://www.facebook.com/Ministerio.SuPresencia"
+                                                <a href="<?= $registro->links_enlace ?>"
                                                    target="_blank">
                                                     <h6 class="card-title"
                                                         style="padding-top: 0px; padding-bottom: 0px;font-size: 12px">
@@ -134,7 +134,7 @@
 
                             <div class=" alert border-primary alert-dismissible fade show" role="alert">
 
-                                <a href="https://www.facebook.com/Ministerio.SuPresencia" target="_blank">
+                                <a href="javascript:void(0)">
                                     <h5 class="card-title" style="padding: 0px">Correo de la Instituci&oacute;n</h5>
                                 </a>
 
@@ -172,13 +172,12 @@
                     <div class=" alert border-primary alert-dismissible fade show" role="alert">
 
                         <?php
-                        $fecha1 = new DateTime($registro->inicio_convenio_enlace);
                         $fecha2 = new DateTime($registro->fin_convenio_enlace);
-
-                        $diferencia = $fecha1->diff($fecha2);
+                        $hoy = new DateTime(); // fecha actual
+                        $diferencia = $hoy->diff($fecha2); // diferencia entre las dos fechas
                         ?>
 
-                        <a href="https://www.facebook.com/Ministerio.SuPresencia" target="_blank">
+                        <a href="javascript:void(0)">
                             <h5 class="card-title" style="padding: 0px">Estado Del Convenio: </h5>
                         </a>
 
@@ -192,15 +191,20 @@
                             <span class="badge bg-white text-dark"> <?= $registro->fin_convenio_enlace ?></span>
                         </button>
 
-                        <?php if ($diferencia->y == 0 && $diferencia->m == 0 && $diferencia->d <= 20): ?>
+                        <?php if ($registro->fin_convenio_enlace < Date('Y-m-d')): ?>
+                            <button type="button" class="btn btn-danger btn-sm mb-3">
+                                Termino El Convenio
+                            </button>
+                        <?php elseif ($diferencia->y == 0 && $diferencia->m == 0 && $diferencia->d <= 20): ?>
                             <button type="button" class="btn btn-danger btn-sm mb-3">
                                 Termina en:
                                 <span class="badge bg-white text-danger"> <?= $diferencia->y ?> años</span>
                                 <span class="badge bg-white text-danger"> <?= $diferencia->m ?> meses</span>
-                                <span class="badge bg-white text-danger"> <?= $diferencia->d ?> dias</span>
+                                <span class="badge bg-white text-danger"> <?= $diferencia->d + 1 ?> dias</span>
                             </button>
-                        <?php elseif ($diferencia->y != 0 && $diferencia->m != 0 && $diferencia->d >= 20): ?>
-                            <button type="button" class="btn btn-primary btn-sm">
+
+                        <?php else : ?>
+                            <button type="button" class="btn btn-primary btn-sm mb-3">
                                 Termina en:
                                 <span class="badge bg-white text-primary"> <?= $diferencia->y ?> años</span>
                                 <span class="badge bg-white text-primary"> <?= $diferencia->m ?> meses</span>

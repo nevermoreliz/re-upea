@@ -47,7 +47,17 @@ $(document).ready(function () {
                     `;
                 }
             },
-            {data: 'tipo_enlace'},
+            {
+                data: null,
+                render: function (data, type, row) {
+                    if (data['nombre_tipo_enlace'] == null || data['nombre_tipo_enlace'] == '') {
+                        return data['tipo_enlace'].toUpperCase()
+                    } else {
+                        return data['nombre_tipo_enlace'].toUpperCase();
+                    }
+
+                }
+            },
             {
                 data: 'telefono',
                 render: function (data, type, row) {
