@@ -77,6 +77,7 @@
     <!-- Select 2 Css -->
     <link rel="stylesheet" href="<?= base_url('assets/css/select2.min.css'); ?>">
 
+
     <!-- =======================================================
 * Template Name: NiceAdmin
 * Updated: Mar 09 2023 with Bootstrap v5.2.3
@@ -170,6 +171,8 @@
 <script src="<?= base_url(); ?>assets/js/select2.full.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/i18n/es.js"></script>
 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.min.js"></script>
 </body>
 
 </html>

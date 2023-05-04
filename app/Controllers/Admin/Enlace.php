@@ -467,8 +467,6 @@ class Enlace extends BaseController
                 'error' => $e->getMessage()
             ]);
         }
-
-
     }
 
 }

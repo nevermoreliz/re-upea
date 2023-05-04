@@ -93,7 +93,6 @@ if (!function_exists('cargarArchivo')) {
         }
         $archivo->move($directorio, $nameFile);
 
-        return true;
     }
 
 
@@ -104,7 +103,6 @@ if (!function_exists('borrarArchivo')) {
     {
         $imgLogoRuta = 'uploads/' . $nameFile;
         unlink($imgLogoRuta);
-        return true;
     }
 
 }

@@ -1,5 +1,6 @@
-$(document).ready(function (e) {
-    $("#dt_convenio_nacional").DataTable({
+$(document).ready(function () {
+
+    $("#dt_publicaciones").DataTable({
         processing: true,
         serverSide: true,
         responsive: true,
@@ -8,8 +9,9 @@ $(document).ready(function (e) {
             url: '//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json',
         },
         ajax: {
-            method: 'get',
-            url: '<?= base_url(route_to("convenioNacional_list"))?>',
+            url: '<?= base_url(route_to("publicacion_list"))?>',
+            type: 'get',
+            data: {param: $('#param').val()}
         },
         drawCallback: function (settings) {
             const api = this.api();
@@ -25,27 +27,10 @@ $(document).ready(function (e) {
         ],
         columns: [
             {data: null},
-            {data: 'id_convenios', visible: false},
-            {data: 'nombre_enlace'},
-            {data: 'nombre_convenio'},
-            {data: 'fecha_finalizacion'},
-            {
-                data: 'estado_convenio',
-                render: function (data, type, row) {
-
-                    let $html;
-                    // return '<button class="btn btn-primary">' + data['name'] + '</button>';
-                    if (data === 'Activo') {
-                        $html = `<span class="badge bg-success"><i class="bi bi-check-circle me-1"></i> Activo</span>`;
-                    } else if (data === 'Concluido') {
-                        $html = `<span class="badge bg-warning"><i class="bi bi-x-circle me-1"></i> Concluido</span>`;
-                    } else {
-                        $html = `<span class="badge bg-dark"><i class="bi bi-x-circle me-1"></i> Inactivo</span>`;
-                    }
-
-                    return $html;
-                }
-            },
+            {data: 'id_publicaciones', visible: false},
+            {data: 'titulo'},
+            {data: 'tipo_publicaciones'},
+            {data: 'estado'},
             {
                 searchable: false,
                 orderable: false,
@@ -75,10 +60,10 @@ $(document).ready(function (e) {
                           <i class="bi bi-view-stacked"></i>  Action
                           </button>
                           <ul class="dropdown-menu">
-                            <li><a class="dropdown-item edit-convenio-nacional" data-convenio-nacional="` + data['id_convenios'] + `" href="javascript:void(0)"><i class="bi bi-pencil-square"></i> Modificar </a></li>                     
+                            <li><a class="dropdown-item edit-publicacion" data-publicacion="` + data['id_publicaciones'] + `" href="javascript:void(0)"><i class="bi bi-pencil-square"></i> Modificar </a></li>                     
                             ` + $li + `
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item show-convenio" data-convenio-nacional="` + data['id_convenios'] + `" href="javascript:void(0)"><i class="bi bi-info"></i> Más Detalle</a>
+                            <a class="dropdown-item show-publicacion" data-publicacion="` + data['id_publicaciones'] + `" href="javascript:void(0)"><i class="bi bi-info"></i> Más Detalle</a>
                           </ul>
                         </div>
                     `;
@@ -88,26 +73,29 @@ $(document).ready(function (e) {
         order: [[0, "desc"]]
     });
 
-    /* modificar convenio nacional */
-    $(document).on('click', 'a.edit-convenio-nacional', function (e) {
+    /* modificar Publicación */
+    $(document).on('click', 'a.edit-publicacion', function (e) {
         $.ajax({
-            url: '<?= base_url(route_to("convenioNacional_edit"))?>',
+            url: '<?= base_url(route_to("publicacion_edit"))?>',
             type: 'get',
-            data: {param: e.target.getAttribute('data-convenio-nacional')},
+            data: {
+                param: e.target.getAttribute('data-publicacion'),
+                param2: $('#param').val()
+            },
             success: function (response) {
                 // Manejar la respuesta del servidor
 
                 parametrosModal(
-                    '#modal_convenio_nacional',
-                    'MODIFICAR CONVENIO NACIONAL',
+                    '#modal_publicacion',
+                    'MODIFICAR PUBLICACIÓN',
                     'modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg',
                     false,
                     'static');
 
                 /* elimina cualquier contenido anterior */
-                $('#modal_convenio_nacional-body').html('');
+                $('#modal_publicacion-body').html('');
                 /* agregar el contenido html en el contenido del model */
-                $('#modal_convenio_nacional-body').html(response.html);
+                $('#modal_publicacion-body').html(response.html);
 
                 /* eliminar clases de insertar update or delete */
                 $('#btn-action').removeClass('action-insert');
@@ -121,13 +109,14 @@ $(document).ready(function (e) {
 
                 const data = response.data;
 
-                console.log(data);
-                console.log('++++');
+                // console.log(data);
+                // console.log('++++');
                 // console.log('\n>');
 
                 /* capturando ruta de archivos */
-                let rutaImgConvenio = `<?= base_url()?>uploads/${data.img_convenio}`;
-                let rutaPdfConvenio = `<?= base_url()?>uploads/${data.pdf_convenio}`;
+                let rutaImgPublicacion = `<?= base_url()?>uploads/${data.publicacion.url}`;
+                let rutaFilePublicacion = `<?= base_url()?>uploads/${(Object.keys(data.archivosPublicacion).length === 0) ? ''   : data.archivosPublicacion[0].nombre_archivo}`;
+                // console.log(rutaFilePublicacion)
 
                 /* colocando src la ruta que tiene el archivo*/
                 if (data.img_convenio == null || data.img_convenio == '') {
@@ -183,80 +172,13 @@ $(document).ready(function (e) {
         });
     });
 
-    /* eliminar o deshabilitar convenio nacional */
-    $(document).on('click', 'a.delete-convenio-nacional, a.active-convenio-nacional', function (e) {
-        var text;
-        if ($('#dinamic-text-enlace-active').hasClass('delete-convenio-nacional')) {
-            text = 'Deshabilitara';
-        } else if ($('#dinamic-text-enlace-active').hasClass('active-convenio-nacional')) {
-            text = 'Activara';
-        }
 
-        Swal.fire({
-            title: '¿Está seguro?',
-            text: 'Se ' + text + ' el registro en el sistema',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            cancelButtonText: 'Cancelar',
-            confirmButtonText: 'Confirmar!',
-            allowOutsideClick: false,
-            allowEscapeKey: false,
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: '<?= base_url(route_to("convenioNacional_delete"))?>',
-                    type: 'post',
-                    data: {param: e.target.getAttribute('data-convenio-nacional')},
-                    success: function (response) {
-                        // Manejar la respuesta del servidor
-
-                        if (!response.success) {
-
-                            alert('algo paso comuniquese con el administrador ' + response.error);
-                            console.log(response.error);
-
-                        } else {
-                            /* muestra en consola */
-                            // console.log(response);
-                            Swal.fire({
-                                title: response.message + '!',
-                                // title: 'Registro Deshabilitado Correctamente!',
-                                // text: response.message,
-                                icon: 'success',
-                                confirmButtonText: 'Continuar',
-                                confirmButtonColor: '#3085d6',
-                                showCancelButton: false,
-                                allowOutsideClick: false,
-                                allowEscapeKey: false,
-                            });
-                            /* recargar datatable */
-                            $('#dt_convenio_nacional').DataTable().draw(false);
-
-                        }
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        // Manejar los errores de la petición
-                        console.log('Ocurrió un error en la petición AJAX');
-                        // console.log("ERROR" + errorThrown + textStatus + jqXHR);
-                        console.log("Error: " + errorThrown);
-                    }
-                });
-
-
-            }
-        });
-
-    });
-
-
-    /* agregar convenio y abrir el modal */
-    $('button.btn-new-convenio-nacional').click(function (e) {
+    /* agregar usuario y abrir el modal */
+    $('button.btn-new-publicacion').click(function (e) {
 
         $.ajax({
-            url: '<?= base_url(route_to("convenioNacional_create"))?>',
-            method: 'get',
+            url: '<?= base_url(route_to("publicacion_create"))?>',
+            type: 'get',
             success: function (response) {
                 // Código en caso de éxito
                 if (typeof response == "object") {
@@ -264,16 +186,19 @@ $(document).ready(function (e) {
                     if (response.success) {
 
                         parametrosModal(
-                            '#modal_convenio_nacional',
-                            'CREAR NUEVO CONVENIO',
+                            '#modal_publicacion',
+                            'CREAR NUEVA PUBLICACIÓN',
                             'modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg',
                             false,
                             'static');
 
                         /* elimina cualquier contenido anterior */
-                        $('#modal_convenio_nacional-body').html('');
+                        $('#modal_publicacion-body').html('');
                         /* agregar el contenido html en el contenido del model */
-                        $('#modal_convenio_nacional-body').html(response.html);
+                        $('#modal_publicacion-body').html(response.html);
+
+                        /* poner el valor input hidden el tipo publicacion */
+                        $('#tipo_publicaciones').val($('#param').val());
 
                         /* eliminar clases de insertar update or delete */
                         $('#btn-action').removeClass('action-insert');
@@ -283,7 +208,7 @@ $(document).ready(function (e) {
                         /* agregar clase action-insert para registrar en la base dedatos */
                         $('#btn-action').addClass('action-insert');
                         $('#btn-action').html('');
-                        $('.action-insert').html('<i class="bi bi-check-square me-1"></i> Registrar Convenio');
+                        $('.action-insert').html('<i class="bi bi-check-square me-1"></i> Registrar Instituci&oacute;n');
 
                         /* poner titulo al title<header> */
                         document.querySelector("title").innerText = "Admin RI | " + response.title;
@@ -301,6 +226,33 @@ $(document).ready(function (e) {
                 }
             }
 
+        });
+    });
+
+    $('.btn-back').click(function (e) {
+        $.ajax({
+            url: '<?= base_url(route_to("publicacion_index"))?>',
+            method: 'get',
+            processData: false,
+            contentType: false,
+            cache: false,
+            async: false,
+            success: function (response) {
+                // console.log(response);
+                // Maneja la respuesta del servidor
+                if (!response.success) {
+
+                } else {
+                    $('#main').html(response.html).fadeIn("slow");
+                }
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                // Maneja los errores de la petición Ajax
+                alert("Error: " + errorThrown);
+                console.log("Error: " + errorThrown);
+
+            }
         });
     });
 

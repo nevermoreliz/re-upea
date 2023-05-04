@@ -9,8 +9,8 @@
             </a>
         </li><!-- End Dashboard Nav -->
 
-        <li class="nav-item" style="display: none">
-            <a class="nav-link collapsed menu--link" href="<?= base_url(route_to('index_publicacion')); ?>">
+        <li class="nav-item">
+            <a class="nav-link collapsed menu--link" href="<?= base_url(route_to('publicacion_index')); ?>">
                 <i class="bi bi-grid"></i>
                 <span>Publicaciones</span>
             </a>

@@ -1,15 +1,14 @@
 $(document).ready(function () {
 
-
     $(".action-insert").click(function (event) {
         // Evita el comportamiento por defecto del formulario
         event.preventDefault()
 
         // Crea un objeto FormData
-        var formData = new FormData($('#formEnlace')[0])
+        var formData = new FormData($('#formPublicacion')[0])
 
         // Elimina los mensajes de error existentes
-        $('.error').remove()
+        $('.error').remove();
 
         /********************************************************************************
          * ELIMINA LOS MENSAJES DE ERROR EXISTENTES Y PONER VERDE SI YA CAMBIO EL VALOR *
@@ -21,10 +20,9 @@ $(document).ready(function () {
             $(this).next('.invalid-feedback').remove()
         })
 
-
         Swal.fire({
             title: '¿Está seguro?',
-            text: 'Se registrara los datos de la persona en el sistema',
+            text: 'Se registrara los datos de la publicación en el sistema',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -38,7 +36,7 @@ $(document).ready(function () {
 
                 // Realiza una petición Ajax
                 $.ajax({
-                    url: '<?= route_to("enlace_store")?>',
+                    url: '<?= route_to("publicacion_store")?>',
                     method: 'post',
                     data: formData,
                     processData: false,
@@ -63,7 +61,6 @@ $(document).ready(function () {
                             $.each(response.errors, function (key, value) {
                                 $('[name="' + key + '"]').val(response.key)
                             })
-
 
                             /******************************************
                              * MOSTRAR LAS VALIDACIONES EN LOS INPUTS *
@@ -108,10 +105,10 @@ $(document).ready(function () {
                             /**********************************
                              * CERRRAR MODAL Y LIMPIAR IMPUTS *
                              **********************************/
-                            $('#modal_convenio').modal('hide');
+                            $('#modal_publicacion').modal('hide');
 
                             /* recargar datatable */
-                            $('#dt_enlaces').DataTable().draw(false);
+                            $('#dt_publicaciones').DataTable().draw(false);
 
                         }
 
@@ -126,7 +123,6 @@ $(document).ready(function () {
             }
         })
 
-
     });
 
     $(".action-update").click(function (event) {
@@ -134,7 +130,7 @@ $(document).ready(function () {
         event.preventDefault();
 
         // Crea un objeto FormData
-        let formData = new FormData($('#formEnlace')[0]);
+        let formData = new FormData($('#formPublicacion')[0]);
 
         // Elimina los mensajes de error existentes
         $('.error').remove()
@@ -152,7 +148,7 @@ $(document).ready(function () {
 
         Swal.fire({
             title: '¿Está seguro?',
-            text: 'Se Actualizara los datos de la persona en el sistema',
+            text: 'Se Actualizara los datos de la publicación en el sistema.',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -166,7 +162,7 @@ $(document).ready(function () {
 
                 // Realiza una petición Ajax
                 $.ajax({
-                    url: '<?= base_url(route_to("enlace_update"))?>',
+                    url: '<?= base_url(route_to("publicacion_edit"))?>',
                     method: 'post',
                     data: formData,
                     processData: false,
@@ -239,10 +235,10 @@ $(document).ready(function () {
                             /**********************************
                              * CERRRAR MODAL Y LIMPIAR IMPUTS *
                              **********************************/
-                            $('#modal_convenio').modal('hide');
+                            $('#modal_publicacion').modal('hide');
 
                             /* recargar datatable */
-                            $('#dt_enlaces').DataTable().draw(false);
+                            $('#dt_publicaciones').DataTable().draw(false);
 
                         }
 
@@ -260,7 +256,18 @@ $(document).ready(function () {
 
     });
 
-    $('#url_enlace').on('change', function (e) {
-        document.getElementById('img_show_logo').src = window.URL.createObjectURL(this.files[0]);
+
+    /* cuando haya un cambio en el boton cambiara la imagen*/
+    $('#url').on('change', function (e) {
+        document.getElementById('img_show_publicacion').src = window.URL.createObjectURL(this.files[0]);
     });
+
+    /* previsualizacion de un pdf */
+    $('#nombre_archivo').on('change', function (event) {
+        var pdfUrl = URL.createObjectURL(event.target.files[0]);
+        $('#visor_pdf_publicacion').html('<embed src="' + pdfUrl + '" width="100%" height="338px" ' +
+            'style="border-radius: 15px; padding: 10px; width: 100%; object-fit: cover; object-position: center center;" />');
+    });
+
+
 });

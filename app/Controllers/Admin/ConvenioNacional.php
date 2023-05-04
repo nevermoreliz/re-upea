@@ -455,4 +455,36 @@ class ConvenioNacional extends BaseController
         ]);
 
     }
+
+    public function delete(): ResponseInterface
+    {
+        try {
+            // Código que puede generar una excepción
+            $id = $this->request->getPost('param');
+
+            $model = new ConvenioModel();
+            $registro = $model->find($id);
+
+            if ($registro->estado == 'Activo') {
+                $model->update($id, ['estado' => 'Inactivo']);
+                return $this->response->setJSON([
+                    'success' => true,
+                    'message' => 'Se Deshabilito el registro correctamente.'
+                ]);
+            } elseif ($registro->estado == 'Inactivo') {
+                $model->update($id, ['estado' => 'Activo']);
+                return $this->response->setJSON([
+                    'success' => true,
+                    'message' => 'Se Habilito el registro correctamente.'
+                ]);
+            }
+        } catch (\Exception $e) {
+            // Manejar la excepción
+            // echo "Se produjo una excepción: " . $e->getMessage();
+            return $this->response->setJSON([
+                'success' => false,
+                'error' => $e->getMessage()
+            ]);
+        }
+    }
 }

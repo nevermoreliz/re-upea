@@ -17,6 +17,7 @@ class Dri extends BaseConfig
     public $pathEnlaceImg = '../public/uploads/assets/img_enlace';
     public $pathConvenioImg = '../public/uploads/assets/imgConvenios/';
     public $pathConvenioPdf = '../public/uploads/assets/conveniosPdf/';
-    public $pathPublicacionImg = '';
+    public $pathPublicacionImg = '../public/uploads/assets/img_publicaciones/';
+    public $pathPublicacionArchivo = '../public/uploads/assets/img_publicaciones/archivos/';
     public $pathGaleriaImg = '';
 }
