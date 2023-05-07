@@ -2,7 +2,7 @@
     <h1><?= ucwords($titleHeadContent) ?></h1>
     <nav>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0)">Inicio</a></li>
             <li class="breadcrumb-item">Publicaciones</li>
             <?php $sacarTitleSec = explode(" ", $titleHeadContent) ?>
             <li class="breadcrumb-item">Lista de <?= end($sacarTitleSec) ?></li>
@@ -162,7 +162,7 @@
                         <img id="img_show_publicacion"
                              src="https://lh3.google.com/u/0/d/1WDPQ9Xwrqofa9RT4pmBZnEipzrwjjFwz=w1366-h635-iv1"
                              class="card-img-top" alt="..."
-                             style="border-radius: 5px;box-shadow: 0px 5px 5px #888, 0px 0px 10px #444;">
+                             style="border-radius: 5px;box-shadow: 0 5px 5px #888, 0 0 10px #444;">
                     </div>
 
                     <div class=" card-body">
@@ -210,7 +210,7 @@
 
                             <div class="progress progress-wrapper">
                                 <div class="progress-bar progress-bar-striped bg-info progress-bar-animated progress_bar"
-                                     role="progressbar" style="width: 0%">0%
+                                     role="progressbar" style="width: 0">0%
                                 </div>
 
                             </div>
