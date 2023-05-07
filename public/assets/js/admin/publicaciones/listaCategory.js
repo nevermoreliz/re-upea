@@ -115,7 +115,7 @@ $(document).ready(function () {
 
                 /* capturando ruta de archivos */
                 let rutaImgPublicacion = `<?= base_url()?>uploads/${data.publicacion.url}`;
-                let rutaFilePublicacion = `<?= base_url()?>uploads/${(Object.keys(data.archivosPublicacion).length === 0) ? ''   : data.archivosPublicacion[0].nombre_archivo}`;
+                let rutaFilePublicacion = `<?= base_url()?>uploads/${(Object.keys(data.archivosPublicacion).length === 0) ? '' : data.archivosPublicacion[0].nombre_archivo}`;
                 // console.log(rutaFilePublicacion)
 
                 /* colocando src la ruta que tiene el archivo*/
@@ -179,28 +179,19 @@ $(document).ready(function () {
         $.ajax({
             url: '<?= base_url(route_to("publicacion_create"))?>',
             type: 'get',
+            data: {param: $('#param').val()},
             success: function (response) {
                 // Código en caso de éxito
                 if (typeof response == "object") {
 
                     if (response.success) {
-
-                        parametrosModal(
-                            '#modal_publicacion',
-                            'CREAR NUEVA PUBLICACIÓN',
-                            'modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg',
-                            false,
-                            'static');
-
-                        /* elimina cualquier contenido anterior */
-                        $('#modal_publicacion-body').html('');
-                        /* agregar el contenido html en el contenido del model */
-                        $('#modal_publicacion-body').html(response.html);
+                        const tipo_publicaciones = $('#param').val();
+                        $('#main').html(response.html).fadeIn("slow");
 
                         /* poner el valor input hidden el tipo publicacion */
-                        $('#tipo_publicaciones').val($('#param').val());
+                        $('#tipo_publicaciones').val(tipo_publicaciones);
 
-                        /* eliminar clases de insertar update or delete */
+                        // /* eliminar clases de insertar update or delete */
                         $('#btn-action').removeClass('action-insert');
                         $('#btn-action').removeClass('action-update');
                         $('#btn-action').removeClass('action-delete');
@@ -208,7 +199,7 @@ $(document).ready(function () {
                         /* agregar clase action-insert para registrar en la base dedatos */
                         $('#btn-action').addClass('action-insert');
                         $('#btn-action').html('');
-                        $('.action-insert').html('<i class="bi bi-check-square me-1"></i> Registrar Instituci&oacute;n');
+                        $('.action-insert').html('<i class="bi bi-check-square me-1"></i> Registrar ' + tipo_publicaciones);
 
                         /* poner titulo al title<header> */
                         document.querySelector("title").innerText = "Admin RI | " + response.title;
@@ -230,6 +221,7 @@ $(document).ready(function () {
     });
 
     $('.btn-back').click(function (e) {
+
         $.ajax({
             url: '<?= base_url(route_to("publicacion_index"))?>',
             method: 'get',

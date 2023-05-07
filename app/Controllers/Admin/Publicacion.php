@@ -54,7 +54,8 @@ class Publicacion extends BaseController
             'success' => true,
             'html' => $html,
             'param' => $param,
-            'title' => $titleHeadPage
+            'title' => $titleHeadPage,
+            'as' => $this->request->getPostGet()
         ]);
     }
 
@@ -107,16 +108,18 @@ class Publicacion extends BaseController
 //            'tiposEnlace' => $tipoEnlaceModel->findAll(),
 //            'paises' => $paisesModel->where('estado', 1)->findAll()
 //        ];
+        $param = $this->request->getGet('param');
+        $titleHeadPage = $data['titleHeadContent'] = 'Crear nuevas ' . $param;
 
         if (!$this->request->isAJAX()) {
             return redirect()->route('/admin')->back();
         }
 
-        $html = $this->templater->viewAdmin('admin/publicaciones/viewFormPublicacion');
+        $html = $this->templater->viewAdmin('admin/publicaciones/viewFormPublicacion', $data);
         return $this->response->setJSON([
             'success' => true,
             'html' => $html,
-            'title' => 'Nuevo Publicación'
+            'title' => $titleHeadPage
         ]);
     }
 
@@ -128,25 +131,44 @@ class Publicacion extends BaseController
         /* ejemplo de multples archivos validacion */
         // uploaded[miArchivo,required]|max_size[miArchivo,10240,permit_multiple]|ext_in[miArchivo,png,jpg,jpeg]',
         $reglas = [
-            'titulo' => 'required|min_length[1]|max_length[250]',
-            'descripcion' => 'required',
-            'correlativo' => 'min_length[1]|max_length[50]',
-            'subtitulo' => 'min_length[1]|max_length[350]',
-            'url' => 'uploaded[url]|max_size[url,' . $this->configs->tamañoServidor . ']|mime_in[url,image/jpg,image/jpeg,image/png]',
-            'links' => 'min_length[1]|max_length[250]',
-            'tipo_publicaciones' => 'required|in_list[Publicaciones,Noticias,Idiomas,Becas,Pasantias]',
-            'estado' => 'required|in_list[0,1]',
+//            'titulo' => 'required|min_length[1]|max_length[250]',
+//            'descripcion' => 'required',
+//            'correlativo' => 'min_length[1]|max_length[50]',
+//            'subtitulo' => 'min_length[1]|max_length[350]',
+//            'url' => 'uploaded[url]|max_size[url,' . $this->configs->tamañoServidor . ']|mime_in[url,image/jpg,image/jpeg,image/png]',
+//            'links' => 'min_length[1]|max_length[250]',
+//            'tipo_publicaciones' => 'required|in_list[Publicaciones,Noticias,Idiomas,Becas,Pasantias]',
+//            'estado' => 'required|in_list[0,1]',
 //            'estado_archivo' => 'required|in_list[0,1]',
         ];
 
         /* obteniendo archivos img y archivo del formulario */
         $imgPublicacion = $this->request->getFile('url');
-        $filePublicacion = $this->request->getFile('nombre_archivo');
+//        $filePublicacion = $this->request->getFile('nombre_archivo');
+        $filePublicacion = $this->request->getFiles()['nombre_archivo'];
 
-        if ($filePublicacion->isValid()) {
+        $array=[];
+        foreach ($filePublicacion as $archivo) {
+            // Obtener el nombre del archivo
+            $array[] = $archivo->getName();
+
+        }
+
+
+        return $this->response->setJSON([
+            'success' => true,
+            'message' => 'Se registro los datos al sistema correctamente.11',
+            'fileImg' => $imgPublicacion,
+            'filesPubIsValid' => $filePublicacion[0]->isValid(),
+            'filesPub' => $filePublicacion,
+            'nameFilePub' => $array
+        ]);
+
+        if ($filePublicacion[0]->isValid()) {
             $reglas['nombre_archivo'] = 'uploaded[nombre_archivo]|max_size[nombre_archivo,' . $this->configs->tamañoServidor . ']|mime_in[nombre_archivo,application/pdf]';
             $tieneFilePub = true;
         }
+
 
         /* validacion de datos para guardar persona */
         if (!$this->validate($reglas)) {
@@ -157,7 +179,9 @@ class Publicacion extends BaseController
             ]);
         }
 
-        if (!$imgPublicacion->isValid() && !$filePublicacion->isValid()) {
+
+        if (!$imgPublicacion->isValid() && !$filePublicacion[0]->isValid()) {
+
             $datos = [
                 'titulo' => trim($this->request->getPost('titulo')),
                 'descripcion' => trim($this->request->getPost('descripcion')),

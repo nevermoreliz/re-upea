@@ -4,8 +4,20 @@ $(document).ready(function () {
         // Evita el comportamiento por defecto del formulario
         event.preventDefault()
 
+        // Parametros para progresos
+        let form = $('#formPublicacion'),
+            wrapper = $('.wrapper'),
+            wrapper_f = $('.wrapper_files'),
+            progress_bar = $('.progress_bar');
+
         // Crea un objeto FormData
-        var formData = new FormData($('#formPublicacion')[0])
+        let formData = new FormData($('#formPublicacion')[0]);
+
+        // inicializacion  de la barra de progreso
+        progress_bar.removeClass('bg-success bg-danger').addClass('bg-info');
+        progress_bar.css('witdh', '0%');
+        progress_bar.html('Preparando...');
+        wrapper.fadeIn();
 
         // Elimina los mensajes de error existentes
         $('.error').remove();
@@ -33,19 +45,39 @@ $(document).ready(function () {
             allowEscapeKey: false,
         }).then((result) => {
             if (result.isConfirmed) {
+                // Deshabilita el botón de envío y muestra la barra de progreso
 
                 // Realiza una petición Ajax
                 $.ajax({
-                    url: '<?= route_to("publicacion_store")?>',
+                    url: '<?= base_url(route_to("publicacion_store"))?>',
                     method: 'post',
                     data: formData,
                     processData: false,
                     contentType: false,
                     cache: false,
-                    async: false,
+                    async: true,
+                    xhr: function () {
+                        // var xhr = $.ajaxSettings.xhr();
+                        let xhr = new window.XMLHttpRequest();
+                        xhr.upload.addEventListener('progress', function (e) {
+                            if (e.lengthComputable) {
+                                let percentComplete = Math.floor((e.loaded / e.total) * 100);
+                                progress_bar.css('width', percentComplete + '%');
+                                progress_bar.html(percentComplete + '%');
+                            }
+                        }, false);
+                        return xhr;
+                    },
+                    beforeSend: () => {
+                        $('button#btn-action', form).attr('disabled', true);
+                    },
                     success: function (response) {
                         // Maneja la respuesta del servidor
                         if (!response.success) {
+
+                            /* seccion de barra de progreso */
+                            progress_bar.css('witdh', '0%');
+                            progress_bar.html('verificar otros datos');
 
                             Swal.fire({
                                 title: 'Verifique los Datos!',
@@ -65,7 +97,7 @@ $(document).ready(function () {
                             /******************************************
                              * MOSTRAR LAS VALIDACIONES EN LOS INPUTS *
                              ******************************************/
-                            // Si hay errores de validación, muestra los mensajes de error
+                            /* Si hay errores de validación, muestra los mensajes de error */
                             $.each(response.errors, function (key, value) {
                                 var field = $('[name="' + key + '"]')
 
@@ -97,6 +129,20 @@ $(document).ready(function () {
                                 allowEscapeKey: false,
                             });
 
+                            progress_bar.removeClass('bg-info').addClass('bg-success');
+                            progress_bar.html('¡Listo¡');
+                            form.trigger('reset'); // reseteamos el formulario
+
+
+                            // wrapper_f.append('<button class="d-block btn btn-light btn-sm mt-2">Descargar: Archivo</button>');
+
+                            setTimeout(() => {
+                                wrapper.fadeOut();
+                                progress_bar.removeClass('bg-success bg-danger').addClass('bg-info');
+                                progress_bar.css('witdh', '0%');
+                            }, 1500);
+
+
                             /*********************************
                              * LIMPIAR INPUTS DEL FORMULARIO *
                              *********************************/
@@ -114,8 +160,16 @@ $(document).ready(function () {
 
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
+
+                        progress_bar.removeClass('bg-success bg-info').addClass('bg-danger');
+                        progress_bar.html('!Hubo un Error!');
+
                         // Maneja los errores de la petición Ajax
                         alert("Error: " + errorThrown)
+                        console.log('ErrorConsole:' + errorThrown)
+                    },
+                    complete: () => {
+                        $('button#btn-action', form).attr('disabled', false);
                     }
                 });
 
@@ -256,6 +310,33 @@ $(document).ready(function () {
 
     });
 
+    $('button.btn-back').click(function (e) {
+
+        $.ajax({
+            url: '<?= base_url(route_to("publicacion_listCat")) ?>',
+            type: 'get',
+            data: {param: $('#tipo_publicaciones').val()},
+            success: function (response) {
+                // console.log(response);
+                // Maneja la respuesta del servidor
+                if (!response.success) {
+
+                } else {
+                    $('#main').html(response.html).fadeIn("slow");
+
+                    /* poner titulo al title<header> */
+                    document.querySelector("title").innerText = "Admin RI | " + response.title;
+                }
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                // Maneja los errores de la petición Ajax
+                alert("Error: " + errorThrown);
+                console.log("Error: " + errorThrown);
+
+            }
+        });
+    });
 
     /* cuando haya un cambio en el boton cambiara la imagen*/
     $('#url').on('change', function (e) {
@@ -263,11 +344,82 @@ $(document).ready(function () {
     });
 
     /* previsualizacion de un pdf */
-    $('#nombre_archivo').on('change', function (event) {
-        var pdfUrl = URL.createObjectURL(event.target.files[0]);
-        $('#visor_pdf_publicacion').html('<embed src="' + pdfUrl + '" width="100%" height="338px" ' +
-            'style="border-radius: 15px; padding: 10px; width: 100%; object-fit: cover; object-position: center center;" />');
+    // $('#nombre_archivo').on('change', function (event) {
+    //     var pdfUrl = URL.createObjectURL(event.target.files[0]);
+    //     $('#visor_pdf_publicacion').html('<embed src="' + pdfUrl + '" width="100%" height="338px" ' +
+    //         'style="border-radius: 15px; padding: 10px; width: 100%; object-fit: cover; object-position: center center;" />');
+    // });
+
+
+    // Detectar cambios en el input file
+    $('#nombre_archivo').on('change', function () {
+        // Obtener los archivos seleccionados
+        var archivos = $(this).prop('files');
+
+        // console.log(archivos);
+        /* remover todos los campos*/
+        $('#dt_file_publicacion tbody tr.campo-virtual').each(function () {
+            // hacer algo con cada elemento que tenga la clase .active
+            $(this).remove();
+        });
+
+        // Recorrer los archivos y crear las filas de la tabla
+        $.each(archivos, function (i, archivo) {
+
+            // Crear una fila de la tabla con la información del archivo
+            const iconPdf = 'https://cdn-icons-png.flaticon.com/512/3143/3143460.png';
+            const iconWord = 'https://cdn-icons-png.flaticon.com/512/888/888933.png';
+            const iconImg = 'https://cdn-icons-png.flaticon.com/512/6632/6632582.png ';
+
+            let iconFilter;
+            if (archivo.type === 'application/pdf') {
+                iconFilter = iconPdf
+            } else if (archivo.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+                iconFilter = iconWord;
+            } else {
+                iconFilter = iconImg;
+            }
+
+            let fila = '<tr class="campo-virtual">';
+            fila += '<td>' + (i + 1) + '</td>';
+            fila += `<td class="text-center">
+                        <img src="${iconFilter}" style="width: 25px;" />
+                    </td>`;
+            fila += `<td> <div class="">
+                               <button type="button" class="btn btn-outline-primary btn-sm eliminar-archivo" disabled>
+                                   <i class="bi bi-backspace"></i>
+                               </button>
+                               
+                               <button type="button" class="btn btn-outline-primary btn-sm" disabled>
+                                   <i class="bi bi-eye"></i>
+                               </button>
+                               
+                          </div>
+                    </td>`;
+            fila += '</tr>';
+            // Agregar la fila a la tabla
+            $('#dt_file_publicacion tbody').append(fila);
+        });
     });
 
+    // Detectar clicks en el botón "Eliminar" de la tabla
+    $('#dt_file_publicacion').on('click', '.eliminar-archivo', function () {
+        // Obtener la fila correspondiente al botón "Eliminar"
+        const fila = $(this).closest('tr');
+        // const fileId = fila.data('file-id');
+        const archivo = fila.find('td:eq(0)').text();
+        // Eliminar la fila de la tabla
+        fila.remove();
+
+        const archivos = $('#nombre_archivo')[0].files;
+        const nuevos_archivos = new FormData();
+        for (let i = 0; i < archivos.length; i++) {
+            if (archivos[i].name !== archivo) {
+                nuevos_archivos.append('nombre_archivo[]', archivos[i]);
+            }
+        }
+        $('#nombre_archivo').prop('files', nuevos_archivos);
+
+    });
 
 });
