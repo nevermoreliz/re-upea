@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    $(".action-insert").click(function (event) {
+    $(".action-insert").off('click').click(function (event) {
         // Evita el comportamiento por defecto del formulario
         event.preventDefault()
 
@@ -142,19 +142,14 @@ $(document).ready(function () {
                                 progress_bar.css('witdh', '0%');
                             }, 1500);
 
-
-                            /*********************************
-                             * LIMPIAR INPUTS DEL FORMULARIO *
-                             *********************************/
+                            /* limpiar formulario */
                             $(".limpiar-input").val('');
 
-                            /**********************************
-                             * CERRRAR MODAL Y LIMPIAR IMPUTS *
-                             **********************************/
-                            $('#modal_publicacion').modal('hide');
-
                             /* recargar datatable */
-                            $('#dt_publicaciones').DataTable().draw(false);
+                            $('#dt_file_publicacion').DataTable().draw(false);
+
+                            /* volver a la lista de categorias publicacion */
+                            ajaxRetornarListaPublicacionCategori();
 
                         }
 
@@ -166,7 +161,7 @@ $(document).ready(function () {
 
                         // Maneja los errores de la petición Ajax
                         alert("Error: " + errorThrown)
-                        console.log('ErrorConsole:' + errorThrown)
+                        console.log('Error Console:' + errorThrown)
                     },
                     complete: () => {
                         $('button#btn-action', form).attr('disabled', false);
@@ -179,12 +174,24 @@ $(document).ready(function () {
 
     });
 
-    $(".action-update").click(function (event) {
+    $(".action-update").off('click').click(function (event) {
         // Evita el comportamiento por defecto del formulario
         event.preventDefault();
 
+        // Parametros para progresos
+        let form = $('#formPublicacion'),
+            wrapper = $('.wrapper'),
+            wrapper_f = $('.wrapper_files'),
+            progress_bar = $('.progress_bar');
+
         // Crea un objeto FormData
         let formData = new FormData($('#formPublicacion')[0]);
+
+        // inicializacion  de la barra de progreso
+        progress_bar.removeClass('bg-success bg-danger').addClass('bg-info');
+        progress_bar.css('witdh', '0%');
+        progress_bar.html('Preparando...');
+        wrapper.fadeIn();
 
         // Elimina los mensajes de error existentes
         $('.error').remove()
@@ -216,17 +223,36 @@ $(document).ready(function () {
 
                 // Realiza una petición Ajax
                 $.ajax({
-                    url: '<?= base_url(route_to("publicacion_edit"))?>',
+                    url: '<?= base_url(route_to("publicacion_update"))?>',
                     method: 'post',
                     data: formData,
                     processData: false,
                     contentType: false,
                     cache: false,
                     async: false,
+                    beforeSend: () => {
+                        $('button#btn-action', form).attr('disabled', true);
+                    },
+                    xhr: function () {
+                        // var xhr = $.ajaxSettings.xhr();
+                        let xhr = new window.XMLHttpRequest();
+                        xhr.upload.addEventListener('progress', function (e) {
+                            if (e.lengthComputable) {
+                                let percentComplete = Math.floor((e.loaded / e.total) * 100);
+                                progress_bar.css('width', percentComplete + '%');
+                                progress_bar.html(percentComplete + '%');
+                            }
+                        }, false);
+                        return xhr;
+                    },
                     success: function (response) {
                         // console.log(response.html)
                         // Maneja la respuesta del servidor
                         if (!response.success) {
+
+                            /* seccion de barra de progreso */
+                            progress_bar.css('witdh', '0%');
+                            progress_bar.html('verificar otros datos');
 
                             Swal.fire({
                                 title: 'Verifique los Datos!',
@@ -281,18 +307,29 @@ $(document).ready(function () {
                                 allowEscapeKey: false,
                             });
                             console.log(response.html)
-                            /*********************************
-                             * LIMPIAR INPUTS DEL FORMULARIO *
-                             *********************************/
+
+
+                            progress_bar.removeClass('bg-info').addClass('bg-success');
+                            progress_bar.html('¡Listo¡');
+                            form.trigger('reset'); // reseteamos el formulario
+
+
+                            // wrapper_f.append('<button class="d-block btn btn-light btn-sm mt-2">Descargar: Archivo</button>');
+
+                            setTimeout(() => {
+                                wrapper.fadeOut();
+                                progress_bar.removeClass('bg-success bg-danger').addClass('bg-info');
+                                progress_bar.css('witdh', '0%');
+                            }, 1500);
+
+                            /* limpiar formulario */
                             $(".limpiar-input").val('');
 
-                            /**********************************
-                             * CERRRAR MODAL Y LIMPIAR IMPUTS *
-                             **********************************/
-                            $('#modal_publicacion').modal('hide');
-
                             /* recargar datatable */
-                            $('#dt_publicaciones').DataTable().draw(false);
+                            $('#dt_file_publicacion').DataTable().draw(false);
+
+                            /* volver a la lista de categorias publicacion */
+                            ajaxRetornarListaPublicacionCategori();
 
                         }
 
@@ -301,7 +338,9 @@ $(document).ready(function () {
                         // Maneja los errores de la petición Ajax
                         alert("Error: " + errorThrown);
                         console.log("Error: " + errorThrown);
-
+                    },
+                    complete: () => {
+                        $('button#btn-action', form).attr('disabled', false);
                     }
                 });
 
@@ -310,36 +349,81 @@ $(document).ready(function () {
 
     });
 
-    $('button.btn-back').click(function (e) {
-
-        $.ajax({
-            url: '<?= base_url(route_to("publicacion_listCat")) ?>',
+    /* SECCION DE DATATABLE PARA ARCHIVOS DE LA PUBLICACION */
+    $("#dt_file_publicacion").DataTable({
+        processing: true,
+        serverSide: true,
+        responsive: true,
+        autoWidth: true,
+        searching: false,
+        pageLength: 10,
+        bLengthChange: false,
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json',
+        },
+        ajax: {
             type: 'get',
-            data: {param: $('#tipo_publicaciones').val()},
-            success: function (response) {
-                // console.log(response);
-                // Maneja la respuesta del servidor
-                if (!response.success) {
-
-                } else {
-                    $('#main').html(response.html).fadeIn("slow");
-
-                    /* poner titulo al title<header> */
-                    document.querySelector("title").innerText = "Admin RI | " + response.title;
+            url: '<?= base_url(route_to("publicacionArchivo_list"))?>',
+            data: {param: $('input[name="id_publicaciones"]').val()}
+        },
+        drawCallback: function (settings) {
+            const api = this.api();
+            const startIndex = api.context[0]._iDisplayStart;
+            api.column(0, {order: 'applied'}).nodes().each(function (cell, i) {
+                cell.innerHTML = startIndex + i + 1;
+                $(cell).addClass('align-middle');
+            });
+        },
+        columnDefs: [
+            {responsivePriority: 1, targets: -1},
+        ],
+        columns: [
+            {searchable: false, orderable: false, data: null},
+            {searchable: false, orderable: false, data: 'id_publicaciones_archivo', visible: false},
+            {searchable: false, orderable: false, data: 'id_publicaciones'},
+            {
+                searchable: false,
+                orderable: false,
+                data: null,
+                render: function (data, type, row) {
+                    return `activar`;
                 }
-
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                // Maneja los errores de la petición Ajax
-                alert("Error: " + errorThrown);
-                console.log("Error: " + errorThrown);
-
             }
-        });
+        ],
+        order: [[0, "desc"]]
     });
 
+    /* SECCION DE INICIALIZAR PLUGINS O ACCIONES */
+
+    /* volver a la lista de categoria de publicacion */
+    $('button.btn-back').off('click').click(function (e) {
+        ajaxRetornarListaPublicacionCategori();
+    });
+
+    /* cancelar accion y volver a la lista de categoria de publicacion */
+    $('button.btn-cancel').off('click').click(function (e) {
+
+        Swal.fire({
+            title: '¿Está seguro?',
+            text: 'Se Cancelara El Procedimiento Que Esta Realizando.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: 'Confirmar!',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                ajaxRetornarListaPublicacionCategori();
+            }
+        })
+    });
+
+
     /* cuando haya un cambio en el boton cambiara la imagen*/
-    $('#url').on('change', function (e) {
+    $('#url').off('click').on('change', function (e) {
         document.getElementById('img_show_publicacion').src = window.URL.createObjectURL(this.files[0]);
     });
 
@@ -352,7 +436,7 @@ $(document).ready(function () {
 
 
     // Detectar cambios en el input file
-    $('#nombre_archivo').on('change', function () {
+    $('#nombre_archivo').off('click').on('change', function () {
         // Obtener los archivos seleccionados
         var archivos = $(this).prop('files');
 
@@ -403,7 +487,7 @@ $(document).ready(function () {
     });
 
     // Detectar clicks en el botón "Eliminar" de la tabla
-    $('#dt_file_publicacion').on('click', '.eliminar-archivo', function () {
+    $('#dt_file_publicacion').off('click').on('click', '.eliminar-archivo', function () {
         // Obtener la fila correspondiente al botón "Eliminar"
         const fila = $(this).closest('tr');
         // const fileId = fila.data('file-id');
@@ -421,5 +505,34 @@ $(document).ready(function () {
         $('#nombre_archivo').prop('files', nuevos_archivos);
 
     });
+
+    /* reutilizar ajax comun */
+
+    function ajaxRetornarListaPublicacionCategori() {
+        $.ajax({
+            url: '<?= base_url(route_to("publicacion_listCat")) ?>',
+            type: 'get',
+            data: {param: $('#tipo_publicaciones').val()},
+            success: function (response) {
+                // console.log(response);
+                // Maneja la respuesta del servidor
+                if (!response.success) {
+
+                } else {
+                    $('#main').html(response.html).fadeIn("slow");
+
+                    /* poner titulo al title<header> */
+                    document.querySelector("title").innerText = "Admin RI | " + response.title;
+                }
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                // Maneja los errores de la petición Ajax
+                alert("Error: " + errorThrown);
+                console.log("Error: " + errorThrown);
+
+            }
+        });
+    }
 
 });

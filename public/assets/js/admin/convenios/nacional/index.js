@@ -121,8 +121,8 @@ $(document).ready(function (e) {
 
                 const data = response.data;
 
-                console.log(data);
-                console.log('++++');
+                // console.log(data);
+                // console.log('++++');
                 // console.log('\n>');
 
                 /* capturando ruta de archivos */
@@ -249,7 +249,6 @@ $(document).ready(function (e) {
         });
 
     });
-
 
     /* agregar convenio y abrir el modal */
     $('button.btn-new-convenio-nacional').click(function (e) {

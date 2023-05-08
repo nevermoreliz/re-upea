@@ -60,7 +60,7 @@ $(document).ready(function () {
                           <i class="bi bi-view-stacked"></i>  Action
                           </button>
                           <ul class="dropdown-menu">
-                            <li><a class="dropdown-item edit-publicacion" data-publicacion="` + data['id_publicaciones'] + `" href="javascript:void(0)"><i class="bi bi-pencil-square"></i> Modificar </a></li>                     
+                            <li><a class="dropdown-item edit-publicaciones" data-publicacion="` + data['id_publicaciones'] + `" href="javascript:void(0)"><i class="bi bi-pencil-square"></i> Modificar </a></li>                     
                             ` + $li + `
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item show-publicacion" data-publicacion="` + data['id_publicaciones'] + `" href="javascript:void(0)"><i class="bi bi-info"></i> Más Detalle</a>
@@ -74,7 +74,8 @@ $(document).ready(function () {
     });
 
     /* modificar Publicación */
-    $(document).on('click', 'a.edit-publicacion', function (e) {
+    $(document).off('click').on('click', 'a.edit-publicaciones', function (e) {
+        alert('estas');
         $.ajax({
             url: '<?= base_url(route_to("publicacion_edit"))?>',
             type: 'get',
@@ -83,19 +84,16 @@ $(document).ready(function () {
                 param2: $('#param').val()
             },
             success: function (response) {
+
+                console.log(response)
+                const tipo_publicaciones = $('#param').val();
+                const id_publicaiones = e.target.getAttribute('data-publicacion');
                 // Manejar la respuesta del servidor
+                $('#main').html(response.html);
 
-                parametrosModal(
-                    '#modal_publicacion',
-                    'MODIFICAR PUBLICACIÓN',
-                    'modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg',
-                    false,
-                    'static');
-
-                /* elimina cualquier contenido anterior */
-                $('#modal_publicacion-body').html('');
-                /* agregar el contenido html en el contenido del model */
-                $('#modal_publicacion-body').html(response.html);
+                /* poner el valor input hidden el tipo publicacion */
+                $('#tipo_publicaciones').val(tipo_publicaciones);
+                // $('#id_publicaciones').val(id_publicaiones);
 
                 /* eliminar clases de insertar update or delete */
                 $('#btn-action').removeClass('action-insert');
@@ -105,58 +103,41 @@ $(document).ready(function () {
                 /* agregar clase action-update para registrar en la base de datos */
                 $('#btn-action').addClass('action-update');
                 $('#btn-action').html('');
-                $('.action-update').html('<i class="bi bi-pencil-square me-1"></i> Actualizar');
+                $('.action-update').html('<i class="bi bi-pencil-square me-1"></i> Actualizar ' + tipo_publicaciones);
 
-                const data = response.data;
+                const data = response.data.publicacion;
+                const dataArchivosPublicacion = response.data.archivosPublicacion;
 
                 // console.log(data);
                 // console.log('++++');
                 // console.log('\n>');
 
                 /* capturando ruta de archivos */
-                let rutaImgPublicacion = `<?= base_url()?>uploads/${data.publicacion.url}`;
-                let rutaFilePublicacion = `<?= base_url()?>uploads/${(Object.keys(data.archivosPublicacion).length === 0) ? '' : data.archivosPublicacion[0].nombre_archivo}`;
+                let rutaImgPublicacion = `<?= base_url()?>uploads/${data.url}`;
+
                 // console.log(rutaFilePublicacion)
 
                 /* colocando src la ruta que tiene el archivo*/
-                if (data.img_convenio == null || data.img_convenio == '') {
-                    $('#img_show_convenio').attr('src', 'https://cdn-icons-png.flaticon.com/512/3135/3135768.png');
+                if (data.url == null || data.url == '') {
+                    $('#img_show_publicacion').attr('src', 'https://cdn-icons-png.flaticon.com/512/3135/3135768.png');
                 } else {
-                    $('#img_show_convenio').attr('src', rutaImgConvenio);
+                    $('#img_show_publicacion').attr('src', rutaImgPublicacion);
                 }
-
-                /* colocando un embed del archivo que tiene el convenio*/
-                if (data.pdf_convenio == null || data.pdf_convenio == '') {
-                    $('#img_show_pdf_convenio').attr('src', 'https://cdn-icons-png.flaticon.com/512/3143/3143460.png');
-                } else {
-                    $('#visor_pdf_convenio').html('<embed src="' + rutaPdfConvenio + '" width="100%" height="338px" ' +
-                        'style="border-radius: 15px; padding: 10px; width: 100%; object-fit: cover; object-position: center center;" />');
-                }
-
 
                 $.each(data, function (key, value) {
 
-                    /* por que tiene otro nombre en la vista y en la tabla*/
-                    if (key == 'estado_convenio') {
-                        $('select[name="estado"]').val(value);
-                    }
-
                     if ($('#' + key).is('input')) {
-
-                        if (key != 'img_convenio' && key != 'pdf_convenio') {
+                        if (key != 'url') {
                             $('input[name=' + key + ']').val(value)
                         }
-                        if (key == 'id_convenios') {
+                        if (key == 'id_publicaciones') {
 
-                            // $('input[name=' + key + ']').val('<?= base64_encode(' + value + '); ?>')
                             $('input[name=' + key + ']').val(btoa(value));
                         }
-
                     } else if ($('#' + key).is('select')) {
-                        if (key != 'estado') {
                             $('select[name=' + key + ']').val(value);
-                        }
-                    } else if ($('#' + key).is('textarea')) {
+                    }
+                    else if ($('#' + key).is('textarea')) {
                         $('textarea[name=' + key + ']').val(value)
                     }
                 });
@@ -165,17 +146,17 @@ $(document).ready(function () {
                 document.querySelector("title").innerText = "Admin RI | " + response.title;
 
             },
-            error: function () {
-                // Manejar los errores de la petición
-                console.log('Ocurrió un error en la petición AJAX');
-            }
+            error: function (jqXHR, textStatus, errorThrown) {
+                // Maneja los errores de la petición Ajax
+                alert("Error: " + errorThrown)
+                console.log('Error: Ocurrió un error en la petición AJAX - ' + errorThrown);
+            },
+
         });
     });
 
-
     /* agregar usuario y abrir el modal */
-    $('button.btn-new-publicacion').click(function (e) {
-
+    $('button.btn-new-publicacion').off('click').click(function (e) {
         $.ajax({
             url: '<?= base_url(route_to("publicacion_create"))?>',
             type: 'get',
@@ -220,8 +201,8 @@ $(document).ready(function () {
         });
     });
 
-    $('.btn-back').click(function (e) {
-
+    /* volver al la lista de categorias de publicaciones */
+    $('.btn-back').off('click').click(function (e) {
         $.ajax({
             url: '<?= base_url(route_to("publicacion_index"))?>',
             method: 'get',

@@ -72,20 +72,19 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'au
 
     /* publicaciones */
     $routes->group('publicacion', ['namespace' => 'App\Controllers\Admin'], function ($routes) {
-        $routes->get('', 'Publicacion::index', ['as' => 'publicacion_index']);
-
-        $routes->get('lista-categoria', 'Publicacion::listCat', ['as' => 'publicacion_listCat']);
-        $routes->get('lista', 'Publicacion::list', ['as' => 'publicacion_list']); /* lista en datatable */
-
+        $routes->get('', 'Publicacion::index', ['as' => 'publicacion_index']); /* inicio */
 
         $routes->get('detalle', 'Publicacion::show', ['as' => 'publicacion_show']); /* informacion */
 
+        $routes->get('lista-categoria', 'Publicacion::listCat', ['as' => 'publicacion_listCat']);
+        $routes->get('lista', 'Publicacion::list', ['as' => 'publicacion_list']); /* lista en datatable */
+        $routes->get('lista-archivos-publicacion', 'Publicacion::listPublicacionArchivos', ['as' => 'publicacionArchivo_list']); /* lista en datatable de archivos publicacion */
         $routes->get('crear', 'Publicacion::create', ['as' => 'publicacion_create']); /* formulario */
         $routes->post('guardar', 'Publicacion::store', ['as' => 'publicacion_store']); /* guardar datos del formulario */
         $routes->get('editar', 'Publicacion::edit', ['as' => 'publicacion_edit']); /* actualiza datos del formulario */
 
-
         $routes->post('actualizar', 'Publicacion::update', ['as' => 'publicacion_update']); /* actualiza datos del formulario */
+
         $routes->post('eliminar', 'Publicacion::delete', ['as' => 'publicacion_delete']); /* pone el estado en 0 para desabilitado */
     });
 

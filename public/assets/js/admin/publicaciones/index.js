@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     /* ir a otra ventana */
-    $('button.btn-category-publicacion').click(function (e) {
+    $('button.btn-category-publicacion').off('click').click(function (e) {
 
         $.ajax({
             url: '<?= base_url(route_to("publicacion_listCat")) ?>',

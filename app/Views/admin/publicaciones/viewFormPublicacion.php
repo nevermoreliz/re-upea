@@ -133,7 +133,8 @@
 
                     <div class="col-12 d-flex justify-content-end">
                         <!--                        <button class="btn btn-primary" type="submit">Submit form</button>-->
-                        <button type="button" class="btn btn-outline-danger btn-sm ms-auto" data-bs-dismiss="modal"><i
+                        <button type="button" class="btn btn-outline-danger btn-sm ms-auto btn-cancel"
+                                data-bs-dismiss="modal"><i
                                     class="bi bi-backspace me-1"></i> Cancelar
                         </button>
                         <button type="button" id="btn-action" class="btn btn-outline-primary btn-sm btn-action"
@@ -197,11 +198,12 @@
                             <thead>
                             <tr>
                                 <th scope="col">#</th>
+                                <th scope="col">id</th>
                                 <th scope="col">Archivo</th>
                                 <th scope="col">Acciones</th>
                             </tr>
                             </thead>
-                            <tbody id="tabla-archivos">
+                            <tbody>
 
                             </tbody>
                         </table>
@@ -219,12 +221,6 @@
                         <div class="wrapper_files">
 
                         </div>
-
-
-                        <!--                        <div class="progress">-->
-                        <!--                            <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0"-->
-                        <!--                                 aria-valuemax="100"></div>-->
-                        <!--                        </div>-->
 
                         <!-- End Table with stripped rows -->
                     </div>
