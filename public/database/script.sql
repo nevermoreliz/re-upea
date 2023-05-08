@@ -1,3 +1,9 @@
+drop table if exists dato_enlace;
+drop table if exists sic_paises;
+drop table if exists sic_tipo_enlaces;
+drop table if exists sic_enlace_convenios;
+
+
 create table sic_paises
 (
     id_pais     int auto_increment primary key,

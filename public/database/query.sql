@@ -29,19 +29,9 @@ select e.id_enlace id_enlace,
 from enlace as e
          left join dato_enlace as de on e.id_enlace = de.id_enlace
          left join sic_paises sp on de.id_pais = sp.id_pais
-         left join sic_tipo_enlaces ste on de.id_tipo_enlace = ste.id_tipo_enlace
+         left join sic_tipo_enlaces ste on de.id_tipo_enlace = ste.id_tipo_enlace;
 
-/* selecionando convenios mas sus enlaces */
-select sc.id_convenios,
-       sc.nombre_convenio,
-       sc.id_tipo_convenio,
-       CONCAT('[', GROUP_CONCAT(JSON_OBJECT('campo2', e.id_enlace)), ']') table_enlace
-from sic_convenio sc
-         left join sic_enlace_convenios sec
-                   on sc.id_convenios = sec.id_convenios
-         left join enlace e
-                   on sec.id_enlace = e.id_enlace
-group by sc.id_convenios;
+
 
 
 /* pruebas para nacional */
