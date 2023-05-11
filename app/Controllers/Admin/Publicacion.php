@@ -91,40 +91,6 @@ class Publicacion extends BaseController
         return $this->response->setJSON($response);
     }
 
-    public function listPublicacionArchivos()
-    {
-        $order = $this->request->getVar('order');
-        $order = array_shift($order);
-
-        $model = new PublicacionArchivoModel();
-//
-        $arrayWhere = [
-            'id_publicaciones' => base64_decode($this->request->getGet('param')),
-            'estado_archivo' => 1
-        ];
-
-        $column_map = [
-            'id_publicaciones_archivo',
-            'id_publicaciones',
-            'nombre_archivo',
-            'estado_archivo',
-            'fecha',
-        ];
-
-        $lib = new TableLibWhere($model, 'gp1', $column_map, $arrayWhere);
-
-        $response = $lib->getResponse([
-            'draw' => $this->request->getVar('draw'),
-            'length' => $this->request->getVar('length'),
-            'start' => $this->request->getVar('start'),
-            'order' => $order['column'],
-            'direction' => $order['dir'],
-            'search' => $this->request->getVar('search')['value']
-        ]);
-
-        return $this->response->setJSON($response);
-    }
-
     public function create()
     {
 
@@ -388,10 +354,10 @@ class Publicacion extends BaseController
         /* obteniendo archivos img y archivo del formulario */
         $imgPublicacion = $this->request->getFile('url');
         if ($registroPublicacion->url == null || $registroPublicacion->url == '') {
-            $reglas['img_convenio'] = 'uploaded[img_convenio]|max_size[img_convenio,' . $this->configs->tamañoServidor . ']|mime_in[img_convenio,image/jpg,image/jpeg,image/png]';
+            $reglas['url'] = 'uploaded[url]|max_size[url,' . $this->configs->tamañoServidor . ']|mime_in[url,image/jpg,image/jpeg,image/png]';
             $tieneImgPub = true;
         } elseif ($imgPublicacion->isValid()) {
-            $reglas['img_convenio'] = 'uploaded[img_convenio]|max_size[img_convenio,' . $this->configs->tamañoServidor . ']|mime_in[img_convenio,image/jpg,image/jpeg,image/png]';
+            $reglas['url'] = 'uploaded[url]|max_size[url,' . $this->configs->tamañoServidor . ']|mime_in[url,image/jpg,image/jpeg,image/png]';
             $tieneImgPub = true;
         }
 
@@ -463,26 +429,26 @@ class Publicacion extends BaseController
                     cargarArchivo($imgPublicacion, $directorio, $nameFileImgConvenio);
                     borrarArchivo($registroPublicacion->url);
                 }
+
+                /* insertar img publicacion*/
+                try {
+                    $model->update($id_publicaciones, $datos);
+                } catch (\ReflectionException $e) {
+                    return $this->response->setJSON([
+                        'success' => false,
+                        'message' => 'no se actualizo en publicaciones',
+                        'error' => $e
+                    ]);
+                }
             }
 
         }
 
         /* actualizar a la tabla publicaciones */
-        try {
 
-            $model->update($id_publicaciones, $datos);
-
-        } catch (\ReflectionException $e) {
-            return $this->response->setJSON([
-                'success' => false,
-                'message' => 'no se actualizo en publicaciones',
-                'error' => $e
-            ]);
-        }
 
         /* si hay un archivo para la publicacion insertar en la tabla publicacion archivos */
         if ($tieneFilePub) {
-
 
             try {
                 /* extenciones permitidas */
@@ -490,7 +456,8 @@ class Publicacion extends BaseController
 
                 $dirFilePub = $this->configs->pathPublicacionArchivo;
 
-
+//                $datos['id_publicaciones'] = $registroPublicacionArchivo->id_publicaciones_archivo;
+                $datos['id_publicaciones'] = $id_publicaciones;
                 /* recorrer archivos*/
                 foreach ($filePublicacion as $archivo) {
 
@@ -522,8 +489,8 @@ class Publicacion extends BaseController
                     /* mover la imagen y pdf a sus directorio */
                     cargarArchivo($archivo, $dirFilePub, $nameFilePublicacion);
 
-                    /* actualizar datos a la tabla publicaciones_archivo */
-                    $modelPublicacionArchivo->update($registroPublicacionArchivo->id_publicaciones_archivo, $datos);
+                    /* insertar datos a la tabla publicaciones_archivo */
+                    $modelPublicacionArchivo->insert($datos);
 
                 }
 
@@ -548,5 +515,202 @@ class Publicacion extends BaseController
 //            'a' => $datos
         ]);
 
+    }
+
+    public function delete()
+    {
+        try {
+            // Código que puede generar una excepción
+            $id = $this->request->getPost('param');
+
+            $model = new PublicacionModel();
+            $registro = $model->find($id);
+
+
+            if ($registro->estado == 1) {
+                $model->update($id, ['estado' => 0]);
+                return $this->response->setJSON([
+                    'success' => true,
+                    'message' => 'Se Deshabilito el registro correctamente.'
+                ]);
+            } elseif ($registro->estado == 0) {
+                $model->update($id, ['estado' => 1]);
+                return $this->response->setJSON([
+                    'success' => true,
+                    'message' => 'Se Habilito el registro correctamente.'
+                ]);
+            }
+        } catch (\Exception $e) {
+            // Manejar la excepción
+            // echo "Se produjo una excepción: " . $e->getMessage();
+            return $this->response->setJSON([
+                'success' => false,
+                'error' => $e->getMessage()
+            ]);
+        }
+    }
+
+    /* CRUD PARA LA TABLA DE ARCHIVOS DE PUBLICACION */
+    public function listPublicacionArchivos()
+    {
+        $order = $this->request->getVar('order');
+        $order = array_shift($order);
+
+        $model = new PublicacionArchivoModel();
+//
+        $arrayWhere = [
+            'id_publicaciones' => base64_decode($this->request->getGet('param')),
+            'estado_archivo' => 1
+        ];
+
+        $column_map = [
+            'id_publicaciones_archivo',
+            'id_publicaciones',
+            'nombre_archivo',
+            'estado_archivo',
+            'fecha',
+        ];
+
+        $lib = new TableLibWhere($model, 'gp1', $column_map, $arrayWhere);
+
+        $response = $lib->getResponse([
+            'draw' => $this->request->getVar('draw'),
+            'length' => $this->request->getVar('length'),
+            'start' => $this->request->getVar('start'),
+            'order' => $order['column'],
+            'direction' => $order['dir'],
+            'search' => $this->request->getVar('search')['value']
+        ]);
+
+        return $this->response->setJSON($response);
+    }
+
+    public function listPublicacionEdit()
+    {
+        $id = $this->request->getGet('param');
+
+        $model = new PublicacionArchivoModel();
+        $registro = $model->find($id);
+
+        $data = [
+            'publicacionArchivo' => $registro,
+        ];
+
+        if (!$this->request->isAJAX()) {
+            return redirect()->route('/admin')->back();
+        }
+
+        $html = $this->templater->viewAdmin('admin/publicaciones/viewFormFilePublicacion', $data);
+
+        return $this->response->setJSON([
+            'success' => true,
+            'html' => $html,
+            'title' => 'Modificar Archivo Publicación',
+            'data' => $registro
+        ]);
+
+    }
+
+    public function listPubArchivoUpdate()
+    {
+        /* inicialicar el modelo */
+        $model = new PublicacionArchivoModel();
+        $hiddenId = $this->request->getPost('id_publicaciones_archivo');
+        $id_publicaciones_archivo = base64_decode($hiddenId);
+        $registroArchivoPublicacion = $model->find($id_publicaciones_archivo);
+
+        /* obteniendo archivos img y archivo del formulario */
+        $filePublicacion = $this->request->getFile('nombre_archivo_publicacion');
+
+        if (!$filePublicacion->isValid()) {
+            return $this->response->setJSON([
+                'success' => true,
+                'message' => 'No Actualizo El Archivo por que no se selecciono ningun archivo.',
+            ]);
+        } else {
+
+            $reglas = [
+                'nombre_archivo_publicacion' => 'uploaded[nombre_archivo_publicacion]|max_size[nombre_archivo_publicacion,' . $this->configs->tamañoServidor . ']|mime_in[nombre_archivo_publicacion,application/pdf]'
+            ];
+
+            if (!$this->validate($reglas)) {
+
+                return $this->response->setJSON([
+                    'success' => false,
+                    'message' => 'verifique que los datos sean validas.',
+                    'errors' => $this->validator->getErrors()
+                ]);
+            }
+
+            /* obtener nombre aleatorio para archivos de publicacion */
+            $nameFilePublicacion = $filePublicacion->getRandomName();
+            $dirFilePub = $this->configs->pathPublicacionArchivo;
+            $datos = [
+                'nombre_archivo' => 'assets/img_publicaciones/archivos/' . $nameFilePublicacion,
+                'fecha' => trim(date('Y-m-d')),
+            ];
+
+            if ($registroArchivoPublicacion->nombre_archivo == null || $registroArchivoPublicacion->nombre_archivo == '') {
+                /* mover la imagen al directorio */
+                cargarArchivo($filePublicacion, $dirFilePub, $nameFilePublicacion);
+            } else {
+                cargarArchivo($filePublicacion, $dirFilePub, $nameFilePublicacion);
+                borrarArchivo($registroArchivoPublicacion->nombre_archivo);
+            }
+
+            /* insertar img publicacion*/
+            try {
+                $model->update($id_publicaciones_archivo, $datos);
+            } catch (\ReflectionException $e) {
+                return $this->response->setJSON([
+                    'success' => false,
+                    'message' => 'no se actualizo en publicaciones',
+                    'error' => $e
+                ]);
+            }
+
+            return $this->response->setJSON([
+                'success' => true,
+                'message' => 'Se actualizo los datos al sistema correctamente.',
+            ]);
+
+        }
+
+    }
+
+    public function listPubArchivoDelete()
+    {
+        try {
+            // Código que puede generar una excepción
+            $id = $this->request->getPost('param');
+
+            $model = new PublicacionArchivoModel();
+            $registro = $model->find($id);
+
+            $datos = [
+                'nombre_archivo' => 'eliminado',
+                'estado_archivo' => 0
+            ];
+
+            /* borar del servidor el archivo*/
+            borrarArchivo($registro->nombre_archivo);
+
+            /* actualizar estado a eliminado*/
+            $model->update($id, $datos);
+
+            return $this->response->setJSON([
+                'success' => true,
+                'message' => 'Se Elimino El Archivo Del Servidor.'
+            ]);
+
+
+        } catch (\Exception $e) {
+            // Manejar la excepción
+            // echo "Se produjo una excepción: " . $e->getMessage();
+            return $this->response->setJSON([
+                'success' => false,
+                'error' => $e->getMessage()
+            ]);
+        }
     }
 }

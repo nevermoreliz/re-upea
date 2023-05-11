@@ -199,7 +199,7 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">id</th>
-                                <th scope="col">Archivo</th>
+                                <th scope="col">Ext.</th>
                                 <th scope="col">Acciones</th>
                             </tr>
                             </thead>
@@ -231,5 +231,30 @@
 
     </div>
 </section>
+
+<!-- Vertically centered Modal -->
+<div class="modal fade draggable-modal" id="modal_file_publicacion" tabindex="-1" role="dialog">
+    <div id="modal_file_publicacion-dialog" class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-modal-jf">
+                <h5 id="modal_file_publicacion-title" class="modal_file_publicacion-title modal-title">Titulo Modal</h5>
+                <button id="modal_file_publicacion-close" type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div id="modal_file_publicacion-body" class="modal_file_publicacion-body modal-body">
+                <!-- dinamic content -->
+            </div>
+            <div id="modal_file_publicacion-footer" class="modal-footer">
+                <button type="button" class="btn btn-outline-danger btn-sm" data-bs-dismiss="modal"><i
+                            class="bi bi-backspace me-1"></i> Cancelar
+                </button>
+                <button type="button" id="btn-action-file-public" class="btn btn-outline-primary btn-sm btn-action"><i
+                            class="bi bi-check-square me-1"></i> Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Vertically centered Modal-->
 
 

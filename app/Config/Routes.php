@@ -78,14 +78,18 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'au
 
         $routes->get('lista-categoria', 'Publicacion::listCat', ['as' => 'publicacion_listCat']);
         $routes->get('lista', 'Publicacion::list', ['as' => 'publicacion_list']); /* lista en datatable */
-        $routes->get('lista-archivos-publicacion', 'Publicacion::listPublicacionArchivos', ['as' => 'publicacionArchivo_list']); /* lista en datatable de archivos publicacion */
         $routes->get('crear', 'Publicacion::create', ['as' => 'publicacion_create']); /* formulario */
         $routes->post('guardar', 'Publicacion::store', ['as' => 'publicacion_store']); /* guardar datos del formulario */
         $routes->get('editar', 'Publicacion::edit', ['as' => 'publicacion_edit']); /* actualiza datos del formulario */
-
         $routes->post('actualizar', 'Publicacion::update', ['as' => 'publicacion_update']); /* actualiza datos del formulario */
-
         $routes->post('eliminar', 'Publicacion::delete', ['as' => 'publicacion_delete']); /* pone el estado en 0 para desabilitado */
+
+        /* crud para la tabla de publicaciones archivos */
+        $routes->get('lista-archivos-publicacion', 'Publicacion::listPublicacionArchivos', ['as' => 'publicacionArchivo_list']); /* lista en datatable de archivos publicacion */
+        $routes->get('editar-archivos-publicacion', 'Publicacion::listPublicacionEdit', ['as' => 'publicacionArchivo_edit']); /* actualiza datos del formulario */
+        $routes->post('actualizar-archivos-publicacion', 'Publicacion::listPubArchivoUpdate', ['as' => 'publicacionArchivo_update']); /* actualizar archivo de la publicacion */
+        $routes->post('eliminar-archivos-publicacion', 'Publicacion::listPubArchivoDelete', ['as' => 'publicacionArchivo_delete']); /* eliminar archivo de la publicacion */
+
     });
 
 

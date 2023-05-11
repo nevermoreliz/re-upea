@@ -30,7 +30,20 @@ $(document).ready(function () {
             {data: 'id_publicaciones', visible: false},
             {data: 'titulo'},
             {data: 'tipo_publicaciones'},
-            {data: 'estado'},
+            {
+                data: 'estado',
+                render: function (data, type, row) {
+
+                    let $html;
+                    // return '<button class="btn btn-primary">' + data['name'] + '</button>';
+                    if (data == 1) {
+                        $html = `<span class="badge bg-success"><i class="bi bi-check-circle me-1"></i> Activo</span>`;
+                    } else {
+                        $html = `<span class="badge bg-dark"><i class="bi bi-x-circle me-1"></i> Inactivo</span>`;
+                    }
+                    return $html;
+                }
+            },
             {
                 searchable: false,
                 orderable: false,
@@ -39,18 +52,16 @@ $(document).ready(function () {
 
                     let clase, textCamp, iconAction, $li;
 
-                    if (data['estado_convenio'] === 'Activo') {
-                        clase = 'delete-convenio-nacional';
+                    if (data['estado'] == 1) {
+                        clase = 'delete-category-publicacion';
                         textCamp = 'Deshabilitar';
                         iconAction = 'bi bi-trash';
-                        $li = `<li><a id="dinamic-text-enlace-active" class="dropdown-item texto-ext ` + clase + `" data-convenio-nacional="` + data['id_convenios'] + `" href="javascript:void(0)"><i class="` + iconAction + `"></i> ` + textCamp + `</a></li>`;
-                    } else if (data['estado_convenio'] === 'Concluido') {
-                        $li = ``;
+                        $li = `<li><a id="dinamic-text-enlace-active" class="dropdown-item texto-ext ` + clase + `" data-publicacion="` + data['id_publicaciones'] + `" href="javascript:void(0)"><i class="` + iconAction + `"></i> ` + textCamp + `</a></li>`;
                     } else {
-                        clase = 'active-convenio-nacional';
+                        clase = 'active-category-publicacion';
                         textCamp = 'Activar';
                         iconAction = 'bi bi-check-square';
-                        $li = `<li><a id="dinamic-text-enlace-active" class="dropdown-item texto-ext ` + clase + `" data-convenio-nacional="` + data['id_convenios'] + `" href="javascript:void(0)"><i class="` + iconAction + `"></i> ` + textCamp + `</a></li>`;
+                        $li = `<li><a id="dinamic-text-enlace-active" class="dropdown-item texto-ext ` + clase + `" data-publicacion="` + data['id_publicaciones'] + `" href="javascript:void(0)"><i class="` + iconAction + `"></i> ` + textCamp + `</a></li>`;
                     }
 
                     return `
@@ -75,7 +86,7 @@ $(document).ready(function () {
 
     /* modificar Publicación */
     $(document).off('click').on('click', 'a.edit-publicaciones', function (e) {
-        alert('estas');
+        // alert('cuantes veces repite');
         $.ajax({
             url: '<?= base_url(route_to("publicacion_edit"))?>',
             type: 'get',
@@ -85,7 +96,7 @@ $(document).ready(function () {
             },
             success: function (response) {
 
-                console.log(response)
+                // console.log(response)
                 const tipo_publicaciones = $('#param').val();
                 const id_publicaiones = e.target.getAttribute('data-publicacion');
                 // Manejar la respuesta del servidor
@@ -135,9 +146,8 @@ $(document).ready(function () {
                             $('input[name=' + key + ']').val(btoa(value));
                         }
                     } else if ($('#' + key).is('select')) {
-                            $('select[name=' + key + ']').val(value);
-                    }
-                    else if ($('#' + key).is('textarea')) {
+                        $('select[name=' + key + ']').val(value);
+                    } else if ($('#' + key).is('textarea')) {
                         $('textarea[name=' + key + ']').val(value)
                     }
                 });
@@ -153,6 +163,73 @@ $(document).ready(function () {
             },
 
         });
+    });
+
+    /* eliminar Publicacion */
+    $(document).on('click', 'a.delete-category-publicacion, a.active-category-publicacion', function (e) {
+        var text;
+        if ($('#dinamic-text-enlace-active').hasClass('delete-category-publicacion')) {
+            text = 'Deshabilitara';
+        } else if ($('#dinamic-text-enlace-active').hasClass('active-category-publicacion')) {
+            text = 'Activara';
+        }
+
+        Swal.fire({
+            title: '¿Está seguro?',
+            text: 'Se ' + text + ' el registro en el sistema',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: 'Confirmar!',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '<?= base_url(route_to("publicacion_delete"))?>',
+                    type: 'post',
+                    data: {param: e.target.getAttribute('data-publicacion')},
+                    success: function (response) {
+                        // Manejar la respuesta del servidor
+
+                        if (!response.success) {
+
+                            alert('algo paso comuniquese con el administrador ' + response.error);
+                            console.log(response.error);
+
+                        } else {
+                            /* muestra en consola */
+                            // console.log(response);
+                            Swal.fire({
+                                title: response.message + '!',
+                                // title: 'Registro Deshabilitado Correctamente!',
+                                // text: response.message,
+                                icon: 'success',
+                                confirmButtonText: 'Continuar',
+                                confirmButtonColor: '#3085d6',
+                                showCancelButton: false,
+                                allowOutsideClick: false,
+                                allowEscapeKey: false,
+                            });
+                            /* recargar datatable */
+                            $('#dt_publicaciones').DataTable().draw(false);
+
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        // Manejar los errores de la petición
+                        console.log('Ocurrió un error en la petición AJAX');
+                        // console.log("ERROR" + errorThrown + textStatus + jqXHR);
+                        console.log("Error: " + errorThrown);
+                    }
+                });
+
+
+            }
+        });
+
     });
 
     /* agregar usuario y abrir el modal */

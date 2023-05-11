@@ -144,7 +144,6 @@ $(document).ready(function (e) {
                         'style="border-radius: 15px; padding: 10px; width: 100%; object-fit: cover; object-position: center center;" />');
                 }
 
-
                 $.each(data, function (key, value) {
 
                     /* por que tiene otro nombre en la vista y en la tabla*/

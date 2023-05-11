@@ -306,13 +306,11 @@ $(document).ready(function () {
                                 allowOutsideClick: false,
                                 allowEscapeKey: false,
                             });
-                            console.log(response.html)
-
+                            // console.log(response.html)
 
                             progress_bar.removeClass('bg-info').addClass('bg-success');
                             progress_bar.html('¡Listo¡');
                             form.trigger('reset'); // reseteamos el formulario
-
 
                             // wrapper_f.append('<button class="d-block btn btn-light btn-sm mt-2">Descargar: Archivo</button>');
 
@@ -380,17 +378,167 @@ $(document).ready(function () {
         columns: [
             {searchable: false, orderable: false, data: null},
             {searchable: false, orderable: false, data: 'id_publicaciones_archivo', visible: false},
-            {searchable: false, orderable: false, data: 'id_publicaciones'},
             {
                 searchable: false,
                 orderable: false,
                 data: null,
                 render: function (data, type, row) {
-                    return `activar`;
+                    let nombresArray = data['nombre_archivo'].split(".");
+                    let src;
+                    if (nombresArray[nombresArray.length - 1] == 'pdf') {
+                        src = 'https://cdn-icons-png.flaticon.com/512/3143/3143460.png';
+                    } else if (nombresArray[nombresArray.length - 1 == 'docx']) {
+                        src = 'https://cdn-icons-png.flaticon.com/512/888/888933.png';
+                    } else {
+                        src = 'https://cdn-icons-png.flaticon.com/512/3756/3756712.png';
+                    }
+
+                    return `<img src="${src}"  style="width: 25px;" />`;
+                }
+            },
+            {
+                searchable: false,
+                orderable: false,
+                data: null,
+                render: function (data, type, row) {
+                    return `<div class="">
+                               <a class="btn btn-outline-primary btn-sm" href="<?= base_url() ?>uploads/${data['nombre_archivo']}" target="_blank">
+                                   <i class="bi bi-eye"></i>
+                               </a>
+                               
+                               <a class="btn btn-outline-warning btn-sm edit-file-publicacion" data-file-publicacion="` + data['id_publicaciones_archivo'] + `" href="javascript:void(0)" >
+                                   <i class="bi bi-pencil-square"></i>
+                               </a>
+                               
+                               <a class="btn btn-outline-danger btn-sm delete-file-publicacion" data-file-publicacion="` + data['id_publicaciones_archivo'] + `" href="javascript:void(0)" >
+                                   <i class="bi bi-trash"></i>
+                               </a>
+                               
+                          </div>`;
                 }
             }
         ],
         order: [[0, "desc"]]
+    });
+
+    /* mostrar modal para modificar archivo de la publicacion */
+    $(document).on('click', 'a.edit-file-publicacion', function (e) {
+        // alert('cuantes veces');
+        $.ajax({
+            url: '<?= base_url(route_to("publicacionArchivo_edit"))?>',
+            type: 'get',
+            data: {param: e.currentTarget.getAttribute('data-file-publicacion')},
+            success: function (response) {
+                // Manejar la respuesta del servidor
+
+                parametrosModal(
+                    '#modal_file_publicacion',
+                    'ACTUALIZAR UN ARCHIVO DE LA PUBLICACIÓN 11',
+                    'modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg',
+                    false,
+                    'static');
+
+                /* NOTA SE RENOMBRO EL ID PARA EL FORMULARIO DE ARCHIVOS PUBLICACIONES */
+                /* elimina cualquier contenido anterior */
+                $('#modal_file_publicacion-body').html('');
+                /* agregar el contenido html en el contenido del model */
+                $('#modal_file_publicacion-body').html(response.html);
+
+                /* eliminar clases de insertar update or delete */
+                $('#btn-action-file-public').removeClass('action-insert');
+                $('#btn-action-file-public').removeClass('action-update');
+                $('#btn-action-file-public').removeClass('action-delete');
+
+                /* agregar clase action-update para registrar en la base de datos */
+                $('#btn-action-file-public').addClass('action-update');
+                $('#btn-action-file-public').html('');
+                $('#btn-action-file-public.action-update').html('<i class="bi bi-pencil-square me-1"></i> Actualizar Archivo');
+
+                const data = response.data;
+
+                const ruta = `<?= base_url()?>uploads/` + data.nombre_archivo;
+                const ArrayExtractExtFile = ruta.split(".");
+
+                const extensionFile = ArrayExtractExtFile[ArrayExtractExtFile.length - 1];
+
+                if (extensionFile == 'pdf') {
+                    $('#visor_pdf_file_publicacion').html('<embed src="' + ruta + '" width="100%" height="338px" ' +
+                        'style="border-radius: 15px; padding: 10px; width: 100%; object-fit: cover; object-position: center center;" />');
+                } else {
+                    $('#img_show_pdf_file_publicacion').attr('src', 'https://cdn-icons-png.flaticon.com/512/888/888933.png');
+                }
+
+                $('input[name="id_publicaciones_archivo"]').val(btoa(data.id_publicaciones_archivo));
+
+                /* poner titulo al title<header> */
+                document.querySelector("title").innerText = "Admin RI | " + response.title;
+
+            },
+            error: function () {
+                // Manejar los errores de la petición
+                console.log('Ocurrió un error en la petición AJAX');
+            }
+        });
+    });
+
+    /* eliminar archivo de publicacion */
+    $(document).off('click').on('click', 'a.delete-file-publicacion', function (e) {
+
+        Swal.fire({
+            title: '¿Está seguro?',
+            text: 'Se eliminara el archivo en el sistema',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: 'Confirmar!',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '<?= base_url(route_to("publicacionArchivo_delete"))?>',
+                    type: 'post',
+                    data: {param: e.currentTarget.getAttribute('data-file-publicacion')},
+                    success: function (response) {
+                        // Manejar la respuesta del servidor
+
+                        if (!response.success) {
+
+                            alert('algo paso comuniquese con el administrador ' + response.error);
+                            console.log(response.error);
+
+                        } else {
+                            /* muestra en consola */
+                            // console.log(response);
+                            Swal.fire({
+                                title: response.message + '!',
+                                // title: 'Registro Deshabilitado Correctamente!',
+                                // text: response.message,
+                                icon: 'success',
+                                confirmButtonText: 'Continuar',
+                                confirmButtonColor: '#3085d6',
+                                showCancelButton: false,
+                                allowOutsideClick: false,
+                                allowEscapeKey: false,
+                            });
+                            /* recargar datatable */
+                            $('#dt_file_publicacion').DataTable().draw(false);
+
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        // Manejar los errores de la petición
+                        console.log('Ocurrió un error en la petición AJAX');
+                        // console.log("ERROR" + errorThrown + textStatus + jqXHR);
+                        console.log("Error: " + errorThrown);
+                    }
+                });
+
+            }
+        });
+
     });
 
     /* SECCION DE INICIALIZAR PLUGINS O ACCIONES */
@@ -423,7 +571,7 @@ $(document).ready(function () {
 
 
     /* cuando haya un cambio en el boton cambiara la imagen*/
-    $('#url').off('click').on('change', function (e) {
+    $('#url').on('change', function (e) {
         document.getElementById('img_show_publicacion').src = window.URL.createObjectURL(this.files[0]);
     });
 
@@ -433,7 +581,6 @@ $(document).ready(function () {
     //     $('#visor_pdf_publicacion').html('<embed src="' + pdfUrl + '" width="100%" height="338px" ' +
     //         'style="border-radius: 15px; padding: 10px; width: 100%; object-fit: cover; object-position: center center;" />');
     // });
-
 
     // Detectar cambios en el input file
     $('#nombre_archivo').off('click').on('change', function () {

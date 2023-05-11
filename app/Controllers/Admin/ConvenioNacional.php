@@ -456,7 +456,7 @@ class ConvenioNacional extends BaseController
 
     }
 
-    public function delete(): ResponseInterface
+    public function delete()
     {
         try {
             // Código que puede generar una excepción
