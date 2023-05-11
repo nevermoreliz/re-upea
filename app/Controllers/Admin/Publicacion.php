@@ -689,7 +689,8 @@ class Publicacion extends BaseController
 
             $datos = [
                 'nombre_archivo' => 'eliminado',
-                'estado_archivo' => 0
+                'estado_archivo' => 0,
+                'fecha' => trim(date('Y-m-d'))
             ];
 
             /* borar del servidor el archivo*/
