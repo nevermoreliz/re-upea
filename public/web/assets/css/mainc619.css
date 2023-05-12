@@ -381,7 +381,8 @@ input[type="number"]:focus,
 }
 
 body {
-    background: url(../imgs/theme/background-blur.svg) no-repeat 0px 14%;
+    /* cambio aqui */
+    /*background: url(../imgs/theme/background-blur.svg) no-repeat 0px 14%;*/
     background-size: contain;
 }
 

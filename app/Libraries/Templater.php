@@ -29,7 +29,10 @@ class Templater extends BaseController
             // $data['sidebar'] = view('web/layout/sidebar', $data);
             $data['header'] = view('web/layout/header', $data);
             $data['content'] = view($content, $data);
-            return view($base, $data);
+
+            $najax = view($base, $data);
+            return css_tag($content) . $najax . script_tag($content);
+//            return view($base, $data);
         }
     }
 
@@ -43,6 +46,7 @@ class Templater extends BaseController
             $data['header'] = view('admin/layout_admin/header', $data);
             $data['content'] = view($content, $data);
             $data['footer'] = view('admin/layout_admin/footer', $data);
+
             return view($base, $data);
         }
     }

@@ -38,7 +38,7 @@ abstract class BaseController extends Controller
      *
      * @var array
      */
-    protected $helpers = ['base','url','form'];
+    protected $helpers = ['base', 'url', 'form'];
 
     /**
      * Be sure to declare properties for any property fetch you initialized.
@@ -58,5 +58,6 @@ abstract class BaseController extends Controller
 
         // E.g.: $this->session = \Config\Services::session();
         $this->templater = new Templater(\Config\Services::request());
+
     }
 }

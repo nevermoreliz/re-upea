@@ -10,11 +10,12 @@
                         <h1 class="heading-banner wow animate__animated animate__fadeInUp mt-50">UNIDAD DE
                             RELACIONES INTERNACIONALES</h1>
                         <!-- <div class="banner-description mt-30 wow animate__animated animate__fadeInUp" data-wow-delay=".1s">Each month, more than 3 million job seekers turn to website in their search for work, making over 140,000 applications every single day</div> -->
-                        <div class="banner-description mt-30 mb-50 wow animate__animated animate__fadeInUp" data-wow-delay=".1s" style="color:#fff;font-size: 18px;font-family: 'Lato Light';text-align: justify">
+                        <div class="banner-description mt-30 mb-50 wow animate__animated animate__fadeInUp"
+                             data-wow-delay=".1s"
+                             style="color:#fff;font-size: 18px;font-family: 'Lato Light';text-align: justify">
                             Visita el sitio web, de Relaciones Nacionales e Internacionales DRNI de la UPEA, en
                             búsca de becas, convenios, movilidad, etc.
                         </div>
-
 
 
                     </div>
@@ -25,7 +26,8 @@
                     <div class="banner-imgs" style="padding-top: 0px;">
                         <!-- IMAGEN 1 ANIAMTION -->
                         <!-- <img alt="jobhub" src="assets/imgs/banner/banner.png" class="img-responsive shape-1" /> -->
-                        <img alt="logo-upea" src="<?= base_url(); ?>web/assets/imgs/banner/logo-upea.png" class="img-responsive shape-1" style="z-index:9;" />
+                        <img alt="logo-upea" src="<?= base_url(); ?>web/assets/imgs/banner/logo-upea.png"
+                             class="img-responsive shape-1" style="z-index:9;"/>
                         <!-- <img alt="jobhub" src="assets/imgs/img-pagina/ESCUDO UPEA 21 .png"
                                 class="img-responsive shape-1" style="z-index:9;" /> -->
 
@@ -70,8 +72,6 @@
     </div>
 </section>
 
-
-
 <section class="section-box mt-65">
     <div class="container">
         <div class="row align-items-end">
@@ -84,19 +84,25 @@
                     toda informaci&oacute;n clara que nesesite saber.</p>
             </div>
             <div class="col-lg-5 text-lg-end text-start wow animate__animated animate__fadeInUp" data-wow-delay=".2s">
-                <a href="job-grid-2.html" class="mt-sm-15 mt-lg-30 btn btn-border icon-chevron-right">Mostrar
-                    M&aacute;s</a>
+                <!--                <a href="job-grid-2.html" class="mt-sm-15 mt-lg-30 btn btn-border icon-chevron-right">Mostrar-->
+                <!--                    M&aacute;s</a>-->
+
+                <button class="btn-jf-personalizado" onclick="window.location.href='<?= route_to('convenio_index') ?>'">
+                    Mostrar M&aacute;s
+                </button>
             </div>
         </div>
 
         <div class="row mt-70">
             <div class="col-lg-3 col-md-6 col-sm-12 col-12">
 
-                <a href="convenio-home.html">
+                <a href="<?= route_to('convenio_index') ?>">
                     <div class="card-grid hover-up wow animate__animated animate__fadeInUp">
                         <div class="text-center">
                             <figure>
-                                <img alt="jobhub" src="<?= base_url(); ?>web/assets/imgs/img-pagina/categorias-pagina/convenio.png" style="width: 85px" />
+                                <img alt="jobhub"
+                                     src="<?= base_url(); ?>web/assets/imgs/img-pagina/categorias-pagina/convenio.png"
+                                     style="width: 85px"/>
                             </figure>
                         </div>
                         <h5 class="text-center mt-20 card-heading">
@@ -113,7 +119,9 @@
                         <div class="text-center">
 
                             <figure>
-                                <img alt="jobhub" src="<?= base_url(); ?>web/assets/imgs/img-pagina/categorias-pagina/beca.png" style="width: 85px" />
+                                <img alt="jobhub"
+                                     src="<?= base_url(); ?>web/assets/imgs/img-pagina/categorias-pagina/beca.png"
+                                     style="width: 85px"/>
                             </figure>
                         </div>
                         <h5 class="text-center mt-20 card-heading">Becas </h5>
@@ -123,13 +131,16 @@
 
             </div>
 
-            <div class="col-lg-3 col-md-6 col-sm-12 col-12 wow animate__animated animate__fadeInUp" data-wow-delay=".2s">
+            <div class="col-lg-3 col-md-6 col-sm-12 col-12 wow animate__animated animate__fadeInUp"
+                 data-wow-delay=".2s">
                 <a href="job-grid.html">
                     <div class="card-grid hover-up">
                         <div class="text-center">
 
                             <figure>
-                                <img alt="jobhub" src="<?= base_url(); ?>web/assets/imgs/img-pagina/categorias-pagina/movilidad.png" style="width: 85px" />
+                                <img alt="jobhub"
+                                     src="<?= base_url(); ?>web/assets/imgs/img-pagina/categorias-pagina/movilidad.png"
+                                     style="width: 85px"/>
                             </figure>
                         </div>
                         <h5 class="text-center mt-20 card-heading">Movilidad</h5>
@@ -144,7 +155,9 @@
                         <div class="text-center">
 
                             <figure>
-                                <img alt="jobhub" src="<?= base_url(); ?>web/assets/imgs/img-pagina/categorias-pagina/idiomas.png" style="width: 85px" />
+                                <img alt="jobhub"
+                                     src="<?= base_url(); ?>web/assets/imgs/img-pagina/categorias-pagina/idiomas.png"
+                                     style="width: 85px"/>
                             </figure>
                         </div>
                         <h5 class="text-center mt-20 card-heading">Idiomas </h5>

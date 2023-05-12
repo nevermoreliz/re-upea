@@ -33,15 +33,62 @@ $routes->setAutoRoute(false);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Home::index');
+//$routes->get('/', 'Home::index');
 
+/* GRUPO PARA WEB */
+$routes->group('/', ['namespace' => 'App\Controllers\Web'], function ($routes) {
+    $routes->get('', 'Home::index', ['as' => 'web_index']);
+
+    $routes->group('institucional', ['namespace' => 'App\Controllers\Web'], function ($routes) {
+        $routes->get('/', 'Institucional::index', ['as' => 'institucional_index']);
+    });
+
+    $routes->group('convenios', ['namespace' => 'App\Controllers\Web'], function ($routes) {
+
+        $routes->get('', 'Convenio::index', ['as' => 'convenio_index']);
+
+        $routes->group('nacional', ['namespace' => 'App\Controllers\Web'], function ($routes) {
+            $routes->get('/', 'ConvenioNacional::index', ['as' => 'convenioNacional_index']);
+            $routes->get('info', 'ConvenioNacional::show', ['as' => 'convenioNacional_show']);
+        });
+
+        $routes->group('internacional', ['namespace' => 'App\Controllers\Web'], function ($routes) {
+            $routes->get('/', 'ConvenioInternacional::index', ['as' => 'convenioInternacional_index']);
+        });
+
+        $routes->group('idioma', ['namespace' => 'App\Controllers\Web'], function ($routes) {
+            $routes->get('/', 'ConvenioIdioma::index', ['as' => 'convenioIdioma_index']);
+        });
+
+    });
+
+
+    $routes->group('prensa', ['namespace' => 'App\Controllers\Web'], function ($routes) {
+
+        $routes->group('publicacion', ['namespace' => 'App\Controllers\Web'], function ($routes) {
+            $routes->get('/', 'PrensaPublicacion::index', ['as' => 'prensaPublicacion_index']);
+        });
+
+        $routes->group('noticia', ['namespace' => 'App\Controllers\Web'], function ($routes) {
+            $routes->get('/', 'PrensaNoticia::index', ['as' => 'prensaNoticia_index']);
+        });
+
+        $routes->group('idioma', ['namespace' => 'App\Controllers\Web'], function ($routes) {
+            $routes->get('/', 'PrensaIdioma::index', ['as' => 'prensaIdioma_index']);
+        });
+
+    });
+
+});
+
+
+//$routes->get('/auth', 'App\Controllers\Auth\Login::index');
 $routes->group('auth', ['namespace' => 'App\Controllers\Auth'], function ($routes) {
     $routes->get('/', 'Login::index', ['as' => 'login']);
     $routes->post('signin', 'Login::signin', ['as' => 'signin']);
     $routes->get('logout', 'Login::logout', ['as' => 'logout']);
 });
 
-$routes->get('/auth', 'App\Controllers\Auth\Login::index');
 
 $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'auth:ADMINISTRADOR,TECNICO,SECRETARIA'], function ($routes) {
     $routes->get('/', 'Dashboard::index', ['as' => 'dashboard']);
