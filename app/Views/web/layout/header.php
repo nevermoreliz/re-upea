@@ -32,8 +32,8 @@
                             <li class="has-children">
                                 <a href="javascript:void(0)">Convenios</a>
                                 <ul class="sub-menu">
-                                    <li><a href="<?= route_to('convenioNacional_index') ?>">Nacional</a></li>
-                                    <li><a href="<?= route_to('convenioInternacional_index') ?>">Internacional</a></li>
+                                    <li><a href="<?= route_to('webConvenioNacional_index') ?>">Nacional</a></li>
+                                    <li><a href="<?= route_to('webConvenioInternacional_index') ?>">Internacional</a></li>
                                     <!--<li><a href="<? /*= route_to('convenioIdioma_index') */ ?>">Idiomas</a></li>-->
                                     <!--                                    <li class="hr"><span></span></li>-->
                                     <!--                                    <li><a href="employers-list.html">Membresias</a></li>-->
@@ -54,7 +54,7 @@
                                 <ul class="sub-menu">
                                     <li><a href="<?= route_to('prensaPublicacion_index') ?>">Publicaciones</a></li>
                                     <li><a href="<?= route_to('prensaNoticia_index') ?>">Noticias</a></li>
-                                    <!--<li><a href="<?/*= route_to('prensaIdioma_index') */?>">Idiomas</a></li>-->
+                                    <!--<li><a href="<? /*= route_to('prensaIdioma_index') */ ?>">Idiomas</a></li>-->
                                 </ul>
                             </li>
 
@@ -136,9 +136,12 @@
 
                     <div class="mobile-social-icon mt-10 mb-50">
                         <h6 class="mb-25">Follow Us</h6>
-                        <a href="#"><img src="assets/imgs/theme/icons/icon-facebook.svg" alt="jobhub"/></a>
-                        <a href="#"><img src="assets/imgs/theme/icons/icon-instagram.svg" alt="jobhub"/></a>
-                        <a href="#"><img src="assets/imgs/theme/icons/icon-youtube.svg" alt="jobhub"/></a>
+                        <a href="#"><img src="<?= base_url('web/') ?>assets/imgs/theme/icons/icon-facebook.svg"
+                                         alt="jobhub"/></a>
+                        <a href="#"><img src="<?= base_url('web/') ?>assets/imgs/theme/icons/icon-instagram.svg"
+                                         alt="jobhub"/></a>
+                        <a href="#"><img src="<?= base_url('web/') ?>assets/imgs/theme/icons/icon-youtube.svg"
+                                         alt="jobhub"/></a>
                     </div>
                     <div class="site-copyright">2022 ©URNI <br/><strong>Designed By</strong> Unidad Relaciones
                         Nacionales e Internacionales de

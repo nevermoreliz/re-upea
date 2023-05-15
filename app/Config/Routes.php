@@ -48,12 +48,13 @@ $routes->group('/', ['namespace' => 'App\Controllers\Web'], function ($routes) {
         $routes->get('', 'Convenio::index', ['as' => 'convenio_index']);
 
         $routes->group('nacional', ['namespace' => 'App\Controllers\Web'], function ($routes) {
-            $routes->get('/', 'ConvenioNacional::index', ['as' => 'convenioNacional_index']);
-            $routes->get('info', 'ConvenioNacional::show', ['as' => 'convenioNacional_show']);
+            $routes->get('/', 'ConvenioNacional::index', ['as' => 'webConvenioNacional_index']);
+            $routes->get('info/(:any)', 'ConvenioNacional::show/$1', ['as' => 'webConvenioNacional_show']);
+            $routes->get('info-list', 'ConvenioNacional::list', ['as' => 'webConvenioNacional_list']);
         });
 
         $routes->group('internacional', ['namespace' => 'App\Controllers\Web'], function ($routes) {
-            $routes->get('/', 'ConvenioInternacional::index', ['as' => 'convenioInternacional_index']);
+            $routes->get('/', 'ConvenioInternacional::index', ['as' => 'webConvenioInternacional_index']);
         });
 
         $routes->group('idioma', ['namespace' => 'App\Controllers\Web'], function ($routes) {
@@ -82,6 +83,7 @@ $routes->group('/', ['namespace' => 'App\Controllers\Web'], function ($routes) {
 });
 
 
+/* GRUPO DE AUNTENTICACION */
 //$routes->get('/auth', 'App\Controllers\Auth\Login::index');
 $routes->group('auth', ['namespace' => 'App\Controllers\Auth'], function ($routes) {
     $routes->get('/', 'Login::index', ['as' => 'login']);
@@ -89,7 +91,7 @@ $routes->group('auth', ['namespace' => 'App\Controllers\Auth'], function ($route
     $routes->get('logout', 'Login::logout', ['as' => 'logout']);
 });
 
-
+/* GRUPO PARA LA PARTE DE ADMIN */
 $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'auth:ADMINISTRADOR,TECNICO,SECRETARIA'], function ($routes) {
     $routes->get('/', 'Dashboard::index', ['as' => 'dashboard']);
 

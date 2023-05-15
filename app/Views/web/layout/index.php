@@ -49,33 +49,19 @@
     <meta name="msapplication-TileImage" content="<?= base_url(); ?>assets/img-global/favicon/mstile-144x144.png"/>
     <!-- Favicon Tags End -->
 
-    <link rel="manifest" href="<?= base_url() ?>dashboard/img/favicon/manifest.json">
+<!--    <link rel="manifest" href="--><?//= base_url() ?><!--dashboard/img/favicon/manifest.json">-->
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
+    <!-- DataTable CSS File -->
+<!--    C:\wamp64\www\re-upea\public\web\assets\css\datatable-->
+    <link href="<?= base_url(); ?>web/assets/css/datatable/datatables.min.css" rel="stylesheet">
     <!-- Template CSS -->
     <!-- <link rel="stylesheet" href="assets/css/plugins/animate.min.css" /> -->
     <link rel="stylesheet" href="<?php echo base_url() ?>web/assets/css/plugins/animate.min.css"/>
     <link rel="stylesheet" href="<?php echo base_url() ?>web/assets/css/mainc619.css?v=1.0"/>
 
-
-    <!-- Vendor JS-->
-    <script src="<?= base_url('web/assets/js/vendor/modernizr-3.6.0.min.js') ?>"></script>
-    <script src="<?= base_url('web/assets/js/vendor/jquery-3.6.0.min.js') ?>"></script>
-    <script src="<?= base_url('web/assets/js/vendor/jquery-migrate-3.3.0.min.js') ?>"></script>
-    <!-- <script src="assets/js/vendor/bootstrap.bundle.min.js"></script> -->
-    <script src="<?= base_url('web/assets/js/vendor/bootstrap.bundle-v5-1-3.min.js') ?>"></script>
-    <script src="<?= base_url('web/assets/js/plugins/waypoints.js') ?>"></script>
-    <script src="<?= base_url('web/assets/js/plugins/wow.js') ?>"></script>
-    <script src="<?= base_url('web/assets/js/plugins/magnific-popup.js') ?>"></script>
-    <script src="<?= base_url('web/assets/js/plugins/perfect-scrollbar.min.js') ?>"></script>
-    <script src="<?= base_url('web/assets/js/plugins/select2.min.js') ?>"></script>
-    <script src="<?= base_url('web/assets/js/plugins/isotope.js') ?>"></script>
-    <script src="<?= base_url('web/assets/js/plugins/scrollup.js') ?>"></script>
-    <script src="<?= base_url('web/assets/js/plugins/swiper-bundle.min.js') ?>"></script>
-    <!-- Template  JS -->
-    <script src="<?= base_url('web/assets/js/mainc619.js?v=1.0') ?>"></script>
 
 </head>
 
@@ -112,6 +98,27 @@
 <?= $footer; ?>
 <!-- End Footer -->
 
+
+<!-- Vendor JS-->
+<!--<script src="--><? //= base_url('web/assets/js/vendor/jquery-3.6.0.min.js') ?><!--"></script>-->
+<script src="<?= base_url(); ?>dashboard/assets/js/jquery-3.6.4.min.js"></script>
+<script src="<?= base_url('web/assets/js/vendor/jquery-migrate-3.3.0.min.js') ?>"></script>
+<!-- <script src="assets/js/vendor/bootstrap.bundle.min.js"></script> -->
+<script src="<?= base_url('web/assets/js/vendor/bootstrap.bundle-v5-1-3.min.js') ?>"></script>
+<script src="<?= base_url('web/assets/js/plugins/waypoints.js') ?>"></script>
+<script src="<?= base_url('web/assets/js/plugins/wow.js') ?>"></script>
+<script src="<?= base_url('web/assets/js/plugins/magnific-popup.js') ?>"></script>
+<script src="<?= base_url('web/assets/js/plugins/perfect-scrollbar.min.js') ?>"></script>
+<script src="<?= base_url('web/assets/js/plugins/select2.min.js') ?>"></script>
+<script src="<?= base_url('web/assets/js/plugins/isotope.js') ?>"></script>
+<script src="<?= base_url('web/assets/js/plugins/scrollup.js') ?>"></script>
+<script src="<?= base_url('web/assets/js/plugins/swiper-bundle.min.js') ?>"></script>
+
+<script src="<?= base_url('web/assets/js/vendor/fontawesome-all.js') ?>"></script>
+<!-- Template  JS -->
+<script src="<?= base_url('web/assets/js/mainc619.js?v=1.0') ?>"></script>
+<!-- DataTable File -->
+<script src="<?= base_url(); ?>web/assets/js/datatable/dataTables.min.js"></script>
 </body>
 
 <!-- Mirrored from wp.alithemes.com/html/jobhub/frontend/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 05 Sep 2022 05:19:09 GMT -->

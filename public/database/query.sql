@@ -32,8 +32,6 @@ from enlace as e
          left join sic_tipo_enlaces ste on de.id_tipo_enlace = ste.id_tipo_enlace;
 
 
-
-
 /* pruebas para nacional */
 create
 or replace view re_vista_convenio_nacional as
@@ -50,9 +48,9 @@ select sc.id_convenios,
        sc.fecha_publicacion,
        sc.direccion direccion_convenio,
        sc.entidad,
-       sc.telefono telefono_convenio,
+       sc.telefono  telefono_convenio,
        sc.email,
-       sc.estado  estado_convenio,
+       sc.estado    estado_convenio,
        rve.id_enlace,
        rve.orden,
        rve.url_enlace,
@@ -64,6 +62,8 @@ select sc.id_convenios,
        rve.fecha,
        rve.id_dato_enlace,
        rve.direccion,
+       rve.departamento,
+       rve.ciudad,
        rve.correo,
        rve.inicio_convenio_enlace,
        rve.fin_convenio_enlace,
@@ -73,7 +73,7 @@ select sc.id_convenios,
        rve.continente,
        rve.codigo_pais,
        rve.iso,
-       rve.estado estado
+       rve.estado   estado
 from sic_convenio sc
          left join sic_enlace_convenios sec on sc.id_convenios = sec.id_convenios
          left join re_vista_enlace rve on sec.id_enlace = rve.id_enlace
@@ -95,9 +95,9 @@ select sc.id_convenios,
        sc.fecha_publicacion,
        sc.direccion direccion_convenio,
        sc.entidad,
-       sc.telefono telefono_convenio,
+       sc.telefono  telefono_convenio,
        sc.email,
-       sc.estado  estado_convenio,
+       sc.estado    estado_convenio,
        rve.id_enlace,
        rve.orden,
        rve.url_enlace,
@@ -109,6 +109,8 @@ select sc.id_convenios,
        rve.fecha,
        rve.id_dato_enlace,
        rve.direccion,
+       rve.departamento,
+       rve.ciudad,
        rve.correo,
        rve.inicio_convenio_enlace,
        rve.fin_convenio_enlace,
@@ -118,7 +120,7 @@ select sc.id_convenios,
        rve.continente,
        rve.codigo_pais,
        rve.iso,
-       rve.estado estado
+       rve.estado   estado
 from sic_convenio sc
          left join sic_enlace_convenios sec on sc.id_convenios = sec.id_convenios
          left join re_vista_enlace rve on sec.id_enlace = rve.id_enlace

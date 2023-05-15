@@ -64,4 +64,29 @@ class ConvenioModel extends Model
         return $builder->getFirstRow();
     }
 
+    public function getFindVistaConvenioNacionalActive($id)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('re_vista_convenio_nacional')
+            ->where(['id_convenios' => $id, 'estado_convenio !=' => 'Inactivo'])
+            ->get();
+        return $builder->getFirstRow();
+    }
+
+    public function getFindVistaConvenioInternacional($id)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('re_vista_convenio_internacional')->where('id_convenios', $id)->get();
+        return $builder->getFirstRow();
+    }
+
+    public function getFindVistaConvenioInternacionalActive($id)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('re_vista_convenio_internacional')
+            ->where(['id_convenios' => $id, 'estado_convenio !=' => 'Inactivo'])
+            ->get();
+        return $builder->getFirstRow();
+    }
+
 }

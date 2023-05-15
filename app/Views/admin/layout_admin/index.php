@@ -54,6 +54,8 @@
     <link href="<?= base_url(); ?>dashboard/assets/vendor/quill/quill.snow.css" rel="stylesheet">
     <link href="<?= base_url(); ?>dashboard/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
     <link href="<?= base_url(); ?>dashboard/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+
+    <!-- DataTable CSS File -->
     <link href="<?= base_url(); ?>dashboard/assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
     <!-- ToastJs CSS File -->

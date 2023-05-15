@@ -30,6 +30,6 @@
 .btn-jf-personalizado:hover::after {
     transform-origin: center;
     transition: all .3s ease-in;
-    width: 200px;
+    width: 100%;
     height: 200px;
 }
