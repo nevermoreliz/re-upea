@@ -55,6 +55,8 @@ $routes->group('/', ['namespace' => 'App\Controllers\Web'], function ($routes) {
 
         $routes->group('internacional', ['namespace' => 'App\Controllers\Web'], function ($routes) {
             $routes->get('/', 'ConvenioInternacional::index', ['as' => 'webConvenioInternacional_index']);
+            $routes->get('info/(:any)', 'ConvenioInternacional::show/$1', ['as' => 'webConvenioInternacional_show']);
+            $routes->get('info-list', 'ConvenioInternacional::list', ['as' => 'webConvenioInternacional_list']);
         });
 
         $routes->group('idioma', ['namespace' => 'App\Controllers\Web'], function ($routes) {

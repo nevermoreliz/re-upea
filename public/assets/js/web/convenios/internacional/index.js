@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    var dataTable = $('#datatable').DataTable({
+    var dataTableConvenioInternacional = $('#dt_web_convenio_internacional').DataTable({
         processing: true,
         serverSide: true,
         responsive: true,
@@ -9,7 +9,7 @@ $(document).ready(function () {
             url: '//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json',
         },
         ajax: {
-            "url": "<?= base_url(route_to('webConvenioNacional_list')); ?>",
+            "url": "<?= base_url(route_to('webConvenioInternacional_list')); ?>",
             "type": "GET"
         },
         columns: [
@@ -21,7 +21,7 @@ $(document).ready(function () {
         dom: '<"d-flex justify-content-between"  p>',
         drawCallback: function (settings) {
             var api = this.api();
-            var cards = $('#card-list');
+            var cards = $('#card-list-convenio-internacional');
 
             // Obtener información de la tabla
             var pageInfo = api.page.info();
@@ -33,18 +33,8 @@ $(document).ready(function () {
 
             cards.empty();
 
-
             api.rows().every(function () {
                 var data = this.data();
-                // var card = $('<div class="col-md-4">' +
-                //     '<div class="card">' +
-                //     '<div class="card-body">' +
-                //     '<h5 class="card-title">' + data.nombre_convenio + '</h5>' +
-                //     '<p class="card-text">' + data.nombre_convenio + '</p>' +
-                //     '<a href="#" class="btn btn-primary">Ver más</a>' +
-                //     '</div>' +
-                //     '</div>' +
-                //     '</div>');
 
                 let iconCard = 'fa-regular fa-circle-xmark';
                 let styleCard = 'color:green';
@@ -70,8 +60,8 @@ $(document).ready(function () {
                                     <div class="card-job-top--image">
                                         <figure>
                                             <!-- <img alt="jobhub" src="<?= base_url() ?>web/assets/imgs/page/job/digital.png" /> -->
-                                            <img alt="jobhub"
-                                                 src="<?= base_url() ?>web/assets/imgs/img-pagina/home-convenios/bolivia-cubo.png"/>
+                                            <img alt="Imagen de referido al Convenio Internacional"
+                                                 src="<?= base_url() ?>web/assets/imgs/img-pagina/home-convenios/en-todo-el-mundo.png"/>
                                         </figure>
                                     </div>
                                     <div class="card-job-top--info">
@@ -122,7 +112,7 @@ $(document).ready(function () {
                                                <i class="fa fa-pdf"></i>  PDF
                                             </button>
                                                         
-                                            <button class="btn-jf-personalizado-cards" onclick="window.location.href='<?= route_to('webConvenioNacional_show', '` + data.id_convenios + `') ?>'">
+                                            <button class="btn-jf-personalizado-cards" onclick="window.location.href='<?= route_to('webConvenioInternacional_show', '` + data.id_convenios + `') ?>'">
                                                 <i class="fa fa-eye"></i> M&aacute;s Detalle
                                             </button>
                                                 
@@ -147,16 +137,15 @@ $(document).ready(function () {
         order: [[0, "desc"]]
     });
 
-    $('#datatable').hide();
+    $('#dt_web_convenio_internacional').hide();
 
 
-    $('#searchInput').on('keyup', function () {
-        // Obtener el valor del input
-        var value = $(this).val();
-
+     $('#searchInput').on('keyup', function () {
+         // Obtener el valor del input
+         var value = $(this).val();
         // Buscar en el DataTable
-        dataTable.search(value).draw();
-    });
+        dataTableConvenioInternacional.search(value).draw();
+     });
 });
 
 
