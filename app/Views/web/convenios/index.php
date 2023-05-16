@@ -25,7 +25,7 @@
                             <a href="#"><i class="fi-rr-bookmark"></i></a>
                         </div>
                         <div class="text-center card-grid-2-image-rd online">
-                            <a href="employers-single.html">
+                            <a href="<?= route_to('webConvenioNacional_index')?>">
                                 <figure>
                                     <!-- <img alt="jobhub" src="<?= base_url() ?>web/assets/imgs/page/employers/employer-1.png" /> -->
                                     <img alt="jobhub"
@@ -35,14 +35,14 @@
                         </div>
                         <div class="card-block-info">
                             <div class="card-profile">
-                                <h5><a href="employers-single.html"><strong>Nacional</strong></a></h5>
+                                <h5><a href="<?= route_to('webConvenioNacional_index')?>"><strong>Nacional</strong></a></h5>
                                 <!-- <span class="text-sm">UI/UX Designer</span> -->
 
                             </div>
 
                             <div class="card-2-bottom card-2-bottom-candidate mt-30">
                                 <div class="text-center mt-25 mb-5">
-                                    <a href="list-nacional.html" class="btn btn-border btn-brand-hover">Mostrar</a>
+                                    <a href="<?= route_to('webConvenioNacional_index')?>" class="btn btn-border btn-brand-hover">Mostrar</a>
                                 </div>
                             </div>
 
@@ -57,7 +57,7 @@
                             <a href="#"><i class="fi-rr-bookmark"></i></a>
                         </div>
                         <div class="text-center card-grid-2-image-rd online">
-                            <a href="employers-single.html">
+                            <a href="<?= route_to('webConvenioInternacional_index')?>">
                                 <figure>
                                     <!-- <img alt="jobhub" src="<?= base_url() ?>web/assets/imgs/page/employers/employer-1.png" /> -->
                                     <img alt="jobhub"
@@ -67,14 +67,14 @@
                         </div>
                         <div class="card-block-info">
                             <div class="card-profile">
-                                <h5><a href="employers-single.html"><strong>Internacional</strong></a></h5>
+                                <h5><a href="<?= route_to('webConvenioInternacional_index')?>"><strong>Internacional</strong></a></h5>
                                 <!-- <span class="text-sm">UI/UX Designer</span> -->
 
                             </div>
 
                             <div class="card-2-bottom card-2-bottom-candidate mt-30">
                                 <div class="text-center mt-25 mb-5">
-                                    <a href="list-nacional.html" class="btn btn-border btn-brand-hover">Mostrar</a>
+                                    <a href="<?= route_to('webConvenioInternacional_index')?>" class="btn btn-border btn-brand-hover">Mostrar</a>
                                 </div>
                             </div>
 

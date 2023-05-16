@@ -19,12 +19,12 @@
                     <div class="col-lg-5">
                         <div class="box-search-job">
                             <form class="form-search-job">
-                                <input type="text" class="input-search-job" placeholder="UI Designer"/>
+                                <input id="searchInput" type="text" class="input-search-job" placeholder="UI Designer"/>
                             </form>
                         </div>
-                        
+
                     </div>
-                    
+
                     <div class="col-lg-7">
                         <div class="d-flex job-fillter">
                             <div class="d-block d-lg-flex">
@@ -83,24 +83,31 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-12 float-right">
                 <div class="content-page">
                     <div class="box-filters-job mt-15 mb-10">
+
                         <div class="row">
+
                             <div class="col-lg-7">
-                                <span class="text-small">Showing <strong>41-60 </strong>of <strong>944 </strong>jobs</span>
+                                <span class="text-small" id="text-table-info"></span>
                             </div>
+
                             <div class="col-lg-5 text-lg-end mt-sm-15">
                                 <div class="display-flex2">
-                                    <span class="text-sortby">Sort by:</span>
-                                    <div class="dropdown dropdown-sort">
-                                        <button class="btn dropdown-toggle" type="button" id="dropdownSort"
-                                                data-bs-toggle="dropdown" aria-expanded="false"
-                                                data-bs-display="static"><span>Newest Post</span> <i
-                                                    class="fi-rr-angle-small-down"></i></button>
-                                        <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="dropdownSort">
-                                            <li><a class="dropdown-item active" href="#">Newest Post</a></li>
-                                            <li><a class="dropdown-item" href="#">Oldest Post</a></li>
-                                            <li><a class="dropdown-item" href="#">Rating Post</a></li>
-                                        </ul>
-                                    </div>
+                                    <!--                                    <span class="text-sortby">Sort by:</span>-->
+                                    <!---->
+                                    <!--                                    <div class="dropdown dropdown-sort">-->
+                                    <!--                                        <button class="btn dropdown-toggle" type="button" id="dropdownSort"-->
+                                    <!--                                                data-bs-toggle="dropdown" aria-expanded="false"-->
+                                    <!--                                                data-bs-display="static">-->
+                                    <!--                                            <span>Newest Post</span>-->
+                                    <!--                                            <i class="fi-rr-angle-small-down"></i>-->
+                                    <!--                                        </button>-->
+                                    <!--                                        <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="dropdownSort">-->
+                                    <!--                                            <li><a class="dropdown-item active" href="#">Newest Post</a></li>-->
+                                    <!--                                            <li><a class="dropdown-item" href="#">Oldest Post</a></li>-->
+                                    <!--                                            <li><a class="dropdown-item" href="#">Rating Post</a></li>-->
+                                    <!--                                        </ul>-->
+                                    <!--                                    </div>-->
+                                    <!--                                    -->
                                     <div class="box-view-type">
                                         <a href="job-grid.html" class="view-type"><img
                                                     src="<?= base_url('web/') ?>assets/imgs/theme/icons/icon-list.svg"
@@ -111,61 +118,24 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
 
-                        <div class="col-lg-4 col-md-6">
-                            <div class="card-grid-2 hover-up wow animate__animated animate__fadeIn"
-                                 data-wow-delay=".0s">
-                                <div class="text-center card-grid-2-image">
-                                    <a href="job-single.html">
-                                        <figure><img alt="jobhub"
-                                                     src="<?= base_url('web/') ?>assets/imgs/jobs/job-1.png"/></figure>
-                                    </a>
-                                    <label class="btn-urgent">Urgent</label>
-                                </div>
-                                <div class="card-block-info">
-                                    <div class="row">
-                                        <div class="col-lg-7 col-6">
-                                            <a href="employers-single.html" class="card-2-img-text">
-                                                <span class="card-grid-2-img-small"><img alt="jobhub"
-                                                                                         src="<?= base_url('web/') ?>assets/imgs/jobs/logos/logo-1.svg"/></span>
-                                                <span>Alithemes</span>
-                                            </a>
-                                        </div>
-                                        <div class="col-lg-5 col-6 text-end">
-                                            <span class="btn btn-grey-small disc-btn">Fulltime</span>
-                                        </div>
-                                    </div>
-                                    <h5 class="mt-20"><a href="job-single.html">Senior Full Stack Engineer, Full
-                                            Time</a></h5>
-                                    <div class="mt-15">
-                                        <span class="card-time">3 mins ago</span>
-                                        <span class="card-location">Chicago</span>
-                                    </div>
-                                    <div class="card-2-bottom mt-30">
-                                        <div class="row">
-                                            <div class="col-lg-7 col-8">
-                                                <span class="card-text-price"> $3200<span>/Month</span> </span>
-                                            </div>
-                                            <div class="col-lg-5 col-4 text-end">
-                                                <span><img alt="jobhub"
-                                                           src="<?= base_url('web/') ?>assets/imgs/theme/icons/shield-check.svg"/></span>
-                                                <span class="ml-5"><img alt="jobhub"
-                                                                        src="<?= base_url('web/') ?>assets/imgs/theme/icons/bookmark.svg"/></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
 
                     </div>
-                    
+
+                    <div id="card-list-publicacion" class="row">
+                        <!-- se agregara cards dinamicametne por el datatable -->
+                    </div>
+
+                    <table class="table" id="dt_list_publicacion">
+                        <tbody>
+
+                        </tbody>
+                    </table>
+
                 </div>
             </div>
-            
+
         </div>
     </div>
 </section>

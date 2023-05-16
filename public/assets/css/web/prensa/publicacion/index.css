@@ -1,0 +1,30 @@
+.contenedor-img {
+    background-color: #74C0FC;
+    width: 100%;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 100%;
+    margin: auto;
+
+
+}
+
+.img-content {
+    width: 100%;
+    height: 421px;
+    object-fit: cover;
+    filter: brightness(70%);
+}
+
+.img-content:hover {
+    background-color: #146EBE;
+    filter: brightness(100%);
+}
+
+
+.texto-truncado-jf {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1; /* Número de líneas a mostrar */
+    overflow: hidden;
+}

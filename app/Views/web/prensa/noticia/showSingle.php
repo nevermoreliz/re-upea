@@ -8,106 +8,75 @@
 </div>
 <div class="archive-header pt-50 pb-50 text-center">
     <div class="container">
-
         <h3 class="mb-30 text-center w-75 mx-auto">
-            Revise Nuestras Ultimas Noticias
+            <?= $publicacion->titulo ?>
         </h3>
-
+        <div class="post-meta text-muted d-flex align-items-center mx-auto justify-content-center">
+            <div class="author d-flex align-items-center mr-30">
+                <img alt="jobhub" src="<?= base_url('web/') ?>assets/imgs/avatar/ava_16.png"/>
+                <span>Relaciones Internacionales UPEA</span>
+            </div>
+            <div class="date mr-30">
+                <span><i class="fi-rr-edit mr-5 text-grey-6"></i><?= $publicacion->fecha ?></span>
+            </div>
+            <div class="icons">
+                <a href="javascript:void(0)"><i class="fi fi-rr-bookmark mr-5 text-muted"></i></a>
+                <a href="javascript:void(0)"><i class="fi fi-rr-heart text-muted"></i></a>
+            </div>
+        </div>
     </div>
 </div>
-
 <div class="post-loop-grid">
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
-                <div class="post-listing" id="card-list-noticias">
-                    <!-- recomendado 5 en linea -->
-                    <div class="card-blog-1 mb-30 post-list hover-up wow animate__animated animate__fadeIn"
-                         data-wow-delay=".0s">
-                        <figure class="post-thumb">
-                            <a href="blog-single.html">
-                                <img alt="jobhub" src="<?= base_url('web/') ?>assets/imgs/blog/thumb-1.png"/>
-                            </a>
-                        </figure>
-                        <div class="card-block-info">
-                            <h3 class="post-title mb-15"><a href="blog-single.html">21 Job Interview Tips: How To Make a
-                                    Great Impression</a></h3>
-                            <div class="post-meta text-muted d-flex align-items-center mb-15">
-                                <div class="author d-flex align-items-center mr-30">
-                                    <img alt="jobhub" src="<?= base_url('web/') ?>assets/imgs/avatar/ava_16.png"/>
-                                    <span>Steven</span>
-                                </div>
-                                <div class="date">
-                                    <span><i class="fi-rr-edit mr-5 text-grey-6"></i>06 Sep 2022</span>
-                                </div>
-                            </div>
-                            <p class="post-excerpt text-muted d-none d-lg-block">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit ab, dicta minus aspernatur
-                                magnam atque excepturi.
-                            </p>
-                            <div class="card-2-bottom mt-30">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <div class="keep-reading">
-                                        <a href="blog-single.html" class="btn btn-border btn-brand-hover">Keep
-                                            reading</a>
-                                    </div>
-                                    <div class="tags text-lg-end">
-                                        <a href="#" class="btn btn-tags-sm mb-10 mr-5">Full-time</a>
-                                        <a href="#" class="btn btn-tags-sm mb-10 mr-5">Brand</a>
-                                        <a href="#" class="mt-10"><img alt="jobhub"
-                                                                       src="<?= base_url('web/') ?>assets/imgs/theme/icons/bookmark.svg"/></a>
-                                    </div>
-                                </div>
+                <div class="single-body">
+                    <figure class="mb-30">
+                        <img src="<?= base_url('uploads/') ?><?= $publicacion->url ?>" alt="">
+                    </figure>
+                    <div class="excerpt mb-30">
+                        <p><?= ucfirst(strtolower($publicacion->subtitulo)); ?></p>
+                    </div>
+                    <div class="single-content">
+
+                        <h4>Descripci&oacute;n</h4>
+                        <p><?= ucfirst(strtolower($publicacion->descripcion)); ?></p>
+
+
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12 col-sm-12 col-12 pl-40 pl-lg-15 mt-lg-30">
+
+                <?php if (!empty($publicacion->links)): ?>
+                    <div class="widget_search mb-40">
+                        <div class="search-form">
+                            <div class="d-grid gap-2">
+                                <button class="btn-jf-personalizado"
+                                        onclick="window.open('<?= $publicacion->links ?>', '_blank')">
+                                    <i class="fa-brands fa-chrome"></i> IR AL ENLACE
+                                </button>
                             </div>
                         </div>
                     </div>
+                <?php endif; ?>
 
-
-                </div>
-
-                <table class="table" id="dt_list_noticias">
-                    <tbody>
-
-                    </tbody>
-                </table>
-            </div>
-
-
-            <div class="col-lg-4 col-md-12 col-sm-12 col-12 pl-40 pl-lg-15 mt-lg-30">
-
-                <div class="widget_search mb-40">
-                    <div class="search-form">
-                        <form action="#">
-                            <input id="searchInput" type="text" placeholder="Buscar. . .">
-                            <button type="submit"><i class="fi-rr-search"></i></button>
-                        </form>
+                <?php if (!empty($archivosPublicacion)): ?>
+                    <div class="sidebar-shadow widget-categories">
+                        <h5 class="sidebar-title">Category</h5>
+                        <ul>
+                            <?php foreach ($archivosPublicacion as $key => $archivoPublicacion) : ?>
+                                <li class="d-flex justify-content-between align-items-center">
+                                    <a href="<?= base_url('uploads/' . $archivoPublicacion->nombre_archivo) ?>">Documento</a>
+                                    <span class="count"><?= ($key + 1) ?></span>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
                     </div>
-                </div>
-                <div class="sidebar-shadow widget-categories">
-                    <h5 class="sidebar-title">Category</h5>
-                    <ul>
-                        <li class="d-flex justify-content-between align-items-center">
-                            <a href="blog-grid.html">Recruitment News</a>
-                            <span class="count">28</span>
-                        </li>
-                        <li class="d-flex justify-content-between align-items-center">
-                            <a href="blog-grid.html">Job Venues</a>
-                            <span class="count">32</span>
-                        </li>
-                        <li class="d-flex justify-content-between align-items-center">
-                            <a href="blog-grid.html">Full Time Job</a>
-                            <span class="count">45</span>
-                        </li>
-                        <li class="d-flex justify-content-between align-items-center">
-                            <a href="blog-grid.html">Work From Home</a>
-                            <span class="count">68</span>
-                        </li>
-                        <li class="d-flex justify-content-between align-items-center">
-                            <a href="blog-grid.html">Job Tips</a>
-                            <span class="count">43</span>
-                        </li>
-                    </ul>
-                </div>
+                <?php endif; ?>
+
                 <div class="sidebar-shadow sidebar-news-small">
                     <h5 class="sidebar-title">Latest news</h5>
                     <div class="post-list-small">
@@ -233,25 +202,5 @@
                 </div>
             </div>
         </div>
-
-
     </div>
 </div>
-
-<!--<section class="section-box mt-50 mb-60">-->
-<!--    <div class="container">-->
-<!--        <div class="box-newsletter">-->
-<!--            <h5 class="text-md-newsletter">Sign up to get</h5>-->
-<!--            <h6 class="text-lg-newsletter">the latest jobs</h6>-->
-<!--            <div class="box-form-newsletter mt-30">-->
-<!--                <form class="form-newsletter">-->
-<!--                    <input type="text" class="input-newsletter" value="" placeholder="contact.alithemes@gmail.com"/>-->
-<!--                    <button class="btn btn-default font-heading icon-send-letter">Subscribe</button>-->
-<!--                </form>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="box-newsletter-bottom">-->
-<!--            <div class="newsletter-bottom"></div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</section>-->

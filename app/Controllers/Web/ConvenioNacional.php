@@ -14,26 +14,6 @@ class ConvenioNacional extends BaseController
         return $this->templater->viewWeb('web/convenios/nacional/index');
     }
 
-    public function show($id)
-    {
-
-        $model = new ConvenioModel();
-
-        $registro = $model->getFindVistaConvenioNacionalActive($id);
-
-        if (date('Y-m-d') > $registro->fecha_finalizacion) {
-            $model->update($id, ['estado' => 'Concluido']);
-            $registro = $model->getFindVistaConvenioNacionalActive($id);
-        }
-
-
-        $data = [
-            'convenioNacional' => $registro
-        ];
-
-        return $this->templater->viewWeb('web/convenios/nacional/showSingle', $data);
-    }
-
     public function list()
     {
         $order = $this->request->getVar('order');
@@ -96,5 +76,25 @@ class ConvenioNacional extends BaseController
 
         return $this->response->setJSON($response);
 
+    }
+
+    public function show($id)
+    {
+
+        $model = new ConvenioModel();
+
+        $registro = $model->getFindVistaConvenioNacionalActive($id);
+
+        if (date('Y-m-d') > $registro->fecha_finalizacion) {
+            $model->update($id, ['estado' => 'Concluido']);
+            $registro = $model->getFindVistaConvenioNacionalActive($id);
+        }
+
+
+        $data = [
+            'convenioNacional' => $registro
+        ];
+
+        return $this->templater->viewWeb('web/convenios/nacional/showSingle', $data);
     }
 }

@@ -87,7 +87,7 @@
                 <!--                <a href="job-grid-2.html" class="mt-sm-15 mt-lg-30 btn btn-border icon-chevron-right">Mostrar-->
                 <!--                    M&aacute;s</a>-->
 
-                <button class="btn-jf-personalizado" onclick="window.location.href='<?= route_to('convenio_index') ?>'">
+                <button class="btn-jf-personalizado" onclick="window.location.href='<?= route_to('en_construccion')?>'">
                     Mostrar M&aacute;s
                 </button>
             </div>
@@ -115,7 +115,7 @@
 
             <div class="col-lg-3 col-md-6 col-sm-12 col-12">
                 <div class="card-grid hover-up wow animate__animated animate__fadeInUp" data-wow-delay=".1s">
-                    <a href="job-grid.html">
+                    <a href="<?= route_to('en_construccion')?>">
                         <div class="text-center">
 
                             <figure>
@@ -133,7 +133,7 @@
 
             <div class="col-lg-3 col-md-6 col-sm-12 col-12 wow animate__animated animate__fadeInUp"
                  data-wow-delay=".2s">
-                <a href="job-grid.html">
+                <a href="<?= route_to('en_construccion')?>">
                     <div class="card-grid hover-up">
                         <div class="text-center">
 
@@ -150,7 +150,7 @@
             </div>
 
             <div class="col-lg-3 col-md-6 col-sm-12 col-12">
-                <a href="job-grid.html">
+                <a href="<?= route_to('en_construccion')?>">
                     <div class="card-grid hover-up wow animate__animated animate__fadeInUp" data-wow-delay=".3s">
                         <div class="text-center">
 

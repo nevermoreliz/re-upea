@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4 col-sm-12">
-                <a href="index.html">
+                <a href="<?= route_to('web_index')?>">
                     <img alt="logo-footer" src="<?= base_url(); ?>web/assets/imgs/img-pagina/LOGO-MEJORADO-NORMAL.svg" style="width:185px;height:43px;" />
                 </a>
                 <div class="mt-10 mb-20">
@@ -31,7 +31,7 @@
         <div class="footer-bottom mt-50">
             <div class="row">
                 <div class="col-md-6">
-                    ©2022 <a href="#"><strong>Designed By</strong></a> Unidad Relaciones Nacionales e
+                    ©<?= date('Y')?> <a href="#"><strong>Desarrollado Para</strong></a> Unidad Relaciones Nacionales e
                     Internacionales de
                     la UPEA
                 </div>

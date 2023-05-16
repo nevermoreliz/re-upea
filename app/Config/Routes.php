@@ -37,7 +37,13 @@ $routes->setAutoRoute(false);
 
 /* GRUPO PARA WEB */
 $routes->group('/', ['namespace' => 'App\Controllers\Web'], function ($routes) {
+
+
     $routes->get('', 'Home::index', ['as' => 'web_index']);
+
+    $routes->group('page-undefined', ['namespace' => 'App\Controllers\Web'], function ($routes) {
+        $routes->get('/', 'PageError::index', ['as' => 'en_construccion']);
+    });
 
     $routes->group('institucional', ['namespace' => 'App\Controllers\Web'], function ($routes) {
         $routes->get('/', 'Institucional::index', ['as' => 'institucional_index']);
@@ -69,11 +75,15 @@ $routes->group('/', ['namespace' => 'App\Controllers\Web'], function ($routes) {
     $routes->group('prensa', ['namespace' => 'App\Controllers\Web'], function ($routes) {
 
         $routes->group('publicacion', ['namespace' => 'App\Controllers\Web'], function ($routes) {
-            $routes->get('/', 'PrensaPublicacion::index', ['as' => 'prensaPublicacion_index']);
+            $routes->get('/', 'PrensaPublicacion::index', ['as' => 'webPrensaPublicacion_index']);
+            $routes->get('info-list', 'PrensaPublicacion::list', ['as' => 'webPrensaPublicacion_list']);
+            $routes->get('info/(:any)', 'PrensaPublicacion::show/$1', ['as' => 'webPrensaPublicacion_show']);
         });
 
         $routes->group('noticia', ['namespace' => 'App\Controllers\Web'], function ($routes) {
-            $routes->get('/', 'PrensaNoticia::index', ['as' => 'prensaNoticia_index']);
+            $routes->get('/', 'PrensaNoticia::index', ['as' => 'webPrensaNoticia_index']);
+            $routes->get('info-list', 'PrensaNoticia::list', ['as' => 'webPrensaNoticia_list']);
+            $routes->get('info/(:any)', 'PrensaNoticia::show/$1', ['as' => 'webPrensaNoticia_show']);
         });
 
         $routes->group('idioma', ['namespace' => 'App\Controllers\Web'], function ($routes) {

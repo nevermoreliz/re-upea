@@ -24,7 +24,7 @@
                             <li class="has-children">
                                 <a href="javascript:void(0)">Institucional</a>
                                 <ul class="sub-menu">
-                                    <li><a href="<?= route_to('institucional_index') ?>">Visi&oacute;n Y
+                                    <li><a href="<?= route_to('en_construccion')?>">Visi&oacute;n Y
                                             Misi&oacute;n</a></li>
                                 </ul>
                             </li>
@@ -52,8 +52,8 @@
                             <li class="has-children">
                                 <a href="javascript:void(0)">Prensa</a>
                                 <ul class="sub-menu">
-                                    <li><a href="<?= route_to('prensaPublicacion_index') ?>">Publicaciones</a></li>
-                                    <li><a href="<?= route_to('prensaNoticia_index') ?>">Noticias</a></li>
+                                    <li><a href="<?= route_to('webPrensaPublicacion_index') ?>">Publicaciones</a></li>
+                                    <li><a href="<?= route_to('webPrensaNoticia_index') ?>">Noticias</a></li>
                                     <!--<li><a href="<? /*= route_to('prensaIdioma_index') */ ?>">Idiomas</a></li>-->
                                 </ul>
                             </li>
