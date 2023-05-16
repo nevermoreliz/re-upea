@@ -1,11 +1,11 @@
 <section class="section-box">
     <div class="box-head-single">
         <div class="container">
-            <h3>BUSQUE Y DESCUBRA</h3>
-            <ul class="breadcrumbs">
+            <h3>CONVENIOS NACIONALES</h3>
+            <!-- <ul class="breadcrumbs">
                 <li><a href="#">Home</a></li>
                 <li>Jobs listing</li>
-            </ul>
+            </ul> -->
         </div>
     </div>
 </section>

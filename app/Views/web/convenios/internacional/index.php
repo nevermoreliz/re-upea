@@ -1,11 +1,11 @@
 <section class="section-box">
     <div class="box-head-single">
         <div class="container">
-            <h3>BUSQUE Y DESCUBRA INTERNACIONAL</h3>
-            <ul class="breadcrumbs">
+            <h3>CONVENIOS INTERNACIONALES</h3>
+            <!-- <ul class="breadcrumbs">
                 <li><a href="#">Home</a></li>
                 <li>Jobs listing</li>
-            </ul>
+            </ul> -->
         </div>
     </div>
 </section>
@@ -42,12 +42,12 @@
                                     <!--                                        </ul>-->
                                     <!--                                    </div>-->
                                     <div class="box-view-type">
-                                        <a href="job-grid.html"
+                                        <a href="javascript:void(0)"
                                            class="view-type">
                                             <img src="<?= base_url() ?>web/assets/imgs/theme/icons/icon-list.svg"
                                                  alt="jobhub"/>
                                         </a>
-                                        <a href="list-nacional-tabla.html" class="view-type">
+                                        <a href="javascript:void(0)" class="view-type">
                                             <img src="<?= base_url() ?>web/assets/imgs/theme/icons/icon-grid.svg"
                                                  alt="jobhub"/>
                                         </a>

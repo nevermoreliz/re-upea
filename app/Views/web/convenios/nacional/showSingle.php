@@ -31,12 +31,14 @@
                            class="btn btn-default" target="_blank" download>Descargar
                             Pdf</a>
                     </div>
-                    <div class="col-lg-3 text-lg-end">
+
+                    <!-- <div class="col-lg-3 text-lg-end">
                         <ul class="breadcrumbs mt-10">
                             <li><a href="#">Home</a></li>
                             <li>Danica Lewis</li>
                         </ul>
-                    </div>
+                    </div> -->
+
                 </div>
             </div>
         </div>
@@ -101,7 +103,7 @@
 
                 </div>
 
-                <div class="single-apply-jobs">
+                <!-- <div class="single-apply-jobs">
                     <div class="row ">
 
                         <div class="col-md-7  social-share">
@@ -116,7 +118,7 @@
 
                         </div>
                     </div>
-                </div>
+                </div> -->
 
             </div>
 

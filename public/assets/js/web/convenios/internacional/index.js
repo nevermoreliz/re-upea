@@ -66,7 +66,7 @@ $(document).ready(function () {
                                     </div>
                                     <div class="card-job-top--info">
                                         <h6 class="card-job-top--info-heading"><a
-                                                    href="<?= route_to('webConvenioNacional_show','` + data.id_convenios + `')?>">${data.nombre_convenio}</a></h6>
+                                                    href="<?= route_to('webConvenioInternacional_show', '` + data.id_convenios + `') ?>">${data.nombre_convenio}</a></h6>
                                         <div class="row">
                                             <div class="col-lg-10">
                                                 Entidad o Instituci&oacute;n:<a href="employers-grid.html"> <a

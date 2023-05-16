@@ -1,8 +1,9 @@
 <div class="breacrumb-cover">
     <div class="container">
         <ul class="breadcrumbs">
-            <li><a href="#">Home</a></li>
-            <li>Blog</li>
+            <li><a href="javascript:void(0)">Inicio</a></li>
+            <li><a href="javascript:void(0)">Noticia</a></li>
+            <li>Detalle</li>
         </ul>
     </div>
 </div>
@@ -76,6 +77,8 @@
                         </ul>
                     </div>
                 <?php endif; ?>
+
+                
 
                 <div class="sidebar-shadow sidebar-news-small">
                     <h5 class="sidebar-title">Latest news</h5>

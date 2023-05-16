@@ -1,17 +1,18 @@
 <section class="section-box-2">
     <div class="box-head-single none-bg">
         <div class="container">
-            <h4>There Are 65.866 Jobs<br/>Here For you!</h4>
+            <h4>Publicaciones</h4>
             <div class="row mt-15 mb-40">
                 <div class="col-lg-7 col-md-9">
-                            <span class="text-mutted">Discover your next career move, freelance gig, or
-                                internship</span>
+                            <span class="text-mutted">Realize su busqueda de nuestras publicaciones.</span>
                 </div>
                 <div class="col-lg-5 col-md-3 text-lg-end text-start">
-                    <ul class="breadcrumbs mt-sm-15">
+                    
+                    <!-- <ul class="breadcrumbs mt-sm-15">
                         <li><a href="#">Home</a></li>
                         <li>Jobs listing</li>
-                    </ul>
+                    </ul> -->
+
                 </div>
             </div>
             <div class="box-shadow-bdrd-15 box-filters">
@@ -25,7 +26,7 @@
 
                     </div>
 
-                    <div class="col-lg-7">
+                    <!-- <div class="col-lg-7">
                         <div class="d-flex job-fillter">
                             <div class="d-block d-lg-flex">
                                 <div class="dropdown job-type">
@@ -69,7 +70,7 @@
                                 <button class="btn btn-default float-right">Find Now</button>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                 </div>
             </div>

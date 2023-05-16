@@ -1,8 +1,8 @@
 <div class="breacrumb-cover">
     <div class="container">
         <ul class="breadcrumbs">
-            <li><a href="#">Home</a></li>
-            <li>Blog</li>
+            <li><a href="#">Inicio</a></li>
+            <li>Noticias</li>
         </ul>
     </div>
 </div>
@@ -83,7 +83,8 @@
                         </form>
                     </div>
                 </div>
-                <div class="sidebar-shadow widget-categories">
+
+                <!-- <div class="sidebar-shadow widget-categories">
                     <h5 class="sidebar-title">Category</h5>
                     <ul>
                         <li class="d-flex justify-content-between align-items-center">
@@ -107,9 +108,10 @@
                             <span class="count">43</span>
                         </li>
                     </ul>
-                </div>
+                </div> -->
+
                 <div class="sidebar-shadow sidebar-news-small">
-                    <h5 class="sidebar-title">Latest news</h5>
+                    <h5 class="sidebar-title">Ultimas Publicaciones</h5>
                     <div class="post-list-small">
                         <div class="post-list-small-item d-flex align-items-center">
                             <figure class="thumb mr-15">
@@ -198,7 +200,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="sidebar-shadow">
+
+                <!-- <div class="sidebar-shadow">
                     <h5 class="sidebar-title">Popular Tags</h5>
                     <div class="block-tags">
                         <a href="#" class="btn btn-tags-sm mb-10 mr-5">Figma</a>
@@ -217,20 +220,8 @@
                         <a href="#" class="btn btn-tags-sm mb-10 mr-5">Sketch</a>
                         <a href="#" class="btn btn-tags-sm mb-10 mr-5">jam</a>
                     </div>
-                </div>
-                <div class="sidebar-normal">
-                    <div>
-                        <h6 class="small-heading">Are you also hiring?</h6>
-                        <ul class="ul-lists">
-                            <li><a href="#">Writing & Translation</a></li>
-                            <li><a href="#">Video & Animation</a></li>
-                            <li><a href="#">Music & Audio</a></li>
-                            <li><a href="#">Digital Marketing</a></li>
-                            <li><a href="#">Business</a></li>
-                            <li><a href="#">Programming & Tech</a></li>
-                        </ul>
-                    </div>
-                </div>
+                </div> -->
+               
             </div>
         </div>
 

@@ -2,10 +2,10 @@
     <div class="box-head-single">
         <div class="container">
             <h3>Convenios</h3>
-            <ul class="breadcrumbs">
+            <!-- <ul class="breadcrumbs">
                 <li><a href="#">Home</a></li>
                 <li>Jobs listing</li>
-            </ul>
+            </ul> -->
         </div>
     </div>
 </section>
