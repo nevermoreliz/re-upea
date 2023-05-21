@@ -1,3 +1,67 @@
+/* contenedor de img para noticia */
+.contenedor-img-noticia {
+    /*background-color: #74C0FC;*/
+    width: 100%;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 100%;
+}
+
+.img-content-noticia {
+    max-width: 100% !important;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+/* end contenedor de img para noticia */
+
+/* contenedor card general */
+.contenedor-img {
+    /*background-color: #74C0FC;*/
+    width: 100%;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 100%;
+    margin: auto;
+}
+
+.img-content {
+    width: 100%;
+    height: 421px;
+    object-fit: cover;
+    filter: brightness(70%);
+}
+
+.img-content:hover {
+    background-color: #146EBE;
+    filter: brightness(100%);
+}
+/* end contenedor card general */
+
+/* texto truncado linea */
+.texto-truncado-jf {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1; /* Número de líneas a mostrar */
+    overflow: hidden;
+}
+
+.texto-truncado-jf-2-line {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2; /* Número de líneas a mostrar */
+    overflow: hidden;
+}
+
+.texto-truncado-jf-3-line {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3; /* Número de líneas a mostrar */
+    overflow: hidden;
+}
+/* texto truncados linea */
+
+/* btn personalizado predeterminado */
 .btn-jf-personalizado {
     padding: 12px 32px;
     border-radius: 10px;
@@ -33,3 +97,232 @@
     width: 100%;
     height: 200px;
 }
+/* end btn personalizado predeterminado */
+
+/* btn personalizado rojo */
+.btn-jf-personalizado-rojo {
+    padding: 12px 32px;
+    border-radius: 10px;
+    border: 3px #183153 solid;
+    /*box-shadow: 2px 2px 1px;*/
+    box-shadow: 0px 4px 0px #183153;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    background-color: #ff8787;
+    overflow: hidden;
+    position: relative;
+    z-index: 10;
+}
+
+.btn-jf-personalizado-rojo::after {
+    content: "";
+    position: absolute;
+    background-color: #E03131;
+    width: 0px;
+    height: 0px;
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transition: all .3s ease-in;
+    z-index: -1;
+}
+
+.btn-jf-personalizado-rojo:hover::after {
+    transform-origin: center;
+    transition: all .3s ease-in;
+    width: 100%;
+    height: 200px;
+}
+/* end btn personalizado rojo */
+
+/* btn personalizado azul */
+.btn-jf-personalizado-azul {
+    padding: 12px 32px;
+    border-radius: 10px;
+    border: 3px #183153 solid;
+    /*box-shadow: 2px 2px 1px;*/
+    box-shadow: 0px 4px 0px #183153;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    background-color: #74c0fc;
+    overflow: hidden;
+    position: relative;
+    z-index: 10;
+}
+
+.btn-jf-personalizado-azul::after {
+    content: "";
+    position: absolute;
+    background-color: #146EBE;
+    width: 0px;
+    height: 0px;
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transition: all .3s ease-in;
+    z-index: -1;
+}
+
+.btn-jf-personalizado-azul:hover::after {
+    transform-origin: center;
+    transition: all .3s ease-in;
+    width: 100%;
+    height: 200px;
+}
+/* end btn personalizado azul */
+
+/* btn personalizado verde */
+.btn-jf-personalizado-verde {
+    padding: 12px 32px;
+    border-radius: 10px;
+    border: 3px #183153 solid;
+    /*box-shadow: 2px 2px 1px;*/
+    box-shadow: 0px 4px 0px #183153;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    background-color: #63e6be;
+    overflow: hidden;
+    position: relative;
+    z-index: 10;
+}
+
+.btn-jf-personalizado-verde::after {
+    content: "";
+    position: absolute;
+    background-color: #0CA678;
+    width: 0px;
+    height: 0px;
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transition: all .3s ease-in;
+    z-index: -1;
+}
+
+.btn-jf-personalizado-verde:hover::after {
+    transform-origin: center;
+    transition: all .3s ease-in;
+    width: 100%;
+    height: 200px;
+}
+/* end btn personalizado verde */
+
+/* btn personalizado amarrillo */
+.btn-jf-personalizado-amarrillo {
+    padding: 12px 32px;
+    border-radius: 10px;
+    border: 3px #183153 solid;
+    /*box-shadow: 2px 2px 1px;*/
+    box-shadow: 0px 4px 0px #183153;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    background-color: #FFD43B;
+    overflow: hidden;
+    position: relative;
+    z-index: 10;
+}
+
+.btn-jf-personalizado-amarrillo::after {
+    content: "";
+    position: absolute;
+    background-color: #FAB005;
+    width: 0px;
+    height: 0px;
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transition: all .3s ease-in;
+    z-index: -1;
+}
+
+.btn-jf-personalizado-amarrillo:hover::after {
+    transform-origin: center;
+    transition: all .3s ease-in;
+    width: 100%;
+    height: 200px;
+}
+/* end btn personalizado amarrillo */
+
+/* btn personalizado rosado */
+.btn-jf-personalizado-rosado {
+    padding: 12px 32px;
+    border-radius: 10px;
+    border: 3px #183153 solid;
+    /*box-shadow: 2px 2px 1px;*/
+    box-shadow: 0px 4px 0px #183153;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    background-color: #E599F7;
+    overflow: hidden;
+    position: relative;
+    z-index: 10;
+}
+
+.btn-jf-personalizado-rosado::after {
+    content: "";
+    position: absolute;
+    background-color: #9C36B5;
+    width: 0px;
+    height: 0px;
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transition: all .3s ease-in;
+    z-index: -1;
+}
+
+.btn-jf-personalizado-rosado:hover::after {
+    transform-origin: center;
+    transition: all .3s ease-in;
+    width: 100%;
+    height: 200px;
+}
+/* end btn personalizado rosado */
+
+/* btn personalizado violeta */
+.btn-jf-personalizado-violeta {
+    padding: 12px 32px;
+    border-radius: 10px;
+    border: 3px #183153 solid;
+    /*box-shadow: 2px 2px 1px;*/
+    box-shadow: 0px 4px 0px #183153;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    background-color: #B197FC;
+    overflow: hidden;
+    position: relative;
+    z-index: 10;
+}
+
+.btn-jf-personalizado-violeta::after {
+    content: "";
+    position: absolute;
+    background-color: #6741D9;
+    width: 0px;
+    height: 0px;
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transition: all .3s ease-in;
+    z-index: -1;
+}
+
+.btn-jf-personalizado-violeta:hover::after {
+    transform-origin: center;
+    transition: all .3s ease-in;
+    width: 100%;
+    height: 200px;
+}
+/* end btn personalizado violeta */
