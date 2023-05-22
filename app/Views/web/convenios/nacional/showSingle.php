@@ -60,20 +60,20 @@
                     </p>
 
                     <div class="divider"></div>
-                    <h4 class="mb-20 mt-25">Detalle Convenio Facultar</h4>
-                    <div class="row">
+                    <h4 class="mb-20 mt-25" style="display: none">Detalle Convenio Facultar</h4>
+                    <div class="row" style="display: none">
                         <div class="col-lg-6">
                             <ul>
                                 <li><strong>Tipo Facultad:</strong> Carrera</li>
                                 <li><strong>Nombre:</strong> Ingenieria de Sistemas</li>
                             </ul>
                         </div>
-                        <!--                        <div class="col-lg-6">-->
-                        <!--                            <p class="text-muted lh-32">-->
-                        <!--                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis illum fuga eveniet.-->
-                        <!--                                Deleniti asperiores, commodi quae ipsum quas est itaque-->
-                        <!--                            </p>-->
-                        <!--                        </div>-->
+                        <!--<div class="col-lg-6">
+                            <p class="text-muted lh-32">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis illum fuga eveniet.
+                                Deleniti asperiores, commodi quae ipsum quas est itaque
+                            </p>
+                        </div>-->
                     </div>
 
                     <div class="divider"></div>
@@ -128,62 +128,140 @@
                     <div class="sidebar-list-job mt-10">
                         <ul>
                             <li>
-                                <div class="sidebar-icon-item"><i class="fi-rr-briefcase"></i></div>
-                                <div class="sidebar-text-info">
-                                    <span class="text-description">Nombre Instituci&oacute;n</span>
-                                    <p class="text-muted lh-32">
-                                        <strong class="small-heading"><?= $convenioNacional->nombre_enlace ?></strong>
-                                    </p>
 
+                                <div class="col-12">
+                                    <div style="padding: var(--spacing-2xs) var(--spacing-sm); display: flex !important;">
+                                        <div class="sidebar-icon-item" style="margin: auto">
+                                            <i class="fas fa-university fa-lg"></i>
+                                        </div>
+                                        <span class="text-description"
+                                              style="padding-left: 6px;font-family: 'Montserrat', 'Calibri Light',sans-serif;">Nombre Instituci&oacute;n</span>
+                                    </div>
                                 </div>
-                            </li>
-                            <li>
-                                <div class="sidebar-icon-item"><i class="fi-rr-marker"></i></div>
-                                <div class="sidebar-text-info">
-                                    <span class="text-description">Pais</span>
-                                    <strong class="small-heading"><?= $convenioNacional->pais ?></strong>
+                                <div class="col-12">
+                                    <div class="sidebar-text-info">
+                                        <p class="text-muted lh-32">
+                                            <strong class="small-heading"><?= $convenioNacional->nombre_enlace ?></strong>
+                                        </p>
+                                    </div>
                                 </div>
-                            </li>
-                            <li>
-                                <div class="sidebar-icon-item"><i class="fi-rr-dollar"></i></div>
-                                <div class="sidebar-text-info">
-                                    <span class="text-description">Departamento o Estado</span>
-                                    <strong class="small-heading"><?= $convenioNacional->departamento ?></strong>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="sidebar-icon-item"><i class="fi-rr-clock"></i></div>
-                                <div class="sidebar-text-info">
-                                    <span class="text-description">Ciudad</span>
-                                    <strong class="small-heading"><?= $convenioNacional->ciudad ?></strong>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="sidebar-icon-item"><i class="fi-rr-time-fast"></i></div>
-                                <div class="sidebar-text-info">
-                                    <span class="text-description">Direcci&oacute;n</span>
-                                    <p class="text-muted lh-32">
-                                        <strong class="small-heading"><?= $convenioNacional->direccion ?></strong>
-                                    </p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="sidebar-icon-item"><i class="fi-rr-time-fast"></i></div>
-                                <div class="sidebar-text-info">
-                                    <span class="text-description">Correo Electronico</span>
-                                    <strong class="small-heading"><?= $convenioNacional->correo ?></strong>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="sidebar-icon-item"><i class="fi-rr-time-fast"></i></div>
-                                <div class="sidebar-text-info">
-                                    <span class="text-description">Correo Electronico</span>
-                                    <button class="btn-jf-personalizado" style="margin-top: 10px; width: 100%"
-                                            onclick="window.location.href="<?= $convenioNacional->links_enlace ?>">
-                                        IR PAGINA WEB
-                                    </button>
 
+                            </li>
+
+                            <li>
+
+                                <div class="col-12">
+                                    <div style="padding: var(--spacing-2xs) var(--spacing-sm); display: flex !important;">
+                                        <div class="sidebar-icon-item" style="margin: auto">
+                                            <i class="fas fa-globe-africa fa-lg"></i>
+                                        </div>
+                                        <span class="text-description"
+                                              style="padding-left: 6px;font-family: 'Montserrat', 'Calibri Light',sans-serif;">
+                                            Pais
+                                        </span>
+                                    </div>
                                 </div>
+                                <div class="col-12">
+                                    <div class="sidebar-text-info">
+                                        <p class="text-muted lh-32">
+                                            <strong class="small-heading"><?= $convenioNacional->pais ?></strong>
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </li>
+                            <li>
+                                <div class="col-12">
+                                    <div style="padding: var(--spacing-2xs) var(--spacing-sm); display: flex !important;">
+                                        <div class="sidebar-icon-item" style="margin: auto">
+                                            <i class="fas fa-flag fa-lg"></i>
+                                        </div>
+                                        <span class="text-description"
+                                              style="padding-left: 6px;font-family: 'Montserrat', 'Calibri Light',sans-serif;">
+                                            Departamento o Estado
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="sidebar-text-info">
+                                        <p class="text-muted lh-32">
+                                            <strong class="small-heading"><?= $convenioNacional->departamento ?></strong>
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </li>
+                            <li>
+
+                                <div class="col-12">
+                                    <div style="padding: var(--spacing-2xs) var(--spacing-sm); display: flex !important;">
+                                        <div class="sidebar-icon-item" style="margin: auto">
+                                            <i class="fas fa-city fa-lg"></i>
+                                        </div>
+                                        <span class="text-description"
+                                              style="padding-left: 6px;font-family: 'Montserrat', 'Calibri Light',sans-serif;">
+                                            Ciudad
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="sidebar-text-info">
+                                        <p class="text-muted lh-32">
+                                            <strong class="small-heading"><?= $convenioNacional->ciudad ?></strong>
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </li>
+                            <li>
+
+                                <div class="col-12">
+                                    <div style="padding: var(--spacing-2xs) var(--spacing-sm); display: flex !important;">
+                                        <div class="sidebar-icon-item" style="margin: auto">
+                                            <i class="fa-solid fa-diamond-turn-right fa-lg"></i>
+                                        </div>
+                                        <span class="text-description"
+                                              style="padding-left: 6px;font-family: 'Montserrat', 'Calibri Light',sans-serif;">
+                                            Direcci&oacute;n
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="sidebar-text-info">
+                                        <p class="text-muted lh-32">
+                                            <strong class="small-heading"><?= $convenioNacional->direccion ?></strong>
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </li>
+                            <li>
+
+                                <div class="col-12">
+                                    <div style="padding: var(--spacing-2xs) var(--spacing-sm); display: flex !important;">
+                                        <div class="sidebar-icon-item" style="margin: auto">
+                                            <i class="fa-regular fa-envelope fa-lg"></i>
+                                        </div>
+                                        <span class="text-description"
+                                              style="padding-left: 6px;font-family: 'Montserrat', 'Calibri Light',sans-serif;">
+                                            Correo Electronico
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="sidebar-text-info">
+                                        <p class="text-muted lh-32">
+                                            <strong class="small-heading"><?= $convenioNacional->correo ?></strong>
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </li>
+                            <li>
+                                <button class="btn-jf-personalizado" style="margin-top: 10px; width: 100%"
+                                        onclick="window.location.href="<?= $convenioNacional->links_enlace ?>">
+                                IR PAGINA WEB
+                                </button>
                             </li>
                         </ul>
                     </div>

@@ -49,13 +49,13 @@
     <meta name="msapplication-TileImage" content="<?= base_url(); ?>assets/img-global/favicon/mstile-144x144.png"/>
     <!-- Favicon Tags End -->
 
-<!--    <link rel="manifest" href="--><?//= base_url() ?><!--dashboard/img/favicon/manifest.json">-->
+    <!--    <link rel="manifest" href="--><? //= base_url() ?><!--dashboard/img/favicon/manifest.json">-->
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
     <!-- DataTable CSS File -->
-<!--    C:\wamp64\www\re-upea\public\web\assets\css\datatable-->
+    <!--    C:\wamp64\www\re-upea\public\web\assets\css\datatable-->
     <link href="<?= base_url(); ?>web/assets/css/datatable/datatables.min.css" rel="stylesheet">
     <!-- Template CSS -->
     <!-- <link rel="stylesheet" href="assets/css/plugins/animate.min.css" /> -->

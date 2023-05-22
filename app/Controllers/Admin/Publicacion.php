@@ -393,6 +393,21 @@ class Publicacion extends BaseController
 //                'nombre_archivo'=>'assets/img_publicaciones/',
                 'estado_archivo' => trim(1)
             ];
+
+            /* actualizar la tabla */
+            try {
+
+                $model->update($id_publicaciones, $datos);
+            } catch (\ReflectionException $e) {
+
+                return $this->response->setJSON([
+                    'success' => false,
+                    'message' => 'no se actualizo tabla publicacion sin imagenes.',
+                    'error' => $e
+                ]);
+
+            }
+
         } else {
 
 
@@ -420,7 +435,7 @@ class Publicacion extends BaseController
 
                 /* directorio */
                 $directorio = $this->configs->pathPublicacionImg;
-//            $directorioPdfConvenio = $this->configs->pathConvenioPdf;
+//                $directorioPdfConvenio = $this->configs->pathConvenioPdf;
 
                 if ($registroPublicacion->url == null || $registroPublicacion->url == '') {
                     /* mover la imagen al directorio */
@@ -445,7 +460,6 @@ class Publicacion extends BaseController
         }
 
         /* actualizar a la tabla publicaciones */
-
 
         /* si hay un archivo para la publicacion insertar en la tabla publicacion archivos */
         if ($tieneFilePub) {
@@ -508,6 +522,8 @@ class Publicacion extends BaseController
             }
 
         }
+
+
         return $this->response->setJSON([
             'success' => true,
             'message' => 'Se actualizo los datos al sistema correctamente.',

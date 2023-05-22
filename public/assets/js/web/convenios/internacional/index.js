@@ -83,20 +83,7 @@ $(document).ready(function () {
                                                     3 mins ago
                                                 </span> -->
                                             </div>
-                                            <div class="col-lg-2 text-lg-end">
-                                                <div class="row pb-10">
-                                                    <button class="btn-jf-personalizado-cards-verde">
-                                                 Inicio: ${data.fecha_firma}
-                                            </button>
-                                          
-                                                </div>
-                                                <div class="row">
-                                                      <button class="btn-jf-personalizado-cards-rojo">
-                                                 Fin: ${data.fecha_finalizacion}
-                                            </button>
-                                                </div>
-
-                                            </div>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -107,6 +94,13 @@ $(document).ready(function () {
                                 <div class="card-job-bottom mt-25">
                                     <div class="row">
                                         <div class="col-lg-9 col-sm-8 col-12">
+                                            <button class="btn-jf-personalizado-cards-verde mt-10">
+                                               <i class="fa fa-pdf"></i>   Inicio: ${data.fecha_firma}
+                                            </button>
+                                            
+                                            <button class="btn-jf-personalizado-cards-rojo mt-10">
+                                               <i class="fa fa-pdf"></i>  Fin: ${data.fecha_finalizacion}
+                                            </button>
 
                                             <button class="btn-jf-personalizado-cards-red" onclick="window.open('<?= base_url() ?>uploads/` + data.pdf_convenio + `', '_blank')">
                                                <i class="fa fa-pdf"></i>  PDF
@@ -119,10 +113,10 @@ $(document).ready(function () {
                                         </div>
                                         <div class="col-lg-3 col-sm-4 col-12 text-lg-end d-lg-block d-none">
 
-                                            <span>
+                                            <span style="position: relative;bottom: -40px;right: 0;">
                                             <i class="` + iconCard + `" style="` + styleCard + `"></i>
 <!--                                                <i class="fi-rr-shield-check" style="color:green"></i>-->
-                                                ${textEstadoCard}
+                                                <strong>${textEstadoCard}</strong>
                                             </span>
                                         </div>
                                     </div>

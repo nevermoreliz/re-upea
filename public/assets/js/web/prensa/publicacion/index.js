@@ -75,14 +75,16 @@ $(document).ready(function () {
                                         <div class="col-lg-12 col-6">
                                             <a href="<?= route_to('webPrensaPublicacion_show','` + data.id_publicaciones + `')?>" class="card-2-img-text">
                                                 <span class="card-grid-2-img-small bg-warning">
-                                                    <img alt="jobhub" src="https://cdn-icons-png.flaticon.com/512/4113/4113045.png"/>
+                                                    <img alt="jobhub" src="<?= base_url() ?>/assets/img-global/profile/user-2.png"/>
                                                 </span>
-                                                <span>Relaciones Internacionales UPEA</span>
+                                                <span style="font-family: 'Montserrat', 'Calibri Light',sans-serif;"><strong>Relaciones Internacionales UPEA</strong></span>
                                             </a>
                                         </div>
                                         
                                     </div>
-                                    <h5 class="mt-20 texto-truncado-jf"><a href="<?= route_to('webPrensaPublicacion_show','` + data.id_publicaciones + `')?>">${data.titulo}</a></h5>
+                                    <h5 class="mt-20 texto-truncado-jf">
+                                        <a href="<?= route_to('webPrensaPublicacion_show','` + data.id_publicaciones + `')?>"><strong>${data.titulo.toUpperCase()}</strong></a>
+                                    </h5>
                                    
                                 </div>
                             </div>

@@ -5,7 +5,7 @@
     --bg-color: #fff;
     --main-color: #323232;
     width: 100%;
-    height: 40px;
+    height: 50px;
     border-radius: 5px;
     border: 2px solid var(--main-color);
     background-color: var(--bg-color);
@@ -28,9 +28,9 @@
 
 /* botones card standar */
 .btn-jf-personalizado-cards {
-    padding: 2px 20px;
+    padding: 8px 25px;
     border-radius: 5px;
-    border: 2px #183153 solid;
+    border: 1px #183153 solid;
     /* box-shadow: 2px 2px 1px; */
     box-shadow: 0px 4px 0px #183153;
     /*font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;*/
@@ -67,9 +67,9 @@
 
 /* botones card red */
 .btn-jf-personalizado-cards-red {
-    padding: 2px 20px;
+    padding: 8px 25px;
     border-radius: 5px;
-    border: 2px #183153 solid;
+    border: 1px #183153 solid;
     /* box-shadow: 2px 2px 1px; */
     box-shadow: 0px 4px 0px #183153;
     /*font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;*/
@@ -106,9 +106,9 @@
 
 /* botones card verde */
 .btn-jf-personalizado-cards-verde {
-    padding: 2px 20px;
+    padding: 8px 25px;
     border-radius: 5px;
-    border: 2px #183153 solid;
+    border: 1px #183153 solid;
     /* box-shadow: 2px 2px 1px; */
     box-shadow: 0px 4px 0px #183153;
     /*font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;*/
@@ -145,9 +145,9 @@
 
 /* botones card rojo */
 .btn-jf-personalizado-cards-rojo {
-    padding: 2px 20px;
+    padding: 8px 25px;
     border-radius: 5px;
-    border: 2px #183153 solid;
+    border: 1px #183153 solid;
     /* box-shadow: 2px 2px 1px; */
     box-shadow: 0px 4px 0px #183153;
     /*font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;*/
@@ -182,3 +182,12 @@
 }
 
 /* end botones card verde */
+
+@media (max-width: 600px) {
+    .btn-jf-personalizado-cards,
+    .btn-jf-personalizado-cards-rojo,
+    .btn-jf-personalizado-cards-verde,
+    .btn-jf-personalizado-cards-red {
+        width: 100%;
+    }
+}

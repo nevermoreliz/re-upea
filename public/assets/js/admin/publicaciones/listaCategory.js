@@ -29,7 +29,7 @@ $(document).ready(function () {
             {data: null},
             {data: 'id_publicaciones', visible: false},
             {data: 'titulo'},
-            {data: 'tipo_publicaciones'},
+            {data: 'fecha'},
             {
                 data: 'estado',
                 render: function (data, type, row) {
@@ -50,7 +50,7 @@ $(document).ready(function () {
                 data: null,
                 render: function (data, type, row) {
 
-                    let clase, textCamp, iconAction, $li;
+                    let clase, textCamp, iconAction, $li, tip;
 
                     if (data['estado'] == 1) {
                         clase = 'delete-category-publicacion';
@@ -64,6 +64,7 @@ $(document).ready(function () {
                         $li = `<li><a id="dinamic-text-enlace-active" class="dropdown-item texto-ext ` + clase + `" data-publicacion="` + data['id_publicaciones'] + `" href="javascript:void(0)"><i class="` + iconAction + `"></i> ` + textCamp + `</a></li>`;
                     }
 
+
                     return `
                         <!-- Example single danger button -->
                         <div class="btn-group">
@@ -74,7 +75,7 @@ $(document).ready(function () {
                             <li><a class="dropdown-item edit-publicaciones" data-publicacion="` + data['id_publicaciones'] + `" href="javascript:void(0)"><i class="bi bi-pencil-square"></i> Modificar </a></li>                     
                             ` + $li + `
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item show-publicacion" data-publicacion="` + data['id_publicaciones'] + `" href="javascript:void(0)"><i class="bi bi-info"></i> Más Detalle</a>
+                            <a class="dropdown-item show-publicacion" data-tipo-publicacion="` + data.tipo_publicaciones + `" data-publicacion="` + data['id_publicaciones'] + `" href="javascript:void(0)"><i class="bi bi-info"></i> Más Detalle</a>
                           </ul>
                         </div>
                     `;
@@ -230,6 +231,12 @@ $(document).ready(function () {
             }
         });
 
+    });
+
+    $(document).off('click').on('click', 'a.show-publicacion', function (e) {
+        // alert('estasaqui');
+
+        // console.log(e)
     });
 
     /* agregar usuario y abrir el modal */

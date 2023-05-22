@@ -19,6 +19,87 @@
     filter: brightness(100%);
 }
 
+
+/* btn personalizado predeterminado */
+.btn-jf-personalizado-blog-list {
+    padding: 8px 25px;
+    border-radius: 10px;
+    border: 2px #183153 solid;
+    /* box-shadow: 2px 2px 1px; */
+    box-shadow: 0px 4px 0px #183153;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    background-color: #FFFFFF;
+    overflow: hidden;
+    position: relative;
+    z-index: 10;
+}
+
+.btn-jf-personalizado-blog-list::after {
+    content: "";
+    position: absolute;
+    background-color: #fab005;
+    width: 0px;
+    height: 0px;
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transition: all .3s ease-in;
+    z-index: -1;
+}
+
+.btn-jf-personalizado-blog-list:hover::after {
+    transform-origin: center;
+    transition: all .3s ease-in;
+    width: 100%;
+    height: 200px;
+}
+
+/* end btn personalizado predeterminado */
+
+/* btn personalizado azul */
+.btn-jf-personalizado-blog-list-azul {
+    padding: 8px 25px;
+    border-radius: 10px;
+    border: 2px #183153 solid;
+    /* box-shadow: 2px 2px 1px; */
+    box-shadow: 0px 4px 0px #183153;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    background-color: #0CC074;
+    overflow: hidden;
+    position: relative;
+    z-index: 10;
+}
+
+.btn-jf-personalizado-blog-list-azul::after {
+    content: "";
+    position: absolute;
+    background-color: #146EBE;
+    width: 0px;
+    height: 0px;
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transition: all .3s ease-in;
+    z-index: -1;
+}
+
+.btn-jf-personalizado-blog-list-azul:hover::after {
+    transform-origin: center;
+    transition: all .3s ease-in;
+    width: 100%;
+    height: 200px;
+}
+
+/* end btn personalizado azul */
+
+
+/* texto truncado linea */
 .texto-truncado-jf {
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -26,9 +107,27 @@
     overflow: hidden;
 }
 
-.sub-texto-truncado-jf {
+.texto-truncado-jf-2-line {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2; /* Número de líneas a mostrar */
     overflow: hidden;
 }
+
+.texto-truncado-jf-3-line {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3; /* Número de líneas a mostrar */
+    overflow: hidden;
+}
+
+.texto-truncado-jf-4-line {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3; /* Número de líneas a mostrar */
+    overflow: hidden;
+}
+
+/* texto truncados linea */
+
+

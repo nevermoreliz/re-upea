@@ -56,49 +56,48 @@ $(document).ready(function () {
                     textEstadoCard = 'CONCLUIDO'
                 }
 
+
                 let card = $(`
                     <div class="card-blog-1 mb-30 post-list hover-up wow animate__animated animate__fadeIn"
                          data-wow-delay=".0s">
-                        <figure class="post-thumb contenedor-img">
-                            <a href="<?= route_to('webPrensaNoticia_show','` + data.id_publicaciones + `')?>" class="">
-                                <img alt="${data.titulo}" class="img-content" src="<?= base_url('uploads/') ?>${data.url}"/>
-                            </a>
-                        </figure>
-                        <div class="card-block-info">
-                            <h3 class="post-title mb-15 texto-truncado-jf"><a href="<?= route_to('webPrensaNoticia_show','` + data.id_publicaciones + `')?>">${data.titulo}</a></h3>
-                            <div class="post-meta text-muted d-flex align-items-center mb-15">
-                                <div class="author d-flex align-items-center mr-30">
-                                    <img alt="jobhub" src="<?= base_url('web/') ?>assets/imgs/avatar/ava_16.png"/>
-                                    <span>Relaciones Internacionales UPEA</span>
-                                </div>
-                                <div class="date">
-                                    <span><i class="fi-rr-edit mr-5 text-grey-6"></i>${data.fecha}</span>
-                                </div>
-                            </div>
-                            
-                            
-                            <div class="sub-texto-truncado-jf">
-                                <p class="post-excerpt text-muted d-none d-lg-block ">
-                                   ${data.subtitulo}
-                                </p>
-                                </div>
-                      
-                            <div class="card-2-bottom mt-30">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <div class="keep-reading">
-                                        <a href="<?= route_to('webPrensaNoticia_show','` + data.id_publicaciones + `')?>" class="btn btn-border btn-brand-hover">Ver M&aacute;s Detalle</a>
+                        <div class="col-lg-5">
+                            <figure class="post-thumb">
+                                <a href="blog-single.html">
+                                    <img style="width: 275px;height: 272px;object-fit: cover;"
+                                         alt="${data.titulo}"
+                                         src="<?= base_url('uploads/') ?>${data.url}"/>
+                                </a>
+                            </figure>
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="card-block-info">
+                                <h3 class="post-title mb-15 texto-truncado-jf"><a href="<?= route_to('webPrensaNoticia_show','` + data.id_publicaciones + `')?>">${data.titulo}</a></h3>
+                                <div class="post-meta text-muted d-flex align-items-center mb-15">
+                                    <div class="author d-flex align-items-center mr-30">
+                                        <img alt="jobhub" src="<?= base_url() ?>/assets/img-global/profile/user-2.png"/>
+                                        <span style="font-family: 'Montserrat', 'Calibri Light',sans-serif;color: #003061"><strong>Relaciones Internacionales UPEA</strong></span>
                                     </div>
-                                    <div class="tags text-lg-end">
-<!--                                        <a href="#" class="btn btn-tags-sm mb-10 mr-5">Full-time</a>-->
-<!--                                        <a href="#" class="btn btn-tags-sm mb-10 mr-5">Brand</a>-->
-                                        <a href="#" class="mt-10">
-                                        <img alt="jobhub"  src="<?= base_url('web/') ?>assets/imgs/theme/icons/bookmark.svg"/></a>
+                                    
+                                </div>
+                               <div class="texto-truncado-jf-4-line">
+                                    <p class="post-excerpt d-none d-lg-block" 
+                                       style="font-family: 'Muli','Calibri Light',sans-serif;color: #003061">
+                                       ${data.subtitulo.toLowerCase()}
+                                    </p>
+                               </div>
+                               
+                                <div class="card-2-bottom mt-30">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                         <button class="btn-jf-personalizado-blog-list-azul"
+                                                 onclick="window.location.href='<?= route_to('webPrensaNoticia_show','` + data.id_publicaciones + `')?>'">
+                                             Ver Detalle Noticia
+                                         </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                 `);
+                `);
 
                 cards.append(card);
             });

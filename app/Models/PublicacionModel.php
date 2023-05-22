@@ -50,13 +50,14 @@ class PublicacionModel extends Model
     protected $beforeDelete = [];
     protected $afterDelete = [];
 
-    public function getPublicacion(string $tipoPubliacacion)
+    public function getPublicacion(string $tipoPubliacacion, int $cantidadRegistro, array $where = [])
     {
         $db = \Config\Database::connect();
         $builder = $db->table('publicaciones')
             ->where('tipo_publicaciones', $tipoPubliacacion)
             ->where('estado', 1)
-            ->limit(3)
+            ->where($where)
+            ->limit($cantidadRegistro)
             ->orderBy('id_publicaciones', 'desc')
             ->get();
         return $builder->getResultObject();

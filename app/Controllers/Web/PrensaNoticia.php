@@ -11,7 +11,13 @@ class PrensaNoticia extends BaseController
 {
     public function index()
     {
-        return $this->templater->viewWeb('web/prensa/noticia/index');
+        $modelPublicacion = new PublicacionModel();
+
+        $data = [
+            'publicaciones' => $modelPublicacion->getPublicacion('Publicaciones', 13)
+        ];
+
+        return $this->templater->viewWeb('web/prensa/noticia/index', $data);
     }
 
     public function list()
@@ -65,6 +71,7 @@ class PrensaNoticia extends BaseController
         $archivosPublicacion = $modelPublicacionArchivo
             ->where('id_publicaciones', $id)
             ->findAll();
+
 
         $data = [
             'publicacion' => $registroPublicacion,

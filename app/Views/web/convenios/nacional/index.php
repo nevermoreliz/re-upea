@@ -21,6 +21,7 @@
                         <div class="row">
                             <div class="col-lg-7">
                                 <span id="text-table-info"
+                                      style="font-family: 'Montserrat', 'Calibri Light',sans-serif;color: #003061"
                                       class="text-small">
 
                                 </span>
@@ -57,8 +58,8 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4 mb-30">
-                        <label for="inputName5" class="form-label">Buscar por: [ Titulo, Institucion, Objetivos, Fecha
+                    <div class="col-md-5 mb-30">
+                        <label for="inputName5" class="form-label" style="font-family: 'Montserrat', 'Calibri Light',sans-serif;color: #003061">Buscar por: [ Titulo, Institucion, Objetivos, Fecha
                             de Inicio o Fin ]</label>
                         <!--                        <input type="text" id="searchInput" class="form-control input" name="searchInput" style="border: #013953">-->
                         <input type="text" placeholder="Criterio de Busqueda" id="searchInput" name="searchInput"

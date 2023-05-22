@@ -22,46 +22,6 @@
             <div class="col-lg-8">
                 <div class="post-listing" id="card-list-noticias">
                     <!-- recomendado 5 en linea -->
-                    <div class="card-blog-1 mb-30 post-list hover-up wow animate__animated animate__fadeIn"
-                         data-wow-delay=".0s">
-                        <figure class="post-thumb">
-                            <a href="blog-single.html">
-                                <img alt="jobhub" src="<?= base_url('web/') ?>assets/imgs/blog/thumb-1.png"/>
-                            </a>
-                        </figure>
-                        <div class="card-block-info">
-                            <h3 class="post-title mb-15"><a href="blog-single.html">21 Job Interview Tips: How To Make a
-                                    Great Impression</a></h3>
-                            <div class="post-meta text-muted d-flex align-items-center mb-15">
-                                <div class="author d-flex align-items-center mr-30">
-                                    <img alt="jobhub" src="<?= base_url('web/') ?>assets/imgs/avatar/ava_16.png"/>
-                                    <span>Steven</span>
-                                </div>
-                                <div class="date">
-                                    <span><i class="fi-rr-edit mr-5 text-grey-6"></i>06 Sep 2022</span>
-                                </div>
-                            </div>
-                            <p class="post-excerpt text-muted d-none d-lg-block">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit ab, dicta minus aspernatur
-                                magnam atque excepturi.
-                            </p>
-                            <div class="card-2-bottom mt-30">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <div class="keep-reading">
-                                        <a href="blog-single.html" class="btn btn-border btn-brand-hover">Keep
-                                            reading</a>
-                                    </div>
-                                    <div class="tags text-lg-end">
-                                        <a href="#" class="btn btn-tags-sm mb-10 mr-5">Full-time</a>
-                                        <a href="#" class="btn btn-tags-sm mb-10 mr-5">Brand</a>
-                                        <a href="#" class="mt-10"><img alt="jobhub"
-                                                                       src="<?= base_url('web/') ?>assets/imgs/theme/icons/bookmark.svg"/></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
 
                 </div>
 
@@ -78,8 +38,9 @@
                 <div class="widget_search mb-40">
                     <div class="search-form">
                         <form action="#">
-                            <input id="searchInput" type="text" placeholder="Buscar. . .">
-                            <button type="submit"><i class="fi-rr-search"></i></button>
+                            <input id="searchInput" type="text" placeholder="Buscar. . ."
+                                   style="border: 1px solid #0CC074 !important;">
+                            <button><i class="fi-rr-search"></i></button>
                         </form>
                     </div>
                 </div>
@@ -110,94 +71,41 @@
                     </ul>
                 </div> -->
 
-                <div class="sidebar-shadow sidebar-news-small">
-                    <h5 class="sidebar-title">Ultimas Publicaciones</h5>
+                <div class="sidebar-shadow sidebar-news-small" style="background-color: #003061">
+                    <h5 class="sidebar-title" style="color: #0CC074">Ultimas Publicaciones</h5>
                     <div class="post-list-small">
-                        <div class="post-list-small-item d-flex align-items-center">
-                            <figure class="thumb mr-15">
-                                <img src="<?= base_url('web/') ?>assets/imgs/blog/thumb-1.png" alt="">
-                            </figure>
-                            <div class="content">
-                                <h5>You Should Have This Info Before Job Interview</h5>
-                                <div class="post-meta text-muted d-flex align-items-center mb-15">
-                                    <div class="author d-flex align-items-center mr-20">
-                                        <img alt="jobhub" src="<?= base_url('web/') ?>assets/imgs/avatar/ava_1.png">
-                                        <span>Sarah</span>
-                                    </div>
-                                    <div class="date">
-                                        <span>02 Oct</span>
-                                    </div>
+                        <article>
+                            <?php foreach ($publicaciones as $publicacion): ?>
+                                <div class="post-list-small-item d-flex align-items-center">
+                                    <figure class="thumb mr-15">
+                                        <a href="<?= route_to('webPrensaPublicacion_show', $publicacion->id_publicaciones) ?>"
+                                           target="_blank">
+                                            <img style="width: 85px;height: 85px; object-fit: cover;border-radius: 5px"
+                                                 src="<?= base_url('uploads/') . $publicacion->url ?>"
+                                                 alt="<?= $publicacion->titulo ?>">
+                                        </a>
+
+                                    </figure>
+
+                                    <a href="<?= route_to('webPrensaPublicacion_show', $publicacion->id_publicaciones) ?>"
+                                       target="_blank">
+                                        <div class="content">
+
+                                            <h5 class="texto-truncado-jf-2-line text-white">
+                                                <?= strtoupper($publicacion->titulo) ?>
+                                            </h5>
+
+                                            <div class="post-meta text-muted d-flex align-items-center mb-15">
+                                                <div class="date">
+                                                    <span style="color: #0CC074"><?= $publicacion->fecha ?></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </a>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="post-list-small-item d-flex align-items-center">
-                            <figure class="thumb mr-15">
-                                <img src="<?= base_url('web/') ?>assets/imgs/blog/thumb-2.png" alt="">
-                            </figure>
-                            <div class="content">
-                                <h5>How To Create a Resume for a Job in Social</h5>
-                                <div class="post-meta text-muted d-flex align-items-center mb-15">
-                                    <div class="author d-flex align-items-center mr-20">
-                                        <img alt="jobhub" src="<?= base_url('web/') ?>assets/imgs/avatar/ava_3.png">
-                                        <span>Harding</span>
-                                    </div>
-                                    <div class="date">
-                                        <span>17 Sep</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="post-list-small-item d-flex align-items-center">
-                            <figure class="thumb mr-15">
-                                <img src="<?= base_url('web/') ?>assets/imgs/blog/thumb-3.png" alt="">
-                            </figure>
-                            <div class="content">
-                                <h5>10 Ways to Avoid a Referee Disaster Zone</h5>
-                                <div class="post-meta text-muted d-flex align-items-center mb-15">
-                                    <div class="author d-flex align-items-center mr-20">
-                                        <img alt="jobhub" src="<?= base_url('web/') ?>assets/imgs/avatar/ava_5.png">
-                                        <span>Steven</span>
-                                    </div>
-                                    <div class="date">
-                                        <span>23 Sep</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="post-list-small-item d-flex align-items-center">
-                            <figure class="thumb mr-15">
-                                <img src="<?= base_url('web/') ?>assets/imgs/blog/thumb-4.png" alt="">
-                            </figure>
-                            <div class="content">
-                                <h5>How To Set Work-Life Boundaries From Any Location</h5>
-                                <div class="post-meta text-muted d-flex align-items-center mb-15">
-                                    <div class="author d-flex align-items-center mr-20">
-                                        <img alt="jobhub" src="<?= base_url('web/') ?>assets/imgs/avatar/ava_6.png">
-                                        <span>Merias</span>
-                                    </div>
-                                    <div class="date">
-                                        <span>14 Sep</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="post-list-small-item d-flex align-items-center">
-                            <figure class="thumb mr-15">
-                                <img src="<?= base_url('web/') ?>assets/imgs/blog/thumb-5.png" alt="">
-                            </figure>
-                            <div class="content">
-                                <h5>How to Land Your Dream Marketing Job</h5>
-                                <div class="post-meta text-muted d-flex align-items-center mb-15">
-                                    <div class="author d-flex align-items-center mr-20">
-                                        <img alt="jobhub" src="<?= base_url('web/') ?>assets/imgs/avatar/ava_7.png">
-                                        <span>Rosie</span>
-                                    </div>
-                                    <div class="date">
-                                        <span>12 Sep</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                            <?php endforeach; ?>
+                        </article>
                     </div>
                 </div>
 
@@ -221,7 +129,7 @@
                         <a href="#" class="btn btn-tags-sm mb-10 mr-5">jam</a>
                     </div>
                 </div> -->
-               
+
             </div>
         </div>
 

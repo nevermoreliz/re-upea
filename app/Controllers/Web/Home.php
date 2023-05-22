@@ -19,7 +19,7 @@ class Home extends BaseController
         $modelPublicaciones = new PublicacionModel();
 
         $data = [
-            'publicaciones' => $modelPublicaciones->getPublicacion('Publicaciones'),
+            'publicaciones' => $modelPublicaciones->getPublicacion('Publicaciones', 3),
             'noticia' => $modelPublicaciones->where('tipo_publicaciones', 'Noticias')->orderBy('id_publicaciones', 'desc')->first(),
         ];
 

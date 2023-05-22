@@ -80,7 +80,7 @@
     </div>
 </section>
 
-<section class="section-box mt-65">
+<section class="section-box mt-65 mb-50">
     <div class="container">
         <div class="row align-items-end">
             <div class="col-lg-7">
@@ -95,7 +95,7 @@
                 <!--                <a href="job-grid-2.html" class="mt-sm-15 mt-lg-30 btn btn-border icon-chevron-right">Mostrar-->
                 <!--                    M&aacute;s</a>-->
 
-                <button class="btn-jf-personalizado"
+                <button class="btn-jf-personalizado mt-15"
                         onclick="window.location.href='<?= route_to('en_construccion') ?>'">
                     Ir a Categorias
                 </button>
@@ -179,7 +179,7 @@
     </div>
 </section>
 
-<section class="section-box mt-40">
+<section class="section-box mt-50 mb-50">
     <div class="container">
 
         <div class="row align-items-end">
@@ -195,109 +195,161 @@
                 <!--                <a href="job-grid-2.html" class="mt-sm-15 mt-lg-30 btn btn-border icon-chevron-right">Mostrar-->
                 <!--                    M&aacute;s</a>-->
 
-                <button class="btn-jf-personalizado"
-                        onclick="window.location.href='<?= route_to('en_construccion') ?>'">
+                <button class="btn-jf-personalizado mt-15"
+                        onclick="window.location.href='<?= route_to('webPrensaPublicacion_index') ?>'">
                     Mostrar M&aacute;s Publicaciones
                 </button>
             </div>
         </div>
+
         <div class="mt-70">
-
-
-            <div class="row">
-                <?php foreach ($publicaciones as $publicacion): ?>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="card-grid-2 hover-up wow animate__animated animate__fadeInUp">
-                            <div class="text-center card-grid-2-image contenedor-img">
-                                <a href="job-single.html">
-                                    <figure><img class="img-content"
-                                                 src="<?= base_url('uploads/') . $publicacion->url ?>" alt="jobhub">
-                                    </figure>
-                                </a>
-                                <label class="btn-urgent btn-jf-personalizado-header" style="background-color: white"><?= $publicacion->fecha ?></label>
-                                <!--<label class="btn-urgent"><?/*= $publicacion->fecha */?></label>-->
-                            </div>
-                            <div class="card-block-info" style="padding: 15px">
-                                <div class="row">
-                                    <div class="col-lg-12 col-6">
-                                        <a href="/prensa/publicacion/info/170" class="card-2-img-text">
+            <article>
+                <div class="row">
+                    <?php foreach ($publicaciones as $publicacion): ?>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="card-grid-2 hover-up wow animate__animated animate__fadeInUp">
+                                <div class="text-center card-grid-2-image contenedor-img">
+                                    <a href="<?= route_to('webPrensaPublicacion_show', $publicacion->id_publicaciones) ?>">
+                                        <figure>
+                                            <img class="img-content"
+                                                 src="<?= base_url('uploads/') . $publicacion->url ?>"
+                                                 alt="<?= $publicacion->titulo ?>">
+                                        </figure>
+                                    </a>
+                                    <label class="btn-urgent btn-jf-personalizado-header"
+                                           style="background-color: white"><?= $publicacion->fecha ?></label>
+                                    <!--<label class="btn-urgent"><? /*= $publicacion->fecha */ ?></label>-->
+                                </div>
+                                <div class="card-block-info" style="padding: 15px">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-6">
+                                            <a href="<?= route_to('webPrensaPublicacion_show', $publicacion->id_publicaciones) ?>"
+                                               class="card-2-img-text">
                                                 <span class="card-grid-2-img-small bg-warning">
                                                     <img alt="jobhub"
-                                                         src="https://cdn-icons-png.flaticon.com/512/4113/4113045.png">
+                                                         src="<?= base_url() ?>/assets/img-global/profile/user-2.png">
                                                 </span>
-                                            <span>Relaciones Internacionales UPEA</span>
-                                        </a>
+                                                <span style="font-family: 'Montserrat', 'Calibri Light',sans-serif;"><strong>Relaciones Internacionales UPEA</strong></span>
+                                            </a>
+                                        </div>
+
                                     </div>
+                                    <h5 class="mt-20 texto-truncado-jf">
+                                        <a href="<?= route_to('webPrensaPublicacion_show', $publicacion->id_publicaciones) ?>"><strong><?= strtoupper($publicacion->titulo) ?></strong></a>
+                                    </h5>
 
                                 </div>
-                                <h5 class="mt-20 texto-truncado-jf"><a
-                                            href="job-single.html"><?= $publicacion->titulo ?></a></h5>
-
                             </div>
                         </div>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-
+                    <?php endforeach; ?>
+                </div>
+            </article>
 
         </div>
     </div>
 </section>
 
 
-<section class="section-box mt-50 mb-70 bg-patern" style="background-color: #fab005">
+<section class="section-box mt-50 mb-50 bg-patern" style="background-color: #fab005">
     <div class="container">
+        <article>
+            <div class="row">
+                <div class="col-lg-6 col-sm-12" style="margin: auto">
+                    <div class="content-job-inner">
+                        <h2 class="section-title heading-lg wow animate__animated animate__fadeInUp">
+                            Noticia<br> <?= $noticia->fecha ?>
+                        </h2>
 
-        <div class="row">
-            <div class="col-lg-6 col-sm-12">
-                <div class="content-job-inner">
-                    <h2 class="section-title heading-lg wow animate__animated animate__fadeInUp">
-                        Noticia<br> <?= $noticia->fecha ?>
-                    </h2>
-
-                    <div class="mt-40 pr-50 text-md-lh28 wow animate__animated animate__fadeInUp texto-truncado-jf-2-line">
+                        <div class="mt-40 pr-50 text-md-lh28 wow animate__animated animate__fadeInUp texto-truncado-jf-2-line">
                         <span style="font-family:  'Montserrat', sans-serif;
                         font-size: 20px;
                         color: #003061;
                         font-weight: 700;
                         line-height: 24px;"><?= $noticia->titulo ?></span>
+                        </div>
+                        <div style="text-align: justify"
+                             class="mt-40 pr-50 text-md-lh28 wow animate__animated animate__fadeInUp texto-truncado-jf-3-line">
+                            <?= $noticia->subtitulo ?>
+                        </div>
+                        <div class="mt-40">
+                            <!--<div class="box-button-shadow wow animate__animated animate__fadeInUp">
+                                <a href="#" class="btn btn-default">Post
+                                    a job now
+                                </a>
+                            </div>-->
+
+
+                            <button class="btn-jf-personalizado wow animate__animated animate__fadeInUp mt-10"
+                                    style="width: 100%"
+                                    onclick="window.location.href='<?= route_to('webPrensaNoticia_show', $noticia->id_publicaciones) ?>'">
+                                Ir a la Noticia
+                            </button>
+
+                            <button class="btn-jf-personalizado-azul wow animate__animated animate__fadeInUp mt-10"
+                                    style="width: 100%"
+                                    onclick="window.location.href='<?= route_to('webPrensaNoticia_index') ?>'">
+                                Mostrar M&aacute;s Noticias
+                            </button>
+                            <!--<a href="#" class="btn btn-link wow animate__animated animate__fadeInUp">Learn more</a>-->
+                        </div>
                     </div>
-                    <div style="text-align: justify"
-                         class="mt-40 pr-50 text-md-lh28 wow animate__animated animate__fadeInUp texto-truncado-jf-3-line">
-                        <?= $noticia->subtitulo ?>
-                    </div>
-                    <div class="mt-40">
-                        <!--<div class="box-button-shadow wow animate__animated animate__fadeInUp">
-                            <a href="#" class="btn btn-default">Post
-                                a job now
+                </div>
+
+                <div class="col-lg-6 col-sm-12">
+                    <div class="box-image-job contenedor-img-noticia">
+                        <figure class=" wow animate__animated animate__fadeIn">
+                            <a href="<?= route_to('webPrensaNoticia_show', $noticia->id_publicaciones) ?>">
+                                <img style="object-fit: cover; border: 1px solid slategrey; border-radius: 5px"
+                                     class="img-content-noticia"
+                                     alt="jobhub"
+                                     src="<?= base_url('uploads/') . $noticia->url ?>"/>
                             </a>
-                        </div>-->
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>
+</section>
 
 
-                        <button class="btn-jf-personalizado wow animate__animated animate__fadeInUp"
-                                onclick="window.location.href='<?= route_to('en_construccion') ?>'">
-                            Ir a la Noticia
-                        </button>
-
-                        <button class="btn-jf-personalizado-azul wow animate__animated animate__fadeInUp"
-                                onclick="window.location.href='<?= route_to('en_construccion') ?>'">
-                            Mostrar M&aacute;s Noticias
-                        </button>
-                        <!--<a href="#" class="btn btn-link wow animate__animated animate__fadeInUp">Learn more</a>-->
+<section class="section-box mt-50 mb-50 mb-md-0">
+    <div class="container">
+        <div class="mw-650">
+            <h4 class="text-center wow animate__animated animate__fadeInUp">
+                Visitas y convenios en crecimiento, impulsando nuestras alianzas internacionales.
+            </h4>
+        </div>
+        <div class="row mt-60">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-12 mb-md-30">
+                <div class="card-none-bd hover-up wow animate__animated animate__fadeInUp" data-wow-delay=".0s">
+                    <div class="block-image">
+                        <figure><img alt="jobhub"
+                                     src="<?= base_url('web/') ?>assets/imgs/page/services/ready-project.svg"/></figure>
+                    </div>
+                    <div class="card-info-bottom">
+                        <h3><span class="count">15</span>00+</h3>
+                        <strong>Visitas</strong>
+                        <!--<p class="text-mutted">Gracias por tu visita</p>-->
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-12 mb-md-30">
+                <div class="card-none-bd hover-up wow animate__animated animate__fadeInUp" data-wow-delay=".1s">
+                    <div class="block-image">
+                        <figure><img alt="jobhub"
+                                     src="<?= base_url('web/') ?>assets/imgs/page/services/candidate-call.svg"/>
+                        </figure>
+                    </div>
+                    <div class="card-info-bottom">
+                        <h3><span class="count">8</span>00K</h3>
+                        <strong>Convenios</strong>
+                        <!--<p class="text-mutted">Revisa nuestros convenios</p>-->
                     </div>
                 </div>
             </div>
 
-            <div class="col-lg-6 col-sm-12">
-                <div class="box-image-job contenedor-img-noticia">
-                    <figure class=" wow animate__animated animate__fadeIn">
-                        <img style="object-fit: cover; border: 1px solid slategrey; border-radius: 5px"
-                             class="img-content-noticia"
-                             alt="jobhub"
-                             src="<?= base_url('uploads/') . $noticia->url ?>"/>
-                    </figure>
-                </div>
-            </div>
         </div>
     </div>
 </section>
+
